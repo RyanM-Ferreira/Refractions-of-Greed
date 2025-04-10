@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://cx04n4dv2lpp8"]
+
+[node name="debugLevel" type="Node2D"]

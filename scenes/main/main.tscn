@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b0o40dsimxg5c"]
 
-[ext_resource type="Script" uid="uid://b5qc6blw37wuj" path="res://scripts/main/QuitButton.cs" id="1_hyk8p"]
+[ext_resource type="Script" uid="uid://cfdksr6fa6i4o" path="res://scripts/main/mainActions.cs" id="1_hyk8p"]
 
 [node name="main" type="Node2D"]
 
@@ -10,6 +10,7 @@ offset_top = 592.0
 offset_right = 215.0
 offset_bottom = 623.0
 text = "Start"
+script = ExtResource("1_hyk8p")
 
 [node name="quitButton" type="Button" parent="."]
 offset_left = 40.0
@@ -19,4 +20,13 @@ offset_bottom = 672.0
 text = "Quit"
 script = ExtResource("1_hyk8p")
 
-[connection signal="pressed" from="quitButton" to="quitButton" method="_Pressed"]
+[node name="Label" type="Label" parent="."]
+offset_left = 40.0
+offset_top = 504.0
+offset_right = 357.0
+offset_bottom = 549.0
+theme_override_font_sizes/font_size = 32
+text = "Refractions of Greed"
+
+[connection signal="pressed" from="startButton" to="startButton" method="StartButtonPressed"]
+[connection signal="pressed" from="quitButton" to="startButton" method="QuitButtonPressed"]
