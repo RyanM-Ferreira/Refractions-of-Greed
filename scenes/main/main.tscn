@@ -1,32 +1,55 @@
-[gd_scene load_steps=2 format=3 uid="uid://b0o40dsimxg5c"]
+[gd_scene load_steps=4 format=3 uid="uid://b0o40dsimxg5c"]
 
 [ext_resource type="Script" uid="uid://cfdksr6fa6i4o" path="res://scripts/main/mainActions.cs" id="1_hyk8p"]
+[ext_resource type="Texture2D" uid="uid://biw5w21yd0nce" path="res://assets/sketchs/Cave_Design.png" id="1_k2fmo"]
+[ext_resource type="Texture2D" uid="uid://5nks4p4wxrvi" path="res://assets/character/sketch.png" id="2_iuonh"]
 
 [node name="main" type="Node2D"]
 
+[node name="CaveDesign" type="Sprite2D" parent="."]
+position = Vector2(1248, 168)
+scale = Vector2(4, 4)
+texture = ExtResource("1_k2fmo")
+
 [node name="startButton" type="Button" parent="."]
-offset_left = 40.0
-offset_top = 592.0
-offset_right = 215.0
-offset_bottom = 623.0
-text = "Start"
+offset_left = 24.0
+offset_top = 272.0
+offset_right = 136.0
+offset_bottom = 303.0
+text = "Iniciar
+"
 script = ExtResource("1_hyk8p")
 
 [node name="quitButton" type="Button" parent="."]
-offset_left = 40.0
-offset_top = 641.0
-offset_right = 215.0
-offset_bottom = 672.0
-text = "Quit"
+offset_left = 24.0
+offset_top = 312.0
+offset_right = 136.0
+offset_bottom = 343.0
+text = "Sair"
 script = ExtResource("1_hyk8p")
 
-[node name="Label" type="Label" parent="."]
-offset_left = 40.0
-offset_top = 504.0
-offset_right = 357.0
-offset_bottom = 549.0
-theme_override_font_sizes/font_size = 32
+[node name="Sketch" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(184, 296)
+scale = Vector2(3, 3)
+texture = ExtResource("2_iuonh")
+
+[node name="version" type="Label" parent="."]
+offset_left = 568.0
+offset_top = 334.0
+offset_right = 638.0
+offset_bottom = 357.0
+text = "v0.0"
+horizontal_alignment = 2
+
+[node name="title" type="Label" parent="."]
+offset_left = 24.0
+offset_top = 216.0
+offset_right = 411.0
+offset_bottom = 256.0
+theme_override_font_sizes/font_size = 24
 text = "Refractions of Greed"
+vertical_alignment = 2
 
 [connection signal="pressed" from="startButton" to="startButton" method="StartButtonPressed"]
 [connection signal="pressed" from="quitButton" to="startButton" method="QuitButtonPressed"]

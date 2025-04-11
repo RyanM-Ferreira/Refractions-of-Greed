@@ -18,12 +18,20 @@ config/icon="res://icon.svg"
 
 [display]
 
-window/size/viewport_width=1280
-window/size/viewport_height=720
-window/size/mode=2
-window/size/window_width_override=640
-window/size/window_height_override=360
+window/size/viewport_width=640
+window/size/viewport_height=360
+window/stretch/mode="canvas_items"
+window/stretch/aspect="keep_height"
+window/vsync/vsync_mode=2
 
 [dotnet]
 
-project/assembly_name="Novo Projeto de Jogo"
+project/assembly_name="Refractions of Greed"
+
+[gui]
+
+theme/custom_font="uid://butjui4k3psw7"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=3
