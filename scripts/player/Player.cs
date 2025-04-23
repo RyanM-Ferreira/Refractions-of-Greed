@@ -28,15 +28,14 @@ public partial class Player : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		// estados do jogador
+		// Estados do jogador
 		// var is_falling := velocity.y > 0.0 and not is_on_floor()
 		// var is_jumping := Input.is_action_just_pressed("jump") and is_on_floor()
 		// var is_idling := is_on_floor() and is_zero_approx(velocity.x)
-		//var is_walking := is_on_floor() and not is_zero_approx(velocity.x)
+		// var is_walking := is_on_floor() and not is_zero_approx(velocity.x)
 
 		var sprite = GetNode<Sprite2D>("Sprite2D");
 		Debug.Assert(sprite != null, "Esta bosta não foi encontrada.");
-		GD.Print("Sprite: ", sprite);
 
 		// Adiciona a gravidade
 		if (!IsOnFloor())
@@ -45,14 +44,14 @@ public partial class Player : CharacterBody2D
 		}
 		if (IsOnFloor())
 		{
-			GD.Print("Chão");
+			// GD.Print("Chão");
 		}
 
 		// Pulo
 		if (Input.IsActionJustPressed("jump") && IsOnFloor())
 		{
 			Velocity = new Vector2(Velocity.X, jump_force);
-			GD.Print("Pulando");
+			// GD.Print("Pulando");
 		}
 
 		if (Input.IsActionJustReleased("jump") && Velocity.Y < 0)
@@ -60,9 +59,13 @@ public partial class Player : CharacterBody2D
 			Velocity = new Vector2(Velocity.X, Velocity.Y * decelerate_on_jump_release);
 		}
 
-		// direção
+		// Direção
 		var direction = Input.GetAxis("left", "right");
 
+		if (!is_dashing && RotationDegrees != 0)
+		{
+			RotationDegrees = 0;
+		}
 
 		if (direction > 0)
 		{
@@ -73,6 +76,7 @@ public partial class Player : CharacterBody2D
 			sprite.FlipH = true;
 		}
 
+		// Andar
 		if (direction != 0)
 		{
 			GD.Print("Moving");
@@ -84,7 +88,7 @@ public partial class Player : CharacterBody2D
 			Velocity = new Vector2(Mathf.MoveToward(Velocity.X, 0, (float)(walk_speed * deceleration)), Velocity.Y);
 		}
 
-		// Ativação do dash
+		// Ativação do Dash
 		if (Input.IsActionJustPressed("dash") && direction != 0 && !is_dashing && dash_timer <= 0)
 		{
 			is_dashing = true;
@@ -92,6 +96,8 @@ public partial class Player : CharacterBody2D
 			dash_direction = direction;
 			dash_timer = dash_cooldown;
 			GD.Print("Dash");
+
+			RotationDegrees = 25 * direction;
 		}
 
 		// Dash
@@ -102,18 +108,20 @@ public partial class Player : CharacterBody2D
 			if (current_distance >= dash_max_distance || IsOnWall())
 			{
 				is_dashing = false;
+				RotationDegrees = 0;
 			}
 			// Mover o personagem
 			else
 			{
-				double t = current_distance / dash_max_distance;
+				double t = Math.Abs(current_distance / dash_max_distance);
+				Velocity = new Vector2(Velocity.X + dash_direction * dash_speed * dash_curve.Sample((float)t), Velocity.Y);
+				Velocity = new Vector2(Velocity.X, 0);
 
-				float dash_speed_scaled = (float)(dash_speed * dash_curve.Sample((float)t));
-				Velocity = new Vector2((float)(dash_direction * dash_speed_scaled), 0);
 				is_dashing = false;
 			}
 		}
-		// cooldown do dash
+
+		// Cooldown do dash
 		if (dash_timer > 0)
 		{
 			dash_timer -= (float)delta;
