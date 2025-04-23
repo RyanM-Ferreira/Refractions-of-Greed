@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://bi1jnicihv01e"]
+
+[ext_resource type="FontFile" uid="uid://dyylvbq0g5kvm" path="res://assets/fonts/dogica ttf/dogicapixelbold.ttf" id="1_a11n2"]
+
+[resource]
+resource_name = "Text Bold"
+default_font = ExtResource("1_a11n2")

@@ -3,11 +3,21 @@
     "configurations": [
         
         {
-            "name": "Play",
+            "name": "My Personal Launch (E:)",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
             "program": "E:/Programs/Portable/Godot_v4.4.1-stable_mono_win64/Godot_v4.4.1-stable_mono_win64.exe",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+        },
+        {
+            "name": "Default Launch (D:)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "D:/Programs/Portable/Godot_v4.4.1-stable_mono_win64/Godot_v4.4.1-stable_mono_win64.exe",
             "args": [],
             "cwd": "${workspaceFolder}",
             "stopAtEntry": false,

@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://d4mg546sapinq"]
+
+[ext_resource type="Script" uid="uid://kse62udlwkfy" path="res://scripts/player/Player.cs" id="1_tum32"]
+[ext_resource type="Texture2D" uid="uid://5nks4p4wxrvi" path="res://assets/player/sketch.png" id="2_0vjlc"]
+
+[sub_resource type="Curve" id="Curve_tum32"]
+_data = [Vector2(0.15035, 0.857778), 0.0, 0.0, 0, 0, Vector2(0.821678, 0.502222), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fgi2k"]
+radius = 4.0
+
+[node name="player" type="CharacterBody2D"]
+scale = Vector2(2, 2)
+script = ExtResource("1_tum32")
+dash_curve = SubResource("Curve_tum32")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-2.5, 0)
+texture = ExtResource("2_0vjlc")
+offset = Vector2(2, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-3, 0)
+shape = SubResource("CapsuleShape2D_fgi2k")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2(36.625, 0)
+position_smoothing_enabled = true
