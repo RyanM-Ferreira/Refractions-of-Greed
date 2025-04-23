@@ -79,7 +79,7 @@ public partial class Player : CharacterBody2D
 		// Andar
 		if (direction != 0)
 		{
-			GD.Print("Moving");
+			// GD.Print("Moving");
 			GD.Print(direction);
 			Velocity = new Vector2(Mathf.MoveToward(Velocity.X, direction * walk_speed, (float)(walk_speed * acceleration)), Velocity.Y);
 		}
@@ -95,7 +95,7 @@ public partial class Player : CharacterBody2D
 			dash_start_position = Position.X;
 			dash_direction = direction;
 			dash_timer = dash_cooldown;
-			GD.Print("Dash");
+			// GD.Print("Dash");
 
 			RotationDegrees = 25 * direction;
 		}
@@ -113,8 +113,8 @@ public partial class Player : CharacterBody2D
 			// Mover o personagem
 			else
 			{
-				double t = Math.Abs(current_distance / dash_max_distance);
-				Velocity = new Vector2(Velocity.X + dash_direction * dash_speed * dash_curve.Sample((float)t), Velocity.Y);
+				float curve_factor = dash_curve.Sample((float)Math.Abs(current_distance / dash_max_distance));
+				Velocity = new Vector2(Velocity.X + dash_direction * dash_speed * curve_factor, Velocity.Y);
 				Velocity = new Vector2(Velocity.X, 0);
 
 				is_dashing = false;
