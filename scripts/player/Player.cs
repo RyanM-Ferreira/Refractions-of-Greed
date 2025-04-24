@@ -1,10 +1,14 @@
 using Godot;
 using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 public partial class Player : CharacterBody2D
 {
 	// Os @export são para permitir a edição das variaveis pelo editor e outros arquivos
+	[Export] float max_health = 50.0f;
+	[Export] public float health = 50.0f;
+
 	[Export] float walk_speed = 150.0f;
 	[Export(PropertyHint.Range, "0,1")] float acceleration = 0.1f;
 	[Export(PropertyHint.Range, "0,1")] float deceleration = 0.1f;
@@ -30,17 +34,30 @@ public partial class Player : CharacterBody2D
 	{
 
 		var sprite = GetNode<Sprite2D>("Sprite2D");
+		//var sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		Debug.Assert(sprite != null, "Esta bosta não foi encontrada.");
 
 
-		//Abrir o menu do jogo
-		
-		
+		//Abrir o menu do jogo(criar ainda)
+		if (Input.IsActionJustPressed("menu"))
+		{
+			 GetTree().ChangeSceneToFile("res://scenes/main/main.tscn");
+		}
+
+		//vida do jogador 
+		if (health <= 0)
+		{
+			GD.Print("Morreu");
+			GetTree().ReloadCurrentScene();
+		}
+
+
 		// Adiciona a gravidade
 		if (!IsOnFloor())
 		{
 			Velocity = new Vector2(Velocity.X, Velocity.Y + gravity * (float)delta);
 		}
+
 
 		// Pulo
 		if (Input.IsActionJustPressed("jump") && IsOnFloor())
@@ -53,6 +70,7 @@ public partial class Player : CharacterBody2D
 		{
 			Velocity = new Vector2(Velocity.X, Velocity.Y * decelerate_on_jump_release);
 		}
+
 
 		// Direção
 		var direction = Input.GetAxis("left", "right");
@@ -71,6 +89,7 @@ public partial class Player : CharacterBody2D
 			sprite.FlipH = true;
 		}
 
+
 		// Andar
 		if (direction != 0)
 		{
@@ -80,6 +99,7 @@ public partial class Player : CharacterBody2D
 		{
 			Velocity = new Vector2(Mathf.MoveToward(Velocity.X, 0, (float)(walk_speed * deceleration)), Velocity.Y);
 		}
+
 
 		// Ativação do Dash
 		if (Input.IsActionJustPressed("dash") && direction != 0 && !is_dashing && dash_timer <= 0)
@@ -119,6 +139,21 @@ public partial class Player : CharacterBody2D
 		{
 			dash_timer -= (float)delta;
 		}
+
+
+		//Animações
+		//if (direction == 0 && IsOnFloor())
+		//{
+		//	sprite.Play("Idle");
+		//}
+		//else if (direction == 1 || direction ==-1 &&IsOnFloor())
+		//{
+		//	sprite.Play("Run");
+		//}
+		//else
+		//{
+		//	sprite.Play("Jump");
+		//}
 
 		MoveAndSlide();
 	}
