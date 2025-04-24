@@ -11,7 +11,9 @@ point_count = 2
 radius = 4.0
 
 [node name="player" type="CharacterBody2D"]
+z_index = 5
 scale = Vector2(2, 2)
+collision_layer = 2
 script = ExtResource("1_tum32")
 dash_curve = SubResource("Curve_tum32")
 
@@ -26,4 +28,7 @@ shape = SubResource("CapsuleShape2D_fgi2k")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(36.625, 0)
+limit_bottom = 300
+limit_smoothed = true
 position_smoothing_enabled = true
+position_smoothing_speed = 10.0

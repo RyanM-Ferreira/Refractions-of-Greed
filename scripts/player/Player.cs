@@ -28,23 +28,18 @@ public partial class Player : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		// Estados do jogador
-		// var is_falling := velocity.y > 0.0 and not is_on_floor()
-		// var is_jumping := Input.is_action_just_pressed("jump") and is_on_floor()
-		// var is_idling := is_on_floor() and is_zero_approx(velocity.x)
-		// var is_walking := is_on_floor() and not is_zero_approx(velocity.x)
 
 		var sprite = GetNode<Sprite2D>("Sprite2D");
 		Debug.Assert(sprite != null, "Esta bosta não foi encontrada.");
 
+
+		//Abrir o menu do jogo
+		
+		
 		// Adiciona a gravidade
 		if (!IsOnFloor())
 		{
 			Velocity = new Vector2(Velocity.X, Velocity.Y + gravity * (float)delta);
-		}
-		if (IsOnFloor())
-		{
-			// GD.Print("Chão");
 		}
 
 		// Pulo
@@ -79,9 +74,7 @@ public partial class Player : CharacterBody2D
 		// Andar
 		if (direction != 0)
 		{
-			// GD.Print("Moving");
-			GD.Print(direction);
-			Velocity = new Vector2(Mathf.MoveToward(Velocity.X, direction * walk_speed, (float)(walk_speed * acceleration)), Velocity.Y);
+			Velocity = new Vector2(Mathf.MoveToward(Velocity.X, direction * walk_speed , (float)(walk_speed * acceleration)), Velocity.Y);
 		}
 		else
 		{

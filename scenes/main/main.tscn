@@ -20,6 +20,14 @@ text = "Iniciar
 "
 script = ExtResource("1_hyk8p")
 
+[node name="debugButton" type="Button" parent="."]
+offset_left = 133.0
+offset_top = 322.0
+offset_right = 224.0
+offset_bottom = 342.0
+text = "Debug"
+script = ExtResource("1_hyk8p")
+
 [node name="quitButton" type="Button" parent="."]
 offset_left = 24.0
 offset_top = 320.0
@@ -60,4 +68,5 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [connection signal="pressed" from="startButton" to="startButton" method="StartButtonPressed"]
+[connection signal="pressed" from="debugButton" to="debugButton" method="DebugButtonPressed"]
 [connection signal="pressed" from="quitButton" to="startButton" method="QuitButtonPressed"]

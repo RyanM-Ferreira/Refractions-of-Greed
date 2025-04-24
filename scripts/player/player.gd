@@ -1,5 +1,4 @@
 extends CharacterBody2D
-
 #os @export são para permitir a edição das variaveis pelo editor e outros arquivos
 @export var walk_speed = 150.0
 @export_range(0, 1) var acceleration = 0.1
@@ -7,7 +6,6 @@ extends CharacterBody2D
 
 @export var jump_force = -400.0
 @export_range(0, 1) var decelerate_on_jump_release = 0.5
-
 @export var dash_speed = 1000.0
 @export var dash_max_distance = 300.0
 @export var dash_curve: Curve # Jeito que o dash funciona
