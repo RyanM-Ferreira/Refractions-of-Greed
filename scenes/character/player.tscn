@@ -4,15 +4,14 @@
 [ext_resource type="Texture2D" uid="uid://5nks4p4wxrvi" path="res://assets/player/sketch.png" id="2_0vjlc"]
 
 [sub_resource type="Curve" id="Curve_tum32"]
-_data = [Vector2(0.15035, 0.857778), 0.0, 0.0, 0, 0, Vector2(0.821678, 0.502222), 0.0, 0.0, 0, 0]
+_data = [Vector2(0.15035, 0.857778), 0.0, 0.0, 0, 0, Vector2(0.755319, 0.303371), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fgi2k"]
-radius = 4.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tum32"]
+size = Vector2(8.5, 28.5)
 
 [node name="player" type="CharacterBody2D"]
 z_index = 5
-scale = Vector2(2, 2)
 collision_layer = 2
 script = ExtResource("1_tum32")
 dash_curve = SubResource("Curve_tum32")
@@ -23,8 +22,8 @@ texture = ExtResource("2_0vjlc")
 offset = Vector2(2, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-3, 0)
-shape = SubResource("CapsuleShape2D_fgi2k")
+position = Vector2(-3.25, 0.25)
+shape = SubResource("RectangleShape2D_tum32")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(36.625, 0)
