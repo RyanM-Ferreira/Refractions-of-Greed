@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://n2a8lnevte3o"
-path="res://.godot/imported/inimigos super foda 2.0_0001.png-e590ae8584b7610a2d2a061f1fe3b163.ctex"
+uid="uid://1ryqvyt1x3fd"
+path="res://.godot/imported/start_attack.png-c159ee214764e57a5c169dd1ed97f1e0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Enemies/Level 1/inimigos super foda 2.0_0001.png"
-dest_files=["res://.godot/imported/inimigos super foda 2.0_0001.png-e590ae8584b7610a2d2a061f1fe3b163.ctex"]
+source_file="res://assets/Enemies/Level 1/topeira movel/start_attack.png"
+dest_files=["res://.godot/imported/start_attack.png-c159ee214764e57a5c169dd1ed97f1e0.ctex"]
 
 [params]
 

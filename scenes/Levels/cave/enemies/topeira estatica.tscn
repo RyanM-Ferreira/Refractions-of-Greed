@@ -1,0 +1,63 @@
+[gd_scene load_steps=10 format=3 uid="uid://clcifj7evsaon"]
+
+[ext_resource type="Script" uid="uid://dxkc0wwuniqs6" path="res://scripts/Enemies/Level1/TopeiraMovel.cs" id="1_cgkt8"]
+[ext_resource type="Texture2D" uid="uid://dxo3er5ngnbpp" path="res://assets/Enemies/Level 1/topeira estatica/topeira.png" id="2_i6tva"]
+[ext_resource type="PackedScene" uid="uid://tadv4ch0tx4j" path="res://scenes/Damegezone.tscn" id="6_gl0up"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jt2k7"]
+atlas = ExtResource("2_i6tva")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jsfi7"]
+atlas = ExtResource("2_i6tva")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cgkt8"]
+atlas = ExtResource("2_i6tva")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t6bty"]
+atlas = ExtResource("2_i6tva")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_x1nqg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jt2k7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jsfi7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cgkt8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t6bty")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 3.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w1hnt"]
+size = Vector2(51, 49)
+
+[node name="Topeira estatica" type="Node2D"]
+script = ExtResource("1_cgkt8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_x1nqg")
+animation = &"idle"
+frame_progress = 0.604985
+
+[node name="Damagezone" parent="AnimatedSprite2D" instance=ExtResource("6_gl0up")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/Damagezone"]
+position = Vector2(1.5, 7.5)
+shape = SubResource("RectangleShape2D_w1hnt")

@@ -48,6 +48,7 @@ public partial class Player : CharacterBody2D
 		if (health <= 0)
 		{
 			GD.Print("Morreu");
+			GD.Print("vida:" + health);
 			GetTree().ReloadCurrentScene();
 		}
 
@@ -139,21 +140,6 @@ public partial class Player : CharacterBody2D
 		{
 			dash_timer -= (float)delta;
 		}
-
-
-		//Animações
-		//if (direction == 0 && IsOnFloor())
-		//{
-		//	sprite.Play("Idle");
-		//}
-		//else if (direction == 1 || direction ==-1 &&IsOnFloor())
-		//{
-		//	sprite.Play("Run");
-		//}
-		//else
-		//{
-		//	sprite.Play("Jump");
-		//}
 
 		MoveAndSlide();
 	}

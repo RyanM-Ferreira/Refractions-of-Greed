@@ -9,7 +9,7 @@ public partial class mainActions : Button
 	}
 	public void StartButtonPressed()
 	{
-		GetTree().ChangeSceneToFile("res://scenes//Levels/Level_1.tscn");
+		GetTree().ChangeSceneToFile("res://scenes//Levels/cave/Level_1.tscn");
 	}
 	
 	public void DebugButtonPressed()
