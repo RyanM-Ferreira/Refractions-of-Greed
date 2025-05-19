@@ -6,11 +6,7 @@ using System.Security.Cryptography.X509Certificates;
 
 
 public partial class TopeiraMovel : Enemy
-{
-	private new double SPEED = 40.0;
-	private new double gravity = 100.0;
-
-	//import AnimatedSprite2D
+{	//import AnimatedSprite2D
 	private AnimatedSprite2D sprite;
 	private AnimationTree animationTree;
 	private AnimationNodeStateMachinePlayback AnimationPlayback;

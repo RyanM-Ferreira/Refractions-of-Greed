@@ -199,6 +199,14 @@ sources/4 = SubResource("TileSetAtlasSource_t5oje")
 [node name="player" parent="." instance=ExtResource("1_e4h6s")]
 max_health = 9999.0
 health = 9999.0
+walk_speed = null
+acceleration = null
+deceleration = null
+jump_force = null
+decelerate_on_jump_release = null
+dash_speed = null
+dash_max_distance = null
+dash_cooldown = null
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AAD9/wEAAwAAAAAAAAD+/wEAAwAAAAAAAAD//wEAAwAAAAAAAAAAAAEAAwAAAAAAAAABAAEAAwAAAAAAAAAEAAEAAwAAAAAAAAAFAAEAAwAAAAAAAAADAAEAAwAAAAAAAAACAAEAAwAAAAAAAAD8/wEAAwAAAAAAAAD7/wEAAwAAAAAAAAD6/wEAAwAAAAAAAAA=")
@@ -208,6 +216,7 @@ tile_set = SubResource("TileSet_fpjjv")
 
 [node name="Damagezone" parent="hitbox" instance=ExtResource("4_w0uhv")]
 position = Vector2(-19, 136)
+Damage = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox/Damagezone"]
 position = Vector2(19, 136)
