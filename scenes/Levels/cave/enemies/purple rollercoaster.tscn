@@ -1,8 +1,8 @@
-[gd_scene load_steps=19 format=3 uid="uid://bkxpvk74ouka2"]
+[gd_scene load_steps=20 format=3 uid="uid://bkxpvk74ouka2"]
 
 [ext_resource type="Script" uid="uid://cdgw0cd6sr6aq" path="res://scripts/Enemies/Level1/PurpleRollercoaster.cs" id="1_x8idb"]
 [ext_resource type="Texture2D" uid="uid://dntyitsukgvd0" path="res://assets/Enemies/Level 1/purple rollercoaster/purple rollercoaster.png" id="2_5cwbv"]
-[ext_resource type="PackedScene" uid="uid://tadv4ch0tx4j" path="res://scenes/Damegezone.tscn" id="3_76xs0"]
+[ext_resource type="PackedScene" uid="uid://tadv4ch0tx4j" path="res://scenes/HitBox.tscn" id="3_76xs0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_re7mq"]
 atlas = ExtResource("2_5cwbv")
@@ -53,10 +53,6 @@ animations = [{
 "name": &"moving",
 "speed": 1.0
 }]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s2m8c"]
-radius = 17.0
-height = 48.0
 
 [sub_resource type="Animation" id="Animation_5cwbv"]
 length = 0.001
@@ -114,34 +110,33 @@ states/moving/position = Vector2(567, 118)
 transitions = ["Start", "moving", SubResource("AnimationNodeStateMachineTransition_v1mp7"), "moving", "End", SubResource("AnimationNodeStateMachineTransition_s2m8c")]
 graph_offset = Vector2(-71, -21)
 
-[node name="PurpleRollercoaster" type="Node2D"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x8idb"]
+radius = 15.0
+height = 60.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s2m8c"]
+radius = 17.0
+height = 48.0
+
+[node name="PurpleRollercoaster" type="CharacterBody2D"]
+collision_layer = 4
 script = ExtResource("1_x8idb")
-SPEED = 40.0
-gravity = 120.0
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -32)
 sprite_frames = SubResource("SpriteFrames_x07vq")
 animation = &"moving"
 
-[node name="Damagezone" parent="sprite" instance=ExtResource("3_76xs0")]
-position = Vector2(0, 14)
-collision_layer = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="sprite/Damagezone"]
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_s2m8c")
-
 [node name="RayCast_Left" type="RayCast2D" parent="."]
 position = Vector2(0, -3)
 target_position = Vector2(-28, 0)
 
 [node name="RayCast_DownLeft" type="RayCast2D" parent="."]
-position = Vector2(27, -3)
+position = Vector2(33, -3)
 target_position = Vector2(0, 5)
 
 [node name="RayCast_DownRight" type="RayCast2D" parent="."]
-position = Vector2(-27, -3)
+position = Vector2(-33, -3)
 target_position = Vector2(0, 5)
 
 [node name="RayCast_Right" type="RayCast2D" parent="."]
@@ -157,3 +152,16 @@ libraries = {
 tree_root = SubResource("AnimationNodeStateMachine_2wfcc")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/end = false
+
+[node name="Map collision" type="CollisionShape2D" parent="."]
+position = Vector2(2, -17)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_x8idb")
+
+[node name="Hitbox" parent="." instance=ExtResource("3_76xs0")]
+position = Vector2(0, -18)
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_s2m8c")

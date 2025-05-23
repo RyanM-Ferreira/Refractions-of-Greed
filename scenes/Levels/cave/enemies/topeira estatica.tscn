@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dxkc0wwuniqs6" path="res://scripts/Enemies/Level1/TopeiraMovel.cs" id="1_cgkt8"]
 [ext_resource type="Texture2D" uid="uid://dxo3er5ngnbpp" path="res://assets/Enemies/Level 1/topeira estatica/topeira.png" id="2_i6tva"]
-[ext_resource type="PackedScene" uid="uid://tadv4ch0tx4j" path="res://scenes/Damegezone.tscn" id="6_gl0up"]
+[ext_resource type="PackedScene" uid="uid://tadv4ch0tx4j" path="res://scenes/HitBox.tscn" id="6_gl0up"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jt2k7"]
 atlas = ExtResource("2_i6tva")

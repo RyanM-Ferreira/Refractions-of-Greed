@@ -1,9 +1,8 @@
-[gd_scene load_steps=9 format=4 uid="uid://be2upkt55v8rf"]
+[gd_scene load_steps=7 format=4 uid="uid://be2upkt55v8rf"]
 
 [ext_resource type="PackedScene" uid="uid://d4mg546sapinq" path="res://scenes/character/player.tscn" id="1_e4h6s"]
 [ext_resource type="Texture2D" uid="uid://bu5n3wvymf20t" path="res://assets/tilemaps/General_Tileset.png" id="2_0iege"]
 [ext_resource type="Texture2D" uid="uid://bmyctlwvtr2tg" path="res://assets/tilemaps/Level1_Tileset.png" id="3_8ryxd"]
-[ext_resource type="PackedScene" uid="uid://tadv4ch0tx4j" path="res://scenes/Damegezone.tscn" id="4_w0uhv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lsomr"]
 texture = ExtResource("2_0iege")
@@ -192,32 +191,13 @@ physics_layer_0/collision_layer = 1
 sources/3 = SubResource("TileSetAtlasSource_lsomr")
 sources/4 = SubResource("TileSetAtlasSource_t5oje")
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_e4h6s"]
-
 [node name="Level1" type="Node2D"]
 
 [node name="player" parent="." instance=ExtResource("1_e4h6s")]
-max_health = 9999.0
 health = 9999.0
-walk_speed = null
-acceleration = null
-deceleration = null
-jump_force = null
-decelerate_on_jump_release = null
-dash_speed = null
-dash_max_distance = null
-dash_cooldown = null
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AAD9/wEAAwAAAAAAAAD+/wEAAwAAAAAAAAD//wEAAwAAAAAAAAAAAAEAAwAAAAAAAAABAAEAAwAAAAAAAAAEAAEAAwAAAAAAAAAFAAEAAwAAAAAAAAADAAEAAwAAAAAAAAACAAEAAwAAAAAAAAD8/wEAAwAAAAAAAAD7/wEAAwAAAAAAAAD6/wEAAwAAAAAAAAA=")
 tile_set = SubResource("TileSet_fpjjv")
 
 [node name="hitbox" type="Node2D" parent="."]
-
-[node name="Damagezone" parent="hitbox" instance=ExtResource("4_w0uhv")]
-position = Vector2(-19, 136)
-Damage = null
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox/Damagezone"]
-position = Vector2(19, 136)
-shape = SubResource("WorldBoundaryShape2D_e4h6s")

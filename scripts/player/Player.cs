@@ -1,34 +1,47 @@
 using Godot;
 using System;
 using System.Diagnostics;
-using System.Threading.Tasks;
+using System.Security.Cryptography.X509Certificates;
 
 public partial class Player : CharacterBody2D
 {
 	// Os @export são para permitir a edição das variaveis pelo editor e outros arquivos
-	[Export] float max_health = 50.0f;
-	[Export] public float health = 50.0f;
+	double max_health = 50.0;
+	[Export] public double health = 50.0;
+	bool is_alive = true;
+	bool enemy_attack_cooldown = false;
 
-	[Export] float walk_speed = 150.0f;
-	[Export(PropertyHint.Range, "0,1")] float acceleration = 0.1f;
-	[Export(PropertyHint.Range, "0,1")] float deceleration = 0.1f;
 
-	[Export] float jump_force = -400.0f;
-	[Export(PropertyHint.Range, "0,1")] float decelerate_on_jump_release = 0.5f;
 
-	[Export] float dash_speed = 1000.0f;
-	[Export] float dash_max_distance = 300.0f;
+
+	double walk_speed = 150.0;
+	double acceleration = 0.1; //até 1
+	double deceleration = 0.1; //até 1
+
+	double jump_force = -500.0;
+	double decelerate_on_jump_release = 0.5; //até 1
+
+	double dash_speed = 100.0;
+	double dash_max_distance = 100.0;
 	[Export] public Curve dash_curve;
 
-	[Export] float dash_cooldown = 1.0f;
+	double dash_cooldown = 1.0;
 
-	float gravity = (float)ProjectSettings.GetSetting("physics/2d/default_gravity");
+	double gravity = (double)ProjectSettings.GetSetting("physics/2d/default_gravity");
 
 	// Definição para o Dash
 	bool is_dashing = false;
-	float dash_start_position = 0; // para descobrir se atravesou a distancia maxima
-	float dash_direction = 0;
-	float dash_timer = 0;
+	double dash_start_position = 0; // para descobrir se atravesou a distancia maxima
+	double dash_direction = 0;
+	double dash_timer = 0;
+
+
+	public override void _Ready()
+	{
+		// Definindo a vida do jogador
+		health = max_health;
+
+	}
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -37,39 +50,23 @@ public partial class Player : CharacterBody2D
 		//var sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		Debug.Assert(sprite != null, "Esta bosta não foi encontrada.");
 
-
-		//Abrir o menu do jogo(criar ainda)
-		if (Input.IsActionJustPressed("menu"))
-		{
-			 GetTree().ChangeSceneToFile("res://scenes/main/main.tscn");
-		}
-
-		//vida do jogador 
-		if (health <= 0)
-		{
-			GD.Print("Morreu");
-			GD.Print("vida:" + health);
-			GetTree().ReloadCurrentScene();
-		}
-
-
 		// Adiciona a gravidade
 		if (!IsOnFloor())
 		{
-			Velocity = new Vector2(Velocity.X, Velocity.Y + gravity * (float)delta);
+			Velocity = new Vector2(Velocity.X, (float)(Velocity.Y + gravity * delta));
 		}
 
 
 		// Pulo
 		if (Input.IsActionJustPressed("jump") && IsOnFloor())
 		{
-			Velocity = new Vector2(Velocity.X, jump_force);
+			Velocity = new Vector2(Velocity.X, (float)jump_force);
 			// GD.Print("Pulando");
 		}
 
 		if (Input.IsActionJustReleased("jump") && Velocity.Y < 0)
 		{
-			Velocity = new Vector2(Velocity.X, Velocity.Y * decelerate_on_jump_release);
+			Velocity = new Vector2(Velocity.X, (float)(Velocity.Y * decelerate_on_jump_release));
 		}
 
 
@@ -94,7 +91,7 @@ public partial class Player : CharacterBody2D
 		// Andar
 		if (direction != 0)
 		{
-			Velocity = new Vector2(Mathf.MoveToward(Velocity.X, direction * walk_speed , (float)(walk_speed * acceleration)), Velocity.Y);
+			Velocity = new Vector2(Mathf.MoveToward(Velocity.X, (float)(direction * walk_speed), (float)(walk_speed * acceleration)), Velocity.Y);
 		}
 		else
 		{
@@ -127,20 +124,52 @@ public partial class Player : CharacterBody2D
 			// Mover o personagem
 			else
 			{
-				float curve_factor = dash_curve.Sample((float)Math.Abs(current_distance / dash_max_distance));
-				Velocity = new Vector2(Velocity.X + dash_direction * dash_speed * curve_factor, Velocity.Y);
+				double curve_factor = dash_curve.Sample((float)Math.Abs(current_distance / dash_max_distance));
+				Velocity = new Vector2((float)(Velocity.X + dash_direction * dash_speed * curve_factor), Velocity.Y);
 				Velocity = new Vector2(Velocity.X, 0);
 
-				is_dashing = false;
 			}
 		}
 
 		// Cooldown do dash
 		if (dash_timer > 0)
 		{
-			dash_timer -= (float)delta;
+			dash_timer -= delta;
+		}
+
+
+		//Abrir o menu do jogo(criar ainda)
+		if (Input.IsActionJustPressed("menu"))
+		{
+			GetTree().ChangeSceneToFile("res://scenes/main/main.tscn");
 		}
 
 		MoveAndSlide();
+	}
+
+
+	// Função para receber dano
+	public void Damage(double damage)
+	{
+		if (enemy_attack_cooldown == false)
+		{
+			health -= damage;
+			if (health <= 0)
+			{
+				is_alive = false;
+				GetTree().QueueDelete(this);
+				GetTree().ReloadCurrentScene();
+			}
+			else
+			{
+				enemy_attack_cooldown = true;
+				GetTree().CreateTimer(1.0).Timeout += ResetEnemyAttackCooldown;
+			}
+		}
+	}
+
+	private void ResetEnemyAttackCooldown()
+	{
+		enemy_attack_cooldown = false;
 	}
 }

@@ -10,7 +10,7 @@ point_count = 2
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tum32"]
 size = Vector2(8.5, 28.5)
 
-[node name="player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D"]
 z_index = 5
 collision_layer = 2
 script = ExtResource("1_tum32")
@@ -27,7 +27,5 @@ shape = SubResource("RectangleShape2D_tum32")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(36.625, 0)
-limit_bottom = 300
-limit_smoothed = true
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
