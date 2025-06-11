@@ -1,31 +1,145 @@
-[gd_scene load_steps=5 format=3 uid="uid://d4mg546sapinq"]
+[gd_scene load_steps=16 format=3 uid="uid://d4mg546sapinq"]
 
 [ext_resource type="Script" uid="uid://kse62udlwkfy" path="res://scripts/player/Player.cs" id="1_tum32"]
-[ext_resource type="Texture2D" uid="uid://5nks4p4wxrvi" path="res://assets/player/sketch.png" id="2_0vjlc"]
+[ext_resource type="Texture2D" uid="uid://c52epg8sofxu5" path="res://assets/player/john_sim.png" id="2_tum32"]
+[ext_resource type="PackedScene" uid="uid://bm6lma81gxrxn" path="res://scenes/hurtbox.tscn" id="3_0vjlc"]
 
 [sub_resource type="Curve" id="Curve_tum32"]
 _data = [Vector2(0.15035, 0.857778), 0.0, 0.0, 0, 0, Vector2(0.755319, 0.303371), 0.0, 0.0, 0, 0]
 point_count = 2
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_0vjlc"]
+atlas = ExtResource("2_tum32")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bnvp8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0vjlc")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tum32"]
-size = Vector2(8.5, 28.5)
+size = Vector2(24, 53)
+
+[sub_resource type="Animation" id="Animation_erpy8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_1y732"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wmtbp"]
+_data = {
+&"RESET": SubResource("Animation_erpy8"),
+&"idle": SubResource("Animation_1y732")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5y66v"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_uicah"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_g2qfr"]
+advance_mode = 2
+advance_condition = &"end"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_xub24"]
+states/End/position = Vector2(827, 83)
+states/Start/position = Vector2(246, 83)
+states/idle/node = SubResource("AnimationNodeAnimation_5y66v")
+states/idle/position = Vector2(506, 83)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_uicah"), "idle", "End", SubResource("AnimationNodeStateMachineTransition_g2qfr")]
+graph_offset = Vector2(-48, -22)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bnvp8"]
+size = Vector2(20, 51)
 
 [node name="Player" type="CharacterBody2D"]
 z_index = 5
 collision_layer = 2
 script = ExtResource("1_tum32")
+health = null
 dash_curve = SubResource("Curve_tum32")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-2.5, 0)
-texture = ExtResource("2_0vjlc")
-offset = Vector2(2, 0)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_bnvp8")
+animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-3.25, 0.25)
+position = Vector2(0, 5.5)
 shape = SubResource("RectangleShape2D_tum32")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(36.625, 0)
+zoom = Vector2(0.8, 0.8)
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_wmtbp")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_xub24")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/end = false
+
+[node name="hurtbox" parent="." instance=ExtResource("3_0vjlc")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox"]
+position = Vector2(0, 5.5)
+shape = SubResource("RectangleShape2D_bnvp8")
