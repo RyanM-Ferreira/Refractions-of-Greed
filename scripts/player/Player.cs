@@ -16,6 +16,7 @@ public partial class Player : CharacterBody2D
 	Vector2 knockback;
 	float knockback_timer = 0;
 	[Signal] public delegate void PlayerDiedEventHandler();
+	[Signal] public delegate void HealthChangedEventHandler();
 
 
 
@@ -66,7 +67,6 @@ public partial class Player : CharacterBody2D
 		if (!is_alive)
 		{ return; }
 
-		GD.Print(can_jump);
 		// Adiciona a gravidade
 		if (!IsOnFloor())
 		{
@@ -109,7 +109,7 @@ public partial class Player : CharacterBody2D
 			dash_timer = dash_cooldown;
 			// GD.Print("Dash");
 
-			RotationDegrees = 25 * direction;
+			sprite.RotationDegrees = 25 * direction;
 		}
 
 		// Dash
@@ -145,7 +145,7 @@ public partial class Player : CharacterBody2D
 			GetTree().ChangeSceneToFile("res://scenes/main/Main.tscn");
 			return;
 		}
-
+		
 
 		MoveAndSlide();
 	}
@@ -167,9 +167,9 @@ public partial class Player : CharacterBody2D
 			Velocity = new Vector2(Velocity.X, (float)(Velocity.Y * decelerate_on_jump_release));
 		}
 
-		if (!is_dashing && RotationDegrees != 0)
+		if (!is_dashing && sprite.RotationDegrees != 0)
 		{
-			RotationDegrees = 0;
+			sprite.RotationDegrees = 0;
 		}
 
 		// Direção
@@ -225,8 +225,9 @@ public partial class Player : CharacterBody2D
 				is_dashing = false;
 				var hit_direction = (GlobalPosition - hitbox_location).Normalized();
 				Apply_Knockback(new Vector2(275, 100), hit_direction, 0.15f);
+				EmitSignal(nameof(HealthChanged));
 				enemy_attack_cooldown = true;
-				GetTree().CreateTimer(1.0).Timeout += ResetEnemyAttackCooldown;
+				GetTree().CreateTimer(0.4).Timeout += ResetEnemyAttackCooldown;
 			}
 		}
 	}

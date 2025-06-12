@@ -1,8 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://d4mg546sapinq"]
+[gd_scene load_steps=17 format=3 uid="uid://d4mg546sapinq"]
 
 [ext_resource type="Script" uid="uid://kse62udlwkfy" path="res://scripts/player/Player.cs" id="1_tum32"]
 [ext_resource type="Texture2D" uid="uid://c52epg8sofxu5" path="res://assets/player/john_sim.png" id="2_tum32"]
 [ext_resource type="PackedScene" uid="uid://bm6lma81gxrxn" path="res://scenes/hurtbox.tscn" id="3_0vjlc"]
+[ext_resource type="PackedScene" uid="uid://kelt753b0v6o" path="res://scenes/HealthBar.tscn" id="4_bnvp8"]
 
 [sub_resource type="Curve" id="Curve_tum32"]
 _data = [Vector2(0.15035, 0.857778), 0.0, 0.0, 0, 0, Vector2(0.755319, 0.303371), 0.0, 0.0, 0, 0]
@@ -126,7 +127,7 @@ shape = SubResource("RectangleShape2D_tum32")
 offset = Vector2(36.625, 0)
 zoom = Vector2(0.8, 0.8)
 position_smoothing_enabled = true
-position_smoothing_speed = 10.0
+position_smoothing_speed = 20.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -143,3 +144,10 @@ parameters/conditions/end = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox"]
 position = Vector2(0, 5.5)
 shape = SubResource("RectangleShape2D_bnvp8")
+
+[node name="HealthBar" parent="." instance=ExtResource("4_bnvp8")]
+texture_repeat = 1
+offset_left = -347.0
+offset_top = -202.0
+offset_right = -313.0
+offset_bottom = -193.0
