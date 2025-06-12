@@ -690,6 +690,7 @@ size = Vector2(55, 33)
 collision_layer = 4
 collision_mask = 5
 script = ExtResource("1_6qymu")
+is_attacking = null
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -32)

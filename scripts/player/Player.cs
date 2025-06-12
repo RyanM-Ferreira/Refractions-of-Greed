@@ -12,6 +12,9 @@ public partial class Player : CharacterBody2D
 	bool is_alive = true;
 	bool enemy_attack_cooldown = false;
 
+	//knockback
+	Vector2 knockback;
+	float knockback_timer = 0;
 	[Signal] public delegate void PlayerDiedEventHandler();
 
 
@@ -23,6 +26,7 @@ public partial class Player : CharacterBody2D
 	double walk_speed = 150.0;
 	double acceleration = 0.1; //até 1
 	double deceleration = 0.1; //até 1
+	float direction = 1;
 
 	// Variaveis de pulo
 	double jump_force = -500.0;
@@ -43,16 +47,18 @@ public partial class Player : CharacterBody2D
 	double dash_timer = 0;
 
 
+
+	//Inicialização do jogador
 	public override void _Ready()
 	{
 		// Definindo a vida do jogador
 		max_health = Global.PlayerMaxHealth;
 		health = max_health;
 		sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-		Debug.Assert(sprite != null, "Sprite não encontrado.");
 
 	}
 
+	// Processamento de fisica do jogador
 	public override void _PhysicsProcess(double delta)
 	{
 		if (!is_alive)
@@ -64,42 +70,21 @@ public partial class Player : CharacterBody2D
 			Velocity = new Vector2(Velocity.X, (float)(Velocity.Y + gravity * delta));
 		}
 
-
-		// Pulo
-		if (Input.IsActionJustPressed("jump") && IsOnFloor())
+		if (knockback_timer > 0)
 		{
-			Velocity = new Vector2(Velocity.X, (float)jump_force);
-			// GD.Print("Pulando");
-		}
-
-		if (Input.IsActionJustReleased("jump") && Velocity.Y < 0)
-		{
-			Velocity = new Vector2(Velocity.X, (float)(Velocity.Y * decelerate_on_jump_release));
-		}
-
-
-		// Direção
-		var direction = Input.GetAxis("left", "right");
-
-		if (!is_dashing && RotationDegrees != 0)
-		{
-			RotationDegrees = 0;
-		}
-
-		if (direction > 0)
-		{
-			sprite.FlipH = false;
-			Velocity = new Vector2(Mathf.MoveToward(Velocity.X, (float)(direction * walk_speed), (float)(walk_speed * acceleration)), Velocity.Y);
-		}
-		else if (direction < 0)
-		{
-			sprite.FlipH = true;
-			Velocity = new Vector2(Mathf.MoveToward(Velocity.X, (float)(direction * walk_speed), (float)(walk_speed * acceleration)), Velocity.Y);
+			Velocity = new Vector2(knockback.X, knockback.Y);
+			knockback_timer -= (float)delta;
+			if (knockback_timer <= 0)
+			{
+				knockback = Vector2.Zero;
+			}
 		}
 		else
 		{
-			Velocity = new Vector2(Mathf.MoveToward(Velocity.X, 0, (float)(walk_speed * deceleration)), Velocity.Y);
+			// Movimento do jogador
+			Movement();
 		}
+
 
 
 		// Ativação do Dash
@@ -148,9 +133,59 @@ public partial class Player : CharacterBody2D
 			return;
 		}
 
-		
 
 		MoveAndSlide();
+	}
+
+
+
+	public void Movement()
+	{
+		// Pulo
+		if (Input.IsActionJustPressed("jump") && IsOnFloor())
+		{
+			Velocity = new Vector2(Velocity.X, (float)jump_force);
+			// GD.Print("Pulando");
+		}
+
+		if (Input.IsActionJustReleased("jump") && Velocity.Y < 0)
+		{
+			Velocity = new Vector2(Velocity.X, (float)(Velocity.Y * decelerate_on_jump_release));
+		}
+
+		if (!is_dashing && RotationDegrees != 0)
+		{
+			RotationDegrees = 0;
+		}
+
+		// Direção
+		if (Input.IsActionJustPressed("left"))
+		{
+			direction = -1;
+		}
+		else if (Input.IsActionJustPressed("right"))
+		{
+			direction = 1;
+		}
+
+
+		if (Input.IsActionPressed("left") || Input.IsActionPressed("right"))
+		{
+			if (direction > 0)
+			{
+				sprite.FlipH = false;
+				Velocity = new Vector2(Mathf.MoveToward(Velocity.X, (float)(direction * walk_speed), (float)(walk_speed * acceleration)), Velocity.Y);
+			}
+			else if (direction < 0)
+			{
+				sprite.FlipH = true;
+				Velocity = new Vector2(Mathf.MoveToward(Velocity.X, (float)(direction * walk_speed), (float)(walk_speed * acceleration)), Velocity.Y);
+			}
+		}
+		else
+		{
+			Velocity = new Vector2(Mathf.MoveToward(Velocity.X, 0, (float)(walk_speed * deceleration)), Velocity.Y);
+		}
 	}
 
 
@@ -158,13 +193,11 @@ public partial class Player : CharacterBody2D
 
 
 	// Função para receber dano
-	public void Hurt(double damage)
+	public void Hurt(double damage, Vector2 hitbox_location)
 	{
 		if (enemy_attack_cooldown == false)
 		{
-			GD.Print("Dano recebido: " + damage);
 			health -= damage;
-			GD.Print("vida: " + health);
 			if (health <= 0)
 			{
 				is_alive = false;
@@ -174,6 +207,8 @@ public partial class Player : CharacterBody2D
 			}
 			else
 			{
+				var hit_direction = (GlobalPosition - hitbox_location).Normalized();
+				Apply_Knockback(new Vector2(275,100), hit_direction, 0.15f);
 				enemy_attack_cooldown = true;
 				GetTree().CreateTimer(1.0).Timeout += ResetEnemyAttackCooldown;
 			}
@@ -184,4 +219,14 @@ public partial class Player : CharacterBody2D
 	{
 		enemy_attack_cooldown = false;
 	}
+
+
+
+	public void Apply_Knockback(Vector2 knockbackForce, Vector2 direction, float knockback_duration)
+	{
+		knockback = direction * knockbackForce;
+		knockback_timer = knockback_duration;
+	}
 }
+
+

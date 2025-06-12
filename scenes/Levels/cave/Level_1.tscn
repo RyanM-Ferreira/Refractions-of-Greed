@@ -1,5 +1,6 @@
-[gd_scene load_steps=11 format=4 uid="uid://be2upkt55v8rf"]
+[gd_scene load_steps=12 format=4 uid="uid://be2upkt55v8rf"]
 
+[ext_resource type="Script" uid="uid://yumngb5g653t" path="res://scripts/Global.cs" id="1_8ryxd"]
 [ext_resource type="PackedScene" uid="uid://d4mg546sapinq" path="res://scenes/character/player.tscn" id="1_e4h6s"]
 [ext_resource type="Texture2D" uid="uid://bu5n3wvymf20t" path="res://assets/tilemaps/General_Tileset.png" id="2_0iege"]
 [ext_resource type="Texture2D" uid="uid://cwpqg4e0a3fn5" path="res://assets/tilemaps/Level1/Cave_Tileset.png" id="2_e4h6s"]
@@ -302,6 +303,10 @@ a = Vector2(256, -29)
 b = Vector2(-151, 3)
 
 [node name="Level1" type="Node2D"]
+
+[node name="Game manager" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("1_8ryxd")
 
 [node name="Player" parent="." instance=ExtResource("1_e4h6s")]
 

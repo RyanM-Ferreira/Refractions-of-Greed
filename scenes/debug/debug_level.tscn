@@ -26,11 +26,9 @@ position = Vector2(275, -10)
 
 [node name="TopeiraMovel" parent="Enemys" instance=ExtResource("3_lqd0q")]
 position = Vector2(90, 118)
-is_attacking = null
 
 [node name="TopeiraMovel2" parent="Enemys" instance=ExtResource("3_lqd0q")]
 position = Vector2(217, 66)
-is_attacking = null
 
 [node name="Morcego" parent="Enemys" instance=ExtResource("4_lqd0q")]
 position = Vector2(2038, 171)
