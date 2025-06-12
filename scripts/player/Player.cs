@@ -11,8 +11,7 @@ public partial class Player : CharacterBody2D
 	bool is_alive = true;
 	bool enemy_attack_cooldown = false;
 
-
-
+	private InGameUI hud;
 
 	double walk_speed = 150.0;
 	double acceleration = 0.1; //até 1
@@ -40,7 +39,8 @@ public partial class Player : CharacterBody2D
 	{
 		// Definindo a vida do jogador
 		health = max_health;
-
+		hud = GetTree().Root.GetNode<InGameUI>("debugLevel/HUD");
+		UpdateHUD();
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -147,6 +147,13 @@ public partial class Player : CharacterBody2D
 		MoveAndSlide();
 	}
 
+	private void UpdateHUD()
+	{
+		if (hud != null)
+		{
+			hud.RefreshLife(health);
+		}
+	}
 
 	// Função para receber dano
 	public void Damage(double damage)
@@ -154,6 +161,9 @@ public partial class Player : CharacterBody2D
 		if (enemy_attack_cooldown == false)
 		{
 			health -= damage;
+
+			UpdateHUD();
+
 			if (health <= 0)
 			{
 				is_alive = false;

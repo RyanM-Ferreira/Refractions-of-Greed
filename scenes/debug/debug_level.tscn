@@ -1,15 +1,15 @@
-[gd_scene load_steps=5 format=4 uid="uid://cx04n4dv2lpp8"]
+[gd_scene load_steps=6 format=4 uid="uid://cx04n4dv2lpp8"]
 
 [ext_resource type="PackedScene" uid="uid://bneaocj3wrbhk" path="res://assets/tilemaps/tile_map_layer.tscn" id="1_ghepp"]
 [ext_resource type="PackedScene" uid="uid://d4mg546sapinq" path="res://scenes/character/player.tscn" id="1_wt8jm"]
 [ext_resource type="PackedScene" uid="uid://smn2wmm61xkk" path="res://scenes/Levels/cave/enemies/topeira movel.tscn" id="3_lqd0q"]
 [ext_resource type="PackedScene" uid="uid://belih6cl0jtlp" path="res://scenes/Levels/cave/enemies/morcego.tscn" id="4_lqd0q"]
+[ext_resource type="PackedScene" uid="uid://bhvyd06lmblre" path="res://scenes/character/inGameUI.tscn" id="5_qybow"]
 
 [node name="debugLevel" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_wt8jm")]
 unique_name_in_owner = true
-position = Vector2(1816, 202)
 
 [node name="TileMapLayer" parent="." instance=ExtResource("1_ghepp")]
 position = Vector2(264, 88)
@@ -32,3 +32,5 @@ collision_layer = 16
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
 build_mode = 1
 polygon = PackedVector2Array(-466, 52, 526, 52, 522, -194, -464, -197)
+
+[node name="HUD" parent="." instance=ExtResource("5_qybow")]
