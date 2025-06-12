@@ -29,6 +29,8 @@ public partial class Player : CharacterBody2D
 	float direction = 1;
 
 	// Variaveis de pulo
+	bool can_jump = true;
+	double coyote_time = 0.2;
 	double jump_force = -500.0;
 	double decelerate_on_jump_release = 0.5; //até 1
 
@@ -64,10 +66,21 @@ public partial class Player : CharacterBody2D
 		if (!is_alive)
 		{ return; }
 
+		GD.Print(can_jump);
 		// Adiciona a gravidade
 		if (!IsOnFloor())
 		{
 			Velocity = new Vector2(Velocity.X, (float)(Velocity.Y + gravity * delta));
+			coyote_time -= (float)delta;
+			if (coyote_time <= 0)
+			{
+				can_jump = false;
+			}
+		}
+		else
+		{
+			coyote_time = 0.3f; // Resetando o coyote time quando está no chão
+			can_jump = true;
 		}
 
 		if (knockback_timer > 0)
@@ -142,8 +155,9 @@ public partial class Player : CharacterBody2D
 	public void Movement()
 	{
 		// Pulo
-		if (Input.IsActionJustPressed("jump") && IsOnFloor())
+		if (Input.IsActionJustPressed("jump") && can_jump == true)
 		{
+			can_jump = false;
 			Velocity = new Vector2(Velocity.X, (float)jump_force);
 			// GD.Print("Pulando");
 		}
@@ -198,6 +212,7 @@ public partial class Player : CharacterBody2D
 		if (enemy_attack_cooldown == false)
 		{
 			health -= damage;
+			GD.Print($"Jogador recebeu {damage} de dano. Vida restante: {health}");
 			if (health <= 0)
 			{
 				is_alive = false;
@@ -207,8 +222,9 @@ public partial class Player : CharacterBody2D
 			}
 			else
 			{
+				is_dashing = false;
 				var hit_direction = (GlobalPosition - hitbox_location).Normalized();
-				Apply_Knockback(new Vector2(275,100), hit_direction, 0.15f);
+				Apply_Knockback(new Vector2(275, 100), hit_direction, 0.15f);
 				enemy_attack_cooldown = true;
 				GetTree().CreateTimer(1.0).Timeout += ResetEnemyAttackCooldown;
 			}
