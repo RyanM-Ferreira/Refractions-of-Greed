@@ -19,10 +19,8 @@ public partial class HealthBar : ProgressBar
         maxHealth = (double)parent.Get("max_health");
 
 
-        GD.Print($"HealthBar ready for {parent.Name}. Current health: {health}, Max health: {maxHealth}");
         if (parent.HasSignal("HealthChanged"))
         {
-            GD.Print($"Connecting to HealthChanged signal on {parent.Name}.");
             parent.Connect("HealthChanged", new Callable(this, nameof(UpdateHealthBar)));
             UpdateHealthBar();
         }
@@ -32,7 +30,6 @@ public partial class HealthBar : ProgressBar
     {
         maxHealth = (double)parent.Get("max_health");
         health = (double)parent.Get("health");
-        GD.Print($"Updating health bar for {parent.Name}. Current health: {health}, Max health: {maxHealth}");
         MaxValue = maxHealth;
         Value = health;
 

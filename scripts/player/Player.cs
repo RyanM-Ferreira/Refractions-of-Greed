@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Diagnostics;
 using System.Linq.Expressions;
+using System.Security.AccessControl;
 using System.Security.Cryptography.X509Certificates;
 
 public partial class Player : CharacterBody2D
@@ -24,7 +25,7 @@ public partial class Player : CharacterBody2D
 	private AnimatedSprite2D sprite;
 
 	// Variaveis de movimento
-	double walk_speed = 150.0;
+	double walk_speed = 175.0;
 	double acceleration = 0.1; //até 1
 	double deceleration = 0.1; //até 1
 	float direction = 1;
@@ -95,48 +96,13 @@ public partial class Player : CharacterBody2D
 		else
 		{
 			// Movimento do jogador
-			Movement();
+			Movement(delta);
 		}
 
 
 
 		// Ativação do Dash
-		if (Input.IsActionJustPressed("dash") && direction != 0 && !is_dashing && dash_timer <= 0)
-		{
-			is_dashing = true;
-			dash_start_position = Position.X;
-			dash_direction = direction;
-			dash_timer = dash_cooldown;
-			// GD.Print("Dash");
-
-			sprite.RotationDegrees = 25 * direction;
-		}
-
-		// Dash
-		if (is_dashing)
-		{
-			double current_distance = Math.Abs(Position.X - dash_start_position);
-
-			if (current_distance >= dash_max_distance || IsOnWall())
-			{
-				is_dashing = false;
-				RotationDegrees = 0;
-			}
-			// Mover o personagem
-			else
-			{
-				double curve_factor = dash_curve.Sample((float)Math.Abs(current_distance / dash_max_distance));
-				Velocity = new Vector2((float)(Velocity.X + dash_direction * dash_speed * curve_factor), Velocity.Y);
-				Velocity = new Vector2(Velocity.X, 0);
-
-			}
-		}
-
-		// Cooldown do dash
-		if (dash_timer > 0)
-		{
-			dash_timer -= delta;
-		}
+		
 
 
 		if (Input.IsActionJustPressed("menu"))
@@ -152,7 +118,7 @@ public partial class Player : CharacterBody2D
 
 
 
-	public void Movement()
+	public void Movement(double delta)
 	{
 		// Pulo
 		if (Input.IsActionJustPressed("jump") && can_jump == true)
@@ -200,6 +166,45 @@ public partial class Player : CharacterBody2D
 		{
 			Velocity = new Vector2(Mathf.MoveToward(Velocity.X, 0, (float)(walk_speed * deceleration)), Velocity.Y);
 		}
+
+
+
+		if (Input.IsActionJustPressed("dash") && direction != 0 && !is_dashing && dash_timer <= 0)
+		{
+			is_dashing = true;
+			dash_start_position = Position.X;
+			dash_direction = direction;
+			dash_timer = dash_cooldown;
+			// GD.Print("Dash");
+
+			sprite.RotationDegrees = 25 * direction;
+		}
+
+		// Dash
+		if (is_dashing)
+		{
+			double current_distance = Math.Abs(Position.X - dash_start_position);
+
+			if (current_distance >= dash_max_distance || IsOnWall())
+			{
+				is_dashing = false;
+				RotationDegrees = 0;
+			}
+			// Mover o personagem
+			else
+			{
+				double curve_factor = dash_curve.Sample((float)Math.Abs(current_distance / dash_max_distance));
+				Velocity = new Vector2((float)(Velocity.X + dash_direction * dash_speed * curve_factor), Velocity.Y);
+				Velocity = new Vector2(Velocity.X, 0);
+
+			}
+		}
+
+		// Cooldown do dash
+		if (dash_timer > 0)
+		{
+			dash_timer -= delta;
+		}
 	}
 
 
@@ -207,7 +212,7 @@ public partial class Player : CharacterBody2D
 
 
 	// Função para receber dano
-	public void Hurt(double damage, Vector2 hitbox_location)
+	public void Hurt(double damage, Vector2 hitbox_location, float knockback_force)
 	{
 		if (enemy_attack_cooldown == false)
 		{
@@ -224,7 +229,7 @@ public partial class Player : CharacterBody2D
 			{
 				is_dashing = false;
 				var hit_direction = (GlobalPosition - hitbox_location).Normalized();
-				Apply_Knockback(new Vector2(275, 100), hit_direction, 0.15f);
+				Apply_Knockback(new Vector2(knockback_force, 100), hit_direction, 0.15f);
 				EmitSignal(nameof(HealthChanged));
 				enemy_attack_cooldown = true;
 				GetTree().CreateTimer(0.4).Timeout += ResetEnemyAttackCooldown;

@@ -14,10 +14,11 @@ public partial class Hurtbox : Area2D
         if (Owner != HitboxOwner)
         {
             var damage = Area2D.Get("Damage");
+            float knockback = (float)Area2D.Get("Knockback");
             if (Owner.Name == "Player")
             {
                 var hitboxlocation = Area2D.GlobalPosition;
-                Owner.Call("Hurt", damage, hitboxlocation);
+                Owner.Call("Hurt", damage, hitboxlocation, knockback);
                 return;
             }
             if (Owner.HasMethod("Hurt"))
