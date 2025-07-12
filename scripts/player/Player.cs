@@ -13,12 +13,16 @@ public partial class Player : CharacterBody2D
 	bool is_alive = true;
 	bool enemy_attack_cooldown = false;
 
+
 	//knockback
 	Vector2 knockback;
 	float knockback_timer = 0;
 	[Signal] public delegate void PlayerDiedEventHandler();
 	[Signal] public delegate void HealthChangedEventHandler();
 
+
+
+	private InGameUI hud;
 
 
 	// Variaveis de animação
@@ -58,7 +62,12 @@ public partial class Player : CharacterBody2D
 		// Definindo a vida do jogador
 		max_health = Global.PlayerMaxHealth;
 		health = max_health;
+
 		sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+
+
+		hud = GetTree().Root.GetNode<InGameUI>("debugLevel/HUD");
+		UpdateHUD();
 
 	}
 
@@ -210,6 +219,13 @@ public partial class Player : CharacterBody2D
 
 
 
+	private void UpdateHUD()
+	{
+		if (hud != null)
+		{
+			hud.RefreshLife(health);
+		}
+	}
 
 	// Função para receber dano
 	public void Hurt(double damage, Vector2 hitbox_location, float knockback_force)
@@ -218,6 +234,9 @@ public partial class Player : CharacterBody2D
 		{
 			health -= damage;
 			GD.Print($"Jogador recebeu {damage} de dano. Vida restante: {health}");
+
+			UpdateHUD();
+
 			if (health <= 0)
 			{
 				is_alive = false;

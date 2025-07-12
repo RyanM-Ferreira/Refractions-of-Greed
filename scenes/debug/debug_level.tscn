@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://d4mg546sapinq" path="res://scenes/character/player.tscn" id="1_wt8jm"]
 [ext_resource type="PackedScene" uid="uid://smn2wmm61xkk" path="res://scenes/Levels/cave/enemies/topeira movel.tscn" id="3_lqd0q"]
 [ext_resource type="PackedScene" uid="uid://belih6cl0jtlp" path="res://scenes/Levels/cave/enemies/morcego.tscn" id="4_lqd0q"]
+[ext_resource type="PackedScene" uid="uid://bhvyd06lmblre" path="res://scenes/character/inGameUI.tscn" id="5_qybow"]
 
 [node name="debugLevel" type="Node2D"]
 
@@ -14,7 +15,9 @@ script = ExtResource("1_qybow")
 
 [node name="Player" parent="." instance=ExtResource("1_wt8jm")]
 unique_name_in_owner = true
+
 position = Vector2(219, -45)
+
 
 [node name="TileMapLayer" parent="." instance=ExtResource("1_ghepp")]
 position = Vector2(264, 88)
@@ -41,3 +44,5 @@ collision_mask = 8
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
 build_mode = 1
 polygon = PackedVector2Array(-466, 52, 526, 52, 522, -194, -464, -197)
+
+[node name="HUD" parent="." instance=ExtResource("5_qybow")]
