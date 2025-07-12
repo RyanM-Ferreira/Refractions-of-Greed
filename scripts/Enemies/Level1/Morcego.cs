@@ -11,58 +11,86 @@ public partial class Morcego : Enemy
 	private AnimatedSprite2D sprite;
 	private AnimationTree animationTree;
 	private AnimationNodeStateMachinePlayback AnimationPlayback;
-	//import hitbox
-	private Area2D hitbox;
-
-
 	//import timer
 	private Timer timer;
 
+	private Player player;
 
 	public override void _Ready()
 	{
 		sprite = GetNode<AnimatedSprite2D>("sprite");
 		animationTree = GetNode<AnimationTree>("AnimationTree");
 		AnimationPlayback = animationTree.Get("parameters/playback").As<AnimationNodeStateMachinePlayback>();
-		hitbox = GetNode<Area2D>("Hitbox");
 		timer = GetNode<Timer>("Timer");
+
+		player = Global.player;
+
 		is_chassing = false;
 	}
+
+	public void Player_Search_Entered(Node2D body)
+	{
+		if (body is Player)
+		{
+			is_chassing = true;
+		}
+	}
+	public void Player_Search_Exited(Node2D body)
+	{
+		if (body is Player)
+		{
+			is_chassing = false;
+		}
+	}
+
+
 
 
 	private void OnTimerTimeout()
 	{
-		timer.WaitTime = choose([1, 1.5]);
+		timer.WaitTime = choose([1, 0.8]);
 		if (!is_chassing)
 		{
-			direction = (choose([-1.0, 1.0, 0.0]), choose([-1.0, 1.0, 0.0]));
+			direction = ((int)choose([-1.0, 1.0, 0.0]), (int)choose([-1.0, 1.0, 0.0]));
 
 		}
 	}
 
-	private int choose(double[] options)
+	private double choose(double[] options)
 	{
 		Random random = new Random();
 		double index = random.Next(options.Length);
-		return (int)options[(int)index];
+		return options[(int)index];
 	}
 
 	public void Move(double delta)
 	{
-		
+
 		if (!is_chassing)
 		{
-
 			Vector2 velocity = new Vector2(
-				(float)(Speed *delta* direction.Item1),
-				(float)(Speed *delta* direction.Item2)
+				(float)(Speed * delta * direction.Item1),
+				(float)(Speed * delta * direction.Item2)
 			);
 			Velocity = new Vector2(Velocity.X + velocity.X, Velocity.Y + velocity.Y);
 		}
+		else
+		{
+			if (player != null)
+			{
+				Vector2 playerPosition = player.GlobalPosition;
+				Vector2 directionToPlayer = (playerPosition - GlobalPosition).Normalized();
+				direction = ((int)(MathF.Abs(directionToPlayer.X) / directionToPlayer.X), (int)(MathF.Abs(directionToPlayer.Y) / directionToPlayer.Y));
+				Velocity = new Vector2(directionToPlayer.X * (float)Speed, directionToPlayer.Y * (float)Speed);
+			}
+			else
+			{
+				GD.PrintErr("Player node not found.");
+			}
+		}
+
 		MoveAndSlide();
 	}
-
-
 
 
 	public override void _PhysicsProcess(double delta)
@@ -75,8 +103,8 @@ public partial class Morcego : Enemy
 		{
 			sprite.FlipH = true;
 		}
-
 		Move(delta);
+	
 	}
 
 }

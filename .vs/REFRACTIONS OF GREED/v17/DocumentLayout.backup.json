@@ -3,20 +3,24 @@
   "WorkspaceRootPath": "F:\\projetos\\Projeto TCC - Teste\\Refractions-of-Greed\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|F:\\projetos\\Projeto TCC - Teste\\Refractions-of-Greed\\scripts\\Enemies\\Level1\\Topera.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:scripts\\Enemies\\Level1\\Topera.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CAAEF18F-50B8-448A-BBB1-1D2C78694169}|Refractions of Greed.csproj|f:\\projetos\\projeto tcc - teste\\refractions-of-greed\\scripts\\enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CAAEF18F-50B8-448A-BBB1-1D2C78694169}|Refractions of Greed.csproj|solutionrelative:scripts\\enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{CAAEF18F-50B8-448A-BBB1-1D2C78694169}|Refractions of Greed.csproj|f:\\projetos\\projeto tcc - teste\\refractions-of-greed\\scripts\\player\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{CAAEF18F-50B8-448A-BBB1-1D2C78694169}|Refractions of Greed.csproj|solutionrelative:scripts\\player\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{CAAEF18F-50B8-448A-BBB1-1D2C78694169}|Refractions of Greed.csproj|f:\\projetos\\projeto tcc - teste\\refractions-of-greed\\scripts\\damagezone.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CAAEF18F-50B8-448A-BBB1-1D2C78694169}|Refractions of Greed.csproj|solutionrelative:scripts\\damagezone.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|F:\\projetos\\Projeto TCC - Teste\\Refractions-of-Greed\\scripts\\Damagezone.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:scripts\\Damagezone.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|F:\\projetos\\Projeto TCC - Teste\\Refractions-of-Greed\\scripts\\enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:scripts\\enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CAAEF18F-50B8-448A-BBB1-1D2C78694169}|Refractions of Greed.csproj|f:\\projetos\\projeto tcc - teste\\refractions-of-greed\\scripts\\enemies\\level1\\topeiramovel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CAAEF18F-50B8-448A-BBB1-1D2C78694169}|Refractions of Greed.csproj|solutionrelative:scripts\\enemies\\level1\\topeiramovel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CAAEF18F-50B8-448A-BBB1-1D2C78694169}|Refractions of Greed.csproj|f:\\projetos\\projeto tcc - teste\\refractions-of-greed\\scripts\\hurtbox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CAAEF18F-50B8-448A-BBB1-1D2C78694169}|Refractions of Greed.csproj|solutionrelative:scripts\\hurtbox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,56 +30,68 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
             {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Topera.cs",
-              "DocumentMoniker": "F:\\projetos\\Projeto TCC - Teste\\Refractions-of-Greed\\scripts\\Enemies\\Level1\\Topera.cs",
-              "RelativeDocumentMoniker": "scripts\\Enemies\\Level1\\Topera.cs",
-              "ToolTip": "F:\\projetos\\Projeto TCC - Teste\\Refractions-of-Greed\\scripts\\Enemies\\Level1\\Topera.cs",
-              "RelativeToolTip": "scripts\\Enemies\\Level1\\Topera.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAjAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-24T21:00:02.923Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:2051007107:0:{83107a3e-496a-485e-b455-16ddb978e55e}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
+              "Title": "TopeiraMovel.cs",
+              "DocumentMoniker": "F:\\projetos\\Projeto TCC - Teste\\Refractions-of-Greed\\scripts\\Enemies\\Level1\\TopeiraMovel.cs",
+              "RelativeDocumentMoniker": "scripts\\Enemies\\Level1\\TopeiraMovel.cs",
+              "ToolTip": "F:\\projetos\\Projeto TCC - Teste\\Refractions-of-Greed\\scripts\\Enemies\\Level1\\TopeiraMovel.cs",
+              "RelativeToolTip": "scripts\\Enemies\\Level1\\TopeiraMovel.cs",
+              "ViewState": "AgIAAD4AAAAAAAAAAAAwwCgAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-30T19:50:22.598Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Hurtbox.cs",
+              "DocumentMoniker": "F:\\projetos\\Projeto TCC - Teste\\Refractions-of-Greed\\scripts\\Hurtbox.cs",
+              "RelativeDocumentMoniker": "scripts\\Hurtbox.cs",
+              "ToolTip": "F:\\projetos\\Projeto TCC - Teste\\Refractions-of-Greed\\scripts\\Hurtbox.cs",
+              "RelativeToolTip": "scripts\\Hurtbox.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-29T16:28:22.739Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "Player.cs",
               "DocumentMoniker": "F:\\projetos\\Projeto TCC - Teste\\Refractions-of-Greed\\scripts\\player\\Player.cs",
               "RelativeDocumentMoniker": "scripts\\player\\Player.cs",
               "ToolTip": "F:\\projetos\\Projeto TCC - Teste\\Refractions-of-Greed\\scripts\\player\\Player.cs",
               "RelativeToolTip": "scripts\\player\\Player.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC4AAAAUAAAAAAAAAA==",
+              "ViewState": "AgIAAJoAAAAAAAAAAAArwK4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-24T20:14:49.799Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "enemy.cs",
               "DocumentMoniker": "F:\\projetos\\Projeto TCC - Teste\\Refractions-of-Greed\\scripts\\enemy.cs",
               "RelativeDocumentMoniker": "scripts\\enemy.cs",
               "ToolTip": "F:\\projetos\\Projeto TCC - Teste\\Refractions-of-Greed\\scripts\\enemy.cs",
               "RelativeToolTip": "scripts\\enemy.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-24T20:14:05.887Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-24T20:14:05.887Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "Damagezone.cs",
               "DocumentMoniker": "F:\\projetos\\Projeto TCC - Teste\\Refractions-of-Greed\\scripts\\Damagezone.cs",
               "RelativeDocumentMoniker": "scripts\\Damagezone.cs",
               "ToolTip": "F:\\projetos\\Projeto TCC - Teste\\Refractions-of-Greed\\scripts\\Damagezone.cs",
               "RelativeToolTip": "scripts\\Damagezone.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-24T20:03:23.647Z"
             }

@@ -1,65 +1,138 @@
 using Godot;
 using System;
 using System.Diagnostics;
+using System.Linq.Expressions;
+using System.Security.AccessControl;
 using System.Security.Cryptography.X509Certificates;
 
 public partial class Player : CharacterBody2D
 {
-	// Os @export são para permitir a edição das variaveis pelo editor e outros arquivos
-	double max_health = 50.0;
+	// Variaveis do combate
+	double max_health = 0;
 	[Export] public double health = 50.0;
 	bool is_alive = true;
 	bool enemy_attack_cooldown = false;
 
+
+	//knockback
+	Vector2 knockback;
+	float knockback_timer = 0;
+	[Signal] public delegate void PlayerDiedEventHandler();
+	[Signal] public delegate void HealthChangedEventHandler();
+
+
+
 	private InGameUI hud;
 
-	double walk_speed = 150.0;
+
+	// Variaveis de animação
+	private AnimatedSprite2D sprite;
+
+	// Variaveis de movimento
+	double walk_speed = 175.0;
 	double acceleration = 0.1; //até 1
 	double deceleration = 0.1; //até 1
+	float direction = 1;
 
+	// Variaveis de pulo
+	bool can_jump = true;
+	double coyote_time = 0.2;
 	double jump_force = -500.0;
 	double decelerate_on_jump_release = 0.5; //até 1
 
+	// Variaveis de dash
 	double dash_speed = 100.0;
 	double dash_max_distance = 100.0;
 	[Export] public Curve dash_curve;
-
 	double dash_cooldown = 1.0;
 
 	double gravity = (double)ProjectSettings.GetSetting("physics/2d/default_gravity");
 
 	// Definição para o Dash
 	bool is_dashing = false;
-	double dash_start_position = 0; // para descobrir se atravesou a distancia maxima
+	double dash_start_position = 0;
 	double dash_direction = 0;
 	double dash_timer = 0;
 
 
+
+	//Inicialização do jogador
 	public override void _Ready()
 	{
 		// Definindo a vida do jogador
+		max_health = Global.PlayerMaxHealth;
 		health = max_health;
+
+		sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+
+
 		hud = GetTree().Root.GetNode<InGameUI>("debugLevel/HUD");
 		UpdateHUD();
+
 	}
 
+	// Processamento de fisica do jogador
 	public override void _PhysicsProcess(double delta)
 	{
-
-		var sprite = GetNode<Sprite2D>("Sprite2D");
-		//var sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-		Debug.Assert(sprite != null, "Esta bosta não foi encontrada.");
+		if (!is_alive)
+		{ return; }
 
 		// Adiciona a gravidade
 		if (!IsOnFloor())
 		{
 			Velocity = new Vector2(Velocity.X, (float)(Velocity.Y + gravity * delta));
+			coyote_time -= (float)delta;
+			if (coyote_time <= 0)
+			{
+				can_jump = false;
+			}
+		}
+		else
+		{
+			coyote_time = 0.3f; // Resetando o coyote time quando está no chão
+			can_jump = true;
+		}
+
+		if (knockback_timer > 0)
+		{
+			Velocity = new Vector2(knockback.X, knockback.Y);
+			knockback_timer -= (float)delta;
+			if (knockback_timer <= 0)
+			{
+				knockback = Vector2.Zero;
+			}
+		}
+		else
+		{
+			// Movimento do jogador
+			Movement(delta);
 		}
 
 
-		// Pulo
-		if (Input.IsActionJustPressed("jump") && IsOnFloor())
+
+		// Ativação do Dash
+		
+
+
+		if (Input.IsActionJustPressed("menu"))
 		{
+			GD.Print("Voltando ao menu");
+			GetTree().ChangeSceneToFile("res://scenes/main/Main.tscn");
+			return;
+		}
+		
+
+		MoveAndSlide();
+	}
+
+
+
+	public void Movement(double delta)
+	{
+		// Pulo
+		if (Input.IsActionJustPressed("jump") && can_jump == true)
+		{
+			can_jump = false;
 			Velocity = new Vector2(Velocity.X, (float)jump_force);
 			// GD.Print("Pulando");
 		}
@@ -69,29 +142,34 @@ public partial class Player : CharacterBody2D
 			Velocity = new Vector2(Velocity.X, (float)(Velocity.Y * decelerate_on_jump_release));
 		}
 
+		if (!is_dashing && sprite.RotationDegrees != 0)
+		{
+			sprite.RotationDegrees = 0;
+		}
 
 		// Direção
-		var direction = Input.GetAxis("left", "right");
-
-		if (!is_dashing && RotationDegrees != 0)
+		if (Input.IsActionJustPressed("left"))
 		{
-			RotationDegrees = 0;
+			direction = -1;
 		}
-
-		if (direction > 0)
+		else if (Input.IsActionJustPressed("right"))
 		{
-			sprite.FlipH = false;
-		}
-		else if (direction < 0)
-		{
-			sprite.FlipH = true;
+			direction = 1;
 		}
 
 
-		// Andar
-		if (direction != 0)
+		if (Input.IsActionPressed("left") || Input.IsActionPressed("right"))
 		{
-			Velocity = new Vector2(Mathf.MoveToward(Velocity.X, (float)(direction * walk_speed), (float)(walk_speed * acceleration)), Velocity.Y);
+			if (direction > 0)
+			{
+				sprite.FlipH = false;
+				Velocity = new Vector2(Mathf.MoveToward(Velocity.X, (float)(direction * walk_speed), (float)(walk_speed * acceleration)), Velocity.Y);
+			}
+			else if (direction < 0)
+			{
+				sprite.FlipH = true;
+				Velocity = new Vector2(Mathf.MoveToward(Velocity.X, (float)(direction * walk_speed), (float)(walk_speed * acceleration)), Velocity.Y);
+			}
 		}
 		else
 		{
@@ -99,7 +177,7 @@ public partial class Player : CharacterBody2D
 		}
 
 
-		// Ativação do Dash
+
 		if (Input.IsActionJustPressed("dash") && direction != 0 && !is_dashing && dash_timer <= 0)
 		{
 			is_dashing = true;
@@ -108,7 +186,7 @@ public partial class Player : CharacterBody2D
 			dash_timer = dash_cooldown;
 			// GD.Print("Dash");
 
-			RotationDegrees = 25 * direction;
+			sprite.RotationDegrees = 25 * direction;
 		}
 
 		// Dash
@@ -136,16 +214,10 @@ public partial class Player : CharacterBody2D
 		{
 			dash_timer -= delta;
 		}
-
-
-		//Abrir o menu do jogo(criar ainda)
-		if (Input.IsActionJustPressed("menu"))
-		{
-			GetTree().ChangeSceneToFile("res://scenes/main/main.tscn");
-		}
-
-		MoveAndSlide();
 	}
+
+
+
 
 	private void UpdateHUD()
 	{
@@ -156,24 +228,30 @@ public partial class Player : CharacterBody2D
 	}
 
 	// Função para receber dano
-	public void Damage(double damage)
+	public void Hurt(double damage, Vector2 hitbox_location, float knockback_force)
 	{
 		if (enemy_attack_cooldown == false)
 		{
 			health -= damage;
+			GD.Print($"Jogador recebeu {damage} de dano. Vida restante: {health}");
 
 			UpdateHUD();
 
 			if (health <= 0)
 			{
 				is_alive = false;
-				GetTree().QueueDelete(this);
-				GetTree().ReloadCurrentScene();
+				EmitSignal(nameof(PlayerDied));
+				GetTree().CreateTimer(0.01).Timeout += () => QueueFree();
+				GD.Print("Jogador morreu");
 			}
 			else
 			{
+				is_dashing = false;
+				var hit_direction = (GlobalPosition - hitbox_location).Normalized();
+				Apply_Knockback(new Vector2(knockback_force, 100), hit_direction, 0.15f);
+				EmitSignal(nameof(HealthChanged));
 				enemy_attack_cooldown = true;
-				GetTree().CreateTimer(1.0).Timeout += ResetEnemyAttackCooldown;
+				GetTree().CreateTimer(0.4).Timeout += ResetEnemyAttackCooldown;
 			}
 		}
 	}
@@ -182,4 +260,14 @@ public partial class Player : CharacterBody2D
 	{
 		enemy_attack_cooldown = false;
 	}
+
+
+
+	public void Apply_Knockback(Vector2 knockbackForce, Vector2 direction, float knockback_duration)
+	{
+		knockback = direction * knockbackForce;
+		knockback_timer = knockback_duration;
+	}
 }
+
+

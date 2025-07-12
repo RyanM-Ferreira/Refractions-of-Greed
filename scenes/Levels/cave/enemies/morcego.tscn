@@ -1,8 +1,9 @@
-[gd_scene load_steps=20 format=3 uid="uid://belih6cl0jtlp"]
+[gd_scene load_steps=23 format=3 uid="uid://belih6cl0jtlp"]
 
 [ext_resource type="Script" uid="uid://diqohd2m06pex" path="res://scripts/Enemies/Level1/Morcego.cs" id="1_ss8ju"]
 [ext_resource type="Texture2D" uid="uid://csu11o4b2fym5" path="res://assets/Enemies/Level 1/morcego/morcego.png" id="2_duhak"]
 [ext_resource type="PackedScene" uid="uid://tadv4ch0tx4j" path="res://scenes/HitBox.tscn" id="3_0npo2"]
+[ext_resource type="PackedScene" uid="uid://bm6lma81gxrxn" path="res://scenes/hurtbox.tscn" id="4_duhak"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5vyd3"]
 atlas = ExtResource("2_duhak")
@@ -116,9 +117,15 @@ radius = 15.1327
 [sub_resource type="CircleShape2D" id="CircleShape2D_ss8ju"]
 radius = 19.105
 
-[node name="Morcego" type="CharacterBody2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_duhak"]
+radius = 304.002
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0npo2"]
+radius = 17.0
+
+[node name="Mrocego" type="CharacterBody2D"]
 collision_layer = 4
-collision_mask = 17
+collision_mask = 13
 script = ExtResource("1_ss8ju")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
@@ -138,10 +145,12 @@ parameters/conditions/end = false
 
 [node name="Hitbox" parent="." instance=ExtResource("3_0npo2")]
 Damage = 5
+Knockback = 300.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Hitbox"]
 rotation = 1.5708
 shape = SubResource("CircleShape2D_rnamo")
+debug_color = Color(1, 1, 1, 0.42)
 
 [node name="Map collision" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_ss8ju")
@@ -149,4 +158,22 @@ shape = SubResource("CircleShape2D_ss8ju")
 [node name="Timer" type="Timer" parent="."]
 autostart = true
 
+[node name="player_search" type="Area2D" parent="."]
+collision_layer = 64
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player_search"]
+modulate = Color(0.912118, 0.374994, 1, 1)
+shape = SubResource("CircleShape2D_duhak")
+debug_color = Color(1, 1, 1, 0.42)
+
+[node name="hurtbox" parent="." instance=ExtResource("4_duhak")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox"]
+modulate = Color(1, 1, 0, 1)
+shape = SubResource("CircleShape2D_0npo2")
+debug_color = Color(1, 1, 1, 0.42)
+
 [connection signal="timeout" from="Timer" to="." method="OnTimerTimeout"]
+[connection signal="body_entered" from="player_search" to="." method="Player_Search_Entered"]
+[connection signal="body_exited" from="player_search" to="." method="Player_Search_Exited"]

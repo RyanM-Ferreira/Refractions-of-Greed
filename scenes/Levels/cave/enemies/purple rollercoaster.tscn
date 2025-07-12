@@ -120,6 +120,7 @@ height = 48.0
 
 [node name="PurpleRollercoaster" type="CharacterBody2D"]
 collision_layer = 4
+collision_mask = 5
 script = ExtResource("1_x8idb")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
@@ -160,8 +161,8 @@ shape = SubResource("CapsuleShape2D_x8idb")
 
 [node name="Hitbox" parent="." instance=ExtResource("3_76xs0")]
 position = Vector2(0, -18)
-collision_layer = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_s2m8c")
+debug_color = Color(1, 1, 1, 0.42)

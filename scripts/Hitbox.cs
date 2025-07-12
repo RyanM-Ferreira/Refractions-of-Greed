@@ -1,18 +1,13 @@
 using Godot;
 using System;
+using System.Buffers;
+using System.Numerics;
 
 
 public partial class Hitbox : Area2D
 {
 	[Export] int Damage = 10;
+	[Export] float Knockback = 100;
 
-	public void _on_body_entered(Node2D body)
-	{
-
-		if (body.HasMethod("Damage"))
-		{
-			body.Call("Damage", Damage);
-		}
-	}
 
 }
