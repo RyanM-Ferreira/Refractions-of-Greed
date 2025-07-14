@@ -65,10 +65,6 @@ public partial class Player : CharacterBody2D
 
 		sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 
-
-		hud = GetTree().Root.GetNode<InGameUI>("debugLevel/HUD");
-		UpdateHUD();
-
 	}
 
 	// Processamento de fisica do jogador
@@ -207,17 +203,6 @@ public partial class Player : CharacterBody2D
 		if (dash_timer > 0)
 		{
 			dash_timer -= delta;
-		}
-	}
-
-
-
-
-	private void UpdateHUD()
-	{
-		if (hud != null)
-		{
-			hud.RefreshLife(health);
 		}
 	}
 
