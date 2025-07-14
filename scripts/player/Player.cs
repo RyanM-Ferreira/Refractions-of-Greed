@@ -1,9 +1,5 @@
 using Godot;
 using System;
-using System.Diagnostics;
-using System.Linq.Expressions;
-using System.Security.AccessControl;
-using System.Security.Cryptography.X509Certificates;
 
 public partial class Player : CharacterBody2D
 {
@@ -24,17 +20,21 @@ public partial class Player : CharacterBody2D
 	// Variaveis de animação
 	private AnimatedSprite2D sprite;
 
+
 	// Variaveis de movimento
 	double walk_speed = 175.0;
 	double acceleration = 0.1; //até 1
 	double deceleration = 0.1; //até 1
 	float direction = 1;
 
+
 	// Variaveis de pulo
 	bool can_jump = true;
 	double coyote_time = 0.2;
 	double jump_force = -500.0;
 	double decelerate_on_jump_release = 0.5; //até 1
+	double gravity = (double)ProjectSettings.GetSetting("physics/2d/default_gravity");
+
 
 	// Variaveis de dash
 	double dash_speed = 100.0;
@@ -42,17 +42,17 @@ public partial class Player : CharacterBody2D
 	[Export] public Curve dash_curve;
 	double dash_cooldown = 1.0;
 
-	double gravity = (double)ProjectSettings.GetSetting("physics/2d/default_gravity");
+	
 
-	// Definição para o Dash
 	bool is_dashing = false;
 	double dash_start_position = 0;
 	double dash_direction = 0;
 	double dash_timer = 0;
 
+	double immunity_time = 0.5; 
 
 
-	//Inicialização do jogador
+
 	public override void _Ready()
 	{
 		// Definindo a vida do jogador
@@ -66,9 +66,16 @@ public partial class Player : CharacterBody2D
 	public override void _PhysicsProcess(double delta)
 	{
 		if (!is_alive)
-		{ return; }
+			return;
 
-		// Adiciona a gravidade
+		//Botão para pausar o jogo
+		if (Input.IsActionJustPressed("menu"))
+		{
+			GetTree().ChangeSceneToFile("res://scenes/main/Main.tscn");
+			return;
+		}
+
+		// Adiciona a gravidade e coyote time
 		if (!IsOnFloor())
 		{
 			Velocity = new Vector2(Velocity.X, (float)(Velocity.Y + gravity * delta));
@@ -90,7 +97,7 @@ public partial class Player : CharacterBody2D
 			knockback_timer -= (float)delta;
 			if (knockback_timer <= 0)
 			{
-				knockback = Vector2.Zero;
+				knockback = Vector2.Zero; // Reseta o knockback quando o tempo acaba
 			}
 		}
 		else
@@ -101,18 +108,7 @@ public partial class Player : CharacterBody2D
 
 
 
-		// Ativação do Dash
-		
-
-
-		if (Input.IsActionJustPressed("menu"))
-		{
-			GD.Print("Voltando ao menu");
-			GetTree().ChangeSceneToFile("res://scenes/main/Main.tscn");
-			return;
-		}
-		
-
+		immunity_time -= delta;
 		MoveAndSlide();
 	}
 
@@ -133,50 +129,48 @@ public partial class Player : CharacterBody2D
 			Velocity = new Vector2(Velocity.X, (float)(Velocity.Y * decelerate_on_jump_release));
 		}
 
+		//Apenas para visual enquanto prototipo
 		if (!is_dashing && sprite.RotationDegrees != 0)
 		{
 			sprite.RotationDegrees = 0;
 		}
 
-		// Direção
-		if (Input.IsActionJustPressed("left"))
+
+		// Andar
+		if (Input.IsActionPressed("left") && Input.IsActionPressed("right"))
+		{
+			direction = 0;
+			Velocity = new Vector2(Mathf.MoveToward(Velocity.X, 0, (float)(walk_speed * deceleration)), Velocity.Y);
+		}
+		else if (Input.IsActionPressed("left"))
 		{
 			direction = -1;
+			sprite.FlipH = true;
+			Velocity = new Vector2(Mathf.MoveToward(Velocity.X, (float)(direction * walk_speed), (float)(walk_speed * acceleration)), Velocity.Y);
 		}
-		else if (Input.IsActionJustPressed("right"))
+		else if (Input.IsActionPressed("right"))
 		{
 			direction = 1;
-		}
-
-
-		if (Input.IsActionPressed("left") || Input.IsActionPressed("right"))
-		{
-			if (direction > 0)
-			{
-				sprite.FlipH = false;
-				Velocity = new Vector2(Mathf.MoveToward(Velocity.X, (float)(direction * walk_speed), (float)(walk_speed * acceleration)), Velocity.Y);
-			}
-			else if (direction < 0)
-			{
-				sprite.FlipH = true;
-				Velocity = new Vector2(Mathf.MoveToward(Velocity.X, (float)(direction * walk_speed), (float)(walk_speed * acceleration)), Velocity.Y);
-			}
+			sprite.FlipH = false;
+			Velocity = new Vector2(Mathf.MoveToward(Velocity.X, (float)(direction * walk_speed), (float)(walk_speed * acceleration)), Velocity.Y);
 		}
 		else
 		{
+			direction = 0;
 			Velocity = new Vector2(Mathf.MoveToward(Velocity.X, 0, (float)(walk_speed * deceleration)), Velocity.Y);
 		}
+		
 
 
-
-		if (Input.IsActionJustPressed("dash") && direction != 0 && !is_dashing && dash_timer <= 0)
+		// Codigo para o dash
+		if (Input.IsActionJustPressed("dash") && direction != 0 && dash_timer <= 0)
 		{
 			is_dashing = true;
 			dash_start_position = Position.X;
 			dash_direction = direction;
 			dash_timer = dash_cooldown;
-			// GD.Print("Dash");
 
+			//Apenas para visual enquanto prototipo
 			sprite.RotationDegrees = 25 * direction;
 		}
 
@@ -214,10 +208,10 @@ public partial class Player : CharacterBody2D
 	// Função para receber dano
 	public void Hurt(double damage, Vector2 hitbox_location, float knockback_force)
 	{
-		if (enemy_attack_cooldown == false)
+		//verifica se o jogador está imune a ataques
+		if (immunity_time <=0)
 		{
 			health -= damage;
-			GD.Print($"Jogador recebeu {damage} de dano. Vida restante: {health}");
 			if (health <= 0)
 			{
 				is_alive = false;
@@ -231,17 +225,10 @@ public partial class Player : CharacterBody2D
 				var hit_direction = (GlobalPosition - hitbox_location).Normalized();
 				Apply_Knockback(new Vector2(knockback_force, 100), hit_direction, 0.15f);
 				EmitSignal(nameof(HealthChanged));
-				enemy_attack_cooldown = true;
-				GetTree().CreateTimer(0.4).Timeout += ResetEnemyAttackCooldown;
+				immunity_time += 0.5;
 			}
 		}
 	}
-
-	private void ResetEnemyAttackCooldown()
-	{
-		enemy_attack_cooldown = false;
-	}
-
 
 
 	public void Apply_Knockback(Vector2 knockbackForce, Vector2 direction, float knockback_duration)

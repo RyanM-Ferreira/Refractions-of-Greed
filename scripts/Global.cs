@@ -1,6 +1,5 @@
 using Godot;
-using System;
-using System.Dynamic;
+
 
 public partial class Global : Node2D
 {

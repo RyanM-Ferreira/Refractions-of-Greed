@@ -4,8 +4,8 @@ using System;
 public partial class HealthBar : ProgressBar
 {
     Node parent;
-    Double health;
-    Double maxHealth;
+    double health;
+    double maxHealth;
     public override void _Ready()
     {
         

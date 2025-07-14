@@ -10,36 +10,28 @@ public partial class Enemy : CharacterBody2D
 	public double max_health = 50.0;
 	public double health = 50.0;
 	public bool is_alive = true;
-	public bool player_attack_cooldown = false;
+
+	double immunityTime = 0.5; 
 
 
-	public void Damage(double damage)
+	public void Hurt(double damage)
 	{
-		if (player_attack_cooldown == false)
+		if (immunityTime <=0)
 		{
 			health -= damage;
+			GD.Print($"Enemy {Name} took {damage} damage, remaining health: {health}");
 			if (health <= 0)
 			{
 				is_alive = false;
 				GetTree().QueueDelete(this);
+				GD.Print($"Inimigo morto: " + Name);
 			}
 			else
 			{
-				player_attack_cooldown = true;
-				GetTree().CreateTimer(1.0).Timeout += ResetPlayerAttackCooldown;
+				immunityTime = 0.5;
 			}
 		}
 	}
-
-	private void ResetPlayerAttackCooldown()
-	{
-		player_attack_cooldown = false;
-	}
-
-
-
-
-
 
 
 
@@ -54,9 +46,9 @@ public partial class Enemy : CharacterBody2D
 		// Mover o inimigo para frente
 		Velocity = new Vector2(Mathf.MoveToward(Velocity.X, (float)(Speed * direction), (float)(Speed * delta)), Velocity.Y);
 
+		immunityTime -= delta;
+
 		MoveAndSlide();
-
-
 	}
 
 

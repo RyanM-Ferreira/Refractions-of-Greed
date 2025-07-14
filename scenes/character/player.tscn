@@ -25,7 +25,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tum32"]
-size = Vector2(24, 53)
+size = Vector2(27, 55)
 
 [sub_resource type="Animation" id="Animation_erpy8"]
 length = 0.001
@@ -119,7 +119,7 @@ sprite_frames = SubResource("SpriteFrames_bnvp8")
 animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 5.5)
+position = Vector2(0, 4.5)
 shape = SubResource("RectangleShape2D_tum32")
 
 [node name="Camera2D" type="Camera2D" parent="."]
