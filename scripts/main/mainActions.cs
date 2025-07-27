@@ -14,7 +14,7 @@ public partial class mainActions : Button
 	}
 
 	public void DebugButtonPressed()
-	{
+		{
 		GetTree().ChangeSceneToFile("res://scenes//debug/debug_level.tscn");
 	}
 }

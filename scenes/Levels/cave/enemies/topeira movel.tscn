@@ -712,7 +712,6 @@ size = Vector2(55, 33)
 
 [node name="TopeiraMovel" type="CharacterBody2D"]
 collision_layer = 4
-collision_mask = 5
 script = ExtResource("1_6qymu")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
@@ -747,6 +746,7 @@ parameters/conditions/attacking = false
 parameters/conditions/end = false
 
 [node name="Map collision" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0.5, -17)
 shape = SubResource("RectangleShape2D_s2m8c")
 

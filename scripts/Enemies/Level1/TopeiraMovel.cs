@@ -1,7 +1,4 @@
 using Godot;
-using System;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
 
 
 
@@ -73,6 +70,11 @@ public partial class TopeiraMovel : Enemy
 		if (playerdetect.IsColliding())
 		{
 			is_attacking = true;
+			animationTree.Set("parameters/conditions/attacking", true);
+		}
+		else
+		{
+			AnimationPlayback.Travel("moving");
 		}
 
 		// Verifica se o inimigo deve mudar de direção
@@ -88,16 +90,9 @@ public partial class TopeiraMovel : Enemy
 			playerdetect.Scale = new Vector2(1, 1);
 			hitbox.Scale = new Vector2(1, 1);
 		}
-		if (is_attacking == true)
-		{
-			animationTree.Set("parameters/conditions/attacking", true);
-			
 
-		}
-		else
-		{
-			AnimationPlayback.Travel("moving");
-		}
+		
+		
 
 		GroundEnemy(delta, Gravity, direction, Speed);
 	}
