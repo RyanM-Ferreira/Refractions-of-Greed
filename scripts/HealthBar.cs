@@ -4,19 +4,15 @@ using System;
 public partial class HealthBar : ProgressBar
 {
     Node parent;
-    double health;
-    double maxHealth;
     public override void _Ready()
     {
-        
-        parent = GetParent();
+
+        parent = GetOwner();
         if (parent == null)
         {
             GD.PrintErr("Parent node is null. Cannot update health bar.");
             return;
         }
-        health = (double)parent.Get("health");
-        maxHealth = (double)parent.Get("max_health");
 
 
         if (parent.HasSignal("HealthChanged"))
@@ -24,33 +20,13 @@ public partial class HealthBar : ProgressBar
             parent.Connect("HealthChanged", new Callable(this, nameof(UpdateHealthBar)));
             UpdateHealthBar();
         }
+        GD.Print($"Health bar ready with parent: {parent.Name}");
     }
 
     public void UpdateHealthBar()
     {
-        maxHealth = (double)parent.Get("max_health");
-        health = (double)parent.Get("health");
-        MaxValue = maxHealth;
-        Value = health;
-
-        if ((double)parent.Get("health") <= 0)
-        {
-            GD.Print($"{parent.Name} is dead.");
-            if (parent.HasMethod("Die"))
-            {
-                parent.Call("Die");
-            }
-            else
-            {
-                GD.PrintErr($"{parent.Name} does not have a Die method.");
-            }
-            return;
-        }
-        else if ((double)parent.Get("health") > 0)
-        {
-            health = (double)parent.Get("health");
-            Value = health;
-            return;
-        }
+        MaxValue = (double)parent.Get("maxHealth");
+        Value = (double)parent.Get("health");
+        GD.Print($"Health bar updated: MaxValue = {MaxValue}, Value = {Value}");
     }
 }

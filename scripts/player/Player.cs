@@ -4,21 +4,16 @@ using System;
 public partial class Player : CharacterBody2D
 {
 	// Variaveis do combate
-	double max_health = 0;
+	double maxHealth = 50;
 	[Export] public double health = 50.0;
-	bool is_alive = true;
-	bool enemy_attack_cooldown = false;
+	bool isAlive = true;
 
 
 	//knockback
 	Vector2 knockback;
-	float knockback_timer = 0;
+	float knockbackTimer = 0;
 	[Signal] public delegate void PlayerDiedEventHandler();
 	[Signal] public delegate void HealthChangedEventHandler();
-
-
-
-	private InGameUI hud;
 
 
 	// Variaveis de animação
@@ -26,51 +21,49 @@ public partial class Player : CharacterBody2D
 
 
 	// Variaveis de movimento
-	double walk_speed = 175.0;
+	double walkSpeed = 175.0;
 	double acceleration = 0.1; //até 1
 	double deceleration = 0.1; //até 1
 	float direction = 1;
 
 
 	// Variaveis de pulo
-	bool can_jump = true;
-	double coyote_time = 0.2;
-	double jump_force = -500.0;
-	double decelerate_on_jump_release = 0.5; //até 1
+	bool canJump = true;
+	double coyoteTime = 0.2;
+	double jumpForce = -500.0;
+	double decelerateOnJumpRelease = 0.5; //até 1
 	double gravity = (double)ProjectSettings.GetSetting("physics/2d/default_gravity");
 
 
 	// Variaveis de dash
-	double dash_speed = 100.0;
-	double dash_max_distance = 100.0;
-	[Export] public Curve dash_curve;
-	double dash_cooldown = 1.0;
+	double dashSpeed = 100.0;
+	double dashMaxDistance = 100.0;
+	[Export] public Curve dashCurve;
+	double dashCooldown = 1.0;
 
 	
 
-	bool is_dashing = false;
-	double dash_start_position = 0;
-	double dash_direction = 0;
-	double dash_timer = 0;
+	bool isDashing = false;
+	double dashStartPosition = 0;
+	double dashDirection = 0;
+	double dashTimer = 0;
 
-	double immunity_time = 0.5; 
+	double immunityTime = 0.5;
 
 
 
 	public override void _Ready()
 	{
-		// Definindo a vida do jogador
-		max_health = Global.PlayerMaxHealth;
-		health = max_health;
 
 		sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+		GD.Print($"Player {Name} ready with health: {health} and max health: {maxHealth}");
 
 	}
 
 	// Processamento de fisica do jogador
 	public override void _PhysicsProcess(double delta)
 	{
-		if (!is_alive)
+		if (!isAlive)
 			return;
 
 		//Botão para pausar o jogo
@@ -84,23 +77,23 @@ public partial class Player : CharacterBody2D
 		if (!IsOnFloor())
 		{
 			Velocity = new Vector2(Velocity.X, (float)(Velocity.Y + gravity * delta));
-			coyote_time -= (float)delta;
-			if (coyote_time <= 0)
+			coyoteTime -= (float)delta;
+			if (coyoteTime <= 0)
 			{
-				can_jump = false;
+				canJump = false;
 			}
 		}
 		else
 		{
-			coyote_time = 0.3f; // Resetando o coyote time quando está no chão
-			can_jump = true;
+			coyoteTime = 0.3f; // Resetando o coyote time quando está no chão
+			canJump = true;
 		}
 
-		if (knockback_timer > 0)
+		if (knockbackTimer > 0)
 		{
 			Velocity = new Vector2(knockback.X, knockback.Y);
-			knockback_timer -= (float)delta;
-			if (knockback_timer <= 0)
+			knockbackTimer -= (float)delta;
+			if (knockbackTimer <= 0)
 			{
 				knockback = Vector2.Zero; // Reseta o knockback quando o tempo acaba
 			}
@@ -113,7 +106,7 @@ public partial class Player : CharacterBody2D
 
 
 
-		immunity_time -= delta;
+		immunityTime -= delta;
 		MoveAndSlide();
 	}
 
@@ -122,20 +115,20 @@ public partial class Player : CharacterBody2D
 	public void Movement(double delta)
 	{
 		// Pulo
-		if (Input.IsActionJustPressed("jump") && can_jump == true)
+		if (Input.IsActionJustPressed("jump") && canJump == true)
 		{
-			can_jump = false;
-			Velocity = new Vector2(Velocity.X, (float)jump_force);
+			canJump = false;
+			Velocity = new Vector2(Velocity.X, (float)jumpForce);
 			// GD.Print("Pulando");
 		}
 
 		if (Input.IsActionJustReleased("jump") && Velocity.Y < 0)
 		{
-			Velocity = new Vector2(Velocity.X, (float)(Velocity.Y * decelerate_on_jump_release));
+			Velocity = new Vector2(Velocity.X, (float)(Velocity.Y * decelerateOnJumpRelease));
 		}
 
 		//Apenas para visual enquanto prototipo
-		if (!is_dashing && sprite.RotationDegrees != 0)
+		if (!isDashing && sprite.RotationDegrees != 0)
 		{
 			sprite.RotationDegrees = 0;
 		}
@@ -145,97 +138,92 @@ public partial class Player : CharacterBody2D
 		if (Input.IsActionPressed("left") && Input.IsActionPressed("right"))
 		{
 			direction = 0;
-			Velocity = new Vector2(Mathf.MoveToward(Velocity.X, 0, (float)(walk_speed * deceleration)), Velocity.Y);
+			Velocity = new Vector2(Mathf.MoveToward(Velocity.X, 0, (float)(walkSpeed * deceleration)), Velocity.Y);
 		}
 		else if (Input.IsActionPressed("left"))
 		{
 			direction = -1;
 			sprite.FlipH = true;
-			Velocity = new Vector2(Mathf.MoveToward(Velocity.X, (float)(direction * walk_speed), (float)(walk_speed * acceleration)), Velocity.Y);
+			Velocity = new Vector2(Mathf.MoveToward(Velocity.X, (float)(direction * walkSpeed), (float)(walkSpeed * acceleration)), Velocity.Y);
 		}
 		else if (Input.IsActionPressed("right"))
 		{
 			direction = 1;
 			sprite.FlipH = false;
-			Velocity = new Vector2(Mathf.MoveToward(Velocity.X, (float)(direction * walk_speed), (float)(walk_speed * acceleration)), Velocity.Y);
+			Velocity = new Vector2(Mathf.MoveToward(Velocity.X, (float)(direction * walkSpeed), (float)(walkSpeed * acceleration)), Velocity.Y);
 		}
 		else
 		{
 			direction = 0;
-			Velocity = new Vector2(Mathf.MoveToward(Velocity.X, 0, (float)(walk_speed * deceleration)), Velocity.Y);
+			Velocity = new Vector2(Mathf.MoveToward(Velocity.X, 0, (float)(walkSpeed * deceleration)), Velocity.Y);
 		}
 		
 
 
 		// Codigo para o dash
-		if (Input.IsActionJustPressed("dash") && direction != 0 && dash_timer <= 0)
+		if (Input.IsActionJustPressed("dash") && direction != 0 && dashTimer <= 0)
 		{
-			is_dashing = true;
-			dash_start_position = Position.X;
-			dash_direction = direction;
-			dash_timer = dash_cooldown;
+			isDashing = true;
+			dashStartPosition = Position.X;
+			dashDirection = direction;
+			dashTimer = dashCooldown;
 
 			//Apenas para visual enquanto prototipo
 			sprite.RotationDegrees = 25 * direction;
 		}
 
 		// Dash
-		if (is_dashing)
+		if (isDashing)
 		{
-			double current_distance = Math.Abs(Position.X - dash_start_position);
+			double currentDistance = Math.Abs(Position.X - dashStartPosition);
 
-			if (current_distance >= dash_max_distance || IsOnWall())
+			if (currentDistance >= dashMaxDistance || IsOnWall())
 			{
-				is_dashing = false;
+				isDashing = false;
 				RotationDegrees = 0;
 			}
 			// Mover o personagem
 			else
 			{
-				double curve_factor = dash_curve.Sample((float)Math.Abs(current_distance / dash_max_distance));
-				Velocity = new Vector2((float)(Velocity.X + dash_direction * dash_speed * curve_factor), Velocity.Y);
+				double curveFactor = dashCurve.Sample((float)Math.Abs(currentDistance / dashMaxDistance));
+				Velocity = new Vector2((float)(Velocity.X + dashDirection * dashSpeed * curveFactor), Velocity.Y);
 				Velocity = new Vector2(Velocity.X, 0);
 
 			}
 		}
 
 		// Cooldown do dash
-		if (dash_timer > 0)
+		if (dashTimer > 0)
 		{
-			dash_timer -= delta;
+			dashTimer -= delta;
 		}
 	}
 
 	// Função para receber dano
-	public void Hurt(double damage, Vector2 hitbox_location, float knockback_force)
+	public void Hurt(double damage, Vector2 hitboxLocation, float knockbackForce)
 	{
 		//verifica se o jogador está imune a ataques
-		if (immunity_time <=0)
+		
+		if (immunityTime <= 0)
 		{
 			health -= damage;
+			GD.Print($"Jogador {Name} recebeu {damage} de dano, vida restante: {health}");
 			if (health <= 0)
 			{
-				is_alive = false;
+				isAlive = false;
 				EmitSignal(nameof(PlayerDied));
 				GetTree().CreateTimer(0.01).Timeout += () => QueueFree();
 				GD.Print("Jogador morreu");
 			}
 			else
 			{
-				is_dashing = false;
-				var hit_direction = (GlobalPosition - hitbox_location).Normalized();
-				Apply_Knockback(new Vector2(knockback_force, 100), hit_direction, 0.15f);
+				isDashing = false;
+				knockback = (GlobalPosition - hitboxLocation).Normalized() * new Vector2(knockbackForce, 100);
+				knockbackTimer = 0.15f;
 				EmitSignal(nameof(HealthChanged));
-				immunity_time += 0.5;
+				immunityTime += 0.5;
 			}
 		}
-	}
-
-
-	public void Apply_Knockback(Vector2 knockbackForce, Vector2 direction, float knockback_duration)
-	{
-		knockback = direction * knockbackForce;
-		knockback_timer = knockback_duration;
 	}
 }
 

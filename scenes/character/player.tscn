@@ -5,8 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://bm6lma81gxrxn" path="res://scenes/hurtbox.tscn" id="3_0vjlc"]
 [ext_resource type="PackedScene" uid="uid://kelt753b0v6o" path="res://scenes/HealthBar.tscn" id="4_bnvp8"]
 
-[sub_resource type="Curve" id="Curve_tum32"]
-_data = [Vector2(0.15035, 0.857778), 0.0, 0.0, 0, 0, Vector2(0.755319, 0.303371), 0.0, 0.0, 0, 0]
+[sub_resource type="Curve" id="Curve_bnvp8"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0vjlc"]
@@ -112,7 +112,7 @@ size = Vector2(20, 51)
 z_index = 5
 collision_layer = 2
 script = ExtResource("1_tum32")
-dash_curve = SubResource("Curve_tum32")
+dashCurve = SubResource("Curve_bnvp8")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_bnvp8")
@@ -123,7 +123,6 @@ position = Vector2(0, 4.5)
 shape = SubResource("RectangleShape2D_tum32")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-offset = Vector2(36.625, 0)
 zoom = Vector2(0.8, 0.8)
 position_smoothing_enabled = true
 position_smoothing_speed = 20.0
@@ -144,9 +143,13 @@ parameters/conditions/end = false
 position = Vector2(0, 5.5)
 shape = SubResource("RectangleShape2D_bnvp8")
 
-[node name="HealthBar" parent="." instance=ExtResource("4_bnvp8")]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HealthBar" parent="CanvasLayer" instance=ExtResource("4_bnvp8")]
 texture_repeat = 1
-offset_left = -16.0
-offset_top = 37.0
-offset_right = 18.0
-offset_bottom = 46.0
+offset_left = 16.0
+offset_top = 9.0
+offset_right = 49.0
+offset_bottom = 18.0
+scale = Vector2(2, 2)
+value = 50.0

@@ -4,50 +4,72 @@ public partial class Enemy : CharacterBody2D
 {
 	public double Speed = 20.0;
 	public double Gravity = 100.0;
-	public double direction = -1.0;
+	public float direction = -1.0f;
 
 	//combate
 	public double max_health = 50.0;
 	public double health = 50.0;
 	public bool is_alive = true;
 
-	double immunityTime = 0.5; 
+	double immunityTime = 0.5;
 
 
-	public void Hurt(double damage)
+	Vector2 knockback;
+	float knockbackTimer = 0;
+
+
+	[Signal] public delegate void HealthChangedEventHandler();
+
+
+	public void Hurt(double damage, Vector2 hitboxLocation, float knockbackForce)
 	{
-		if (immunityTime <=0)
+		if (immunityTime <= 0)
 		{
 			health -= damage;
-			GD.Print($"Enemy {Name} took {damage} damage, remaining health: {health}");
+			GD.Print($"Jogador {Name} recebeu {damage} de dano, vida restante: {health}");
 			if (health <= 0)
 			{
-				is_alive = false;
-				GetTree().QueueDelete(this);
-				GD.Print($"Inimigo morto: " + Name);
+				GetTree().CreateTimer(0.01).Timeout += () => QueueFree();
+				GD.Print("Jogador morreu");
 			}
 			else
 			{
-				immunityTime = 0.5;
+				knockback = (GlobalPosition - hitboxLocation).Normalized() * new Vector2(knockbackForce, 100);
+				knockbackTimer = 0.15f;
+				EmitSignal(nameof(HealthChanged));
+				immunityTime += 0.5;
 			}
 		}
+
 	}
 
 
 
 	public void GroundEnemy(double delta, double Gravity, double direction, double Speed)
 	{
-		//Gravidade
-		if (!IsOnFloor())
+
+		if (knockbackTimer > 0)
 		{
-			Velocity = new Vector2(Velocity.X, Velocity.Y + (float)Gravity * (float)delta);
+			Velocity = new Vector2(knockback.X, knockback.Y);
+			knockbackTimer -= (float)delta;
+			if (knockbackTimer <= 0)
+			{
+				knockback = Vector2.Zero; // Reseta o knockback quando o tempo acaba
+			}
 		}
+		else
+		{
+			//Gravidade
+			if (!IsOnFloor())
+			{
+				Velocity = new Vector2(Velocity.X, Velocity.Y + (float)Gravity * (float)delta);
+			}
 
-		// Mover o inimigo para frente
-		Velocity = new Vector2(Mathf.MoveToward(Velocity.X, (float)(Speed * direction), (float)(Speed * delta)), Velocity.Y);
+			// Mover o inimigo para frente
+			Velocity = new Vector2(Mathf.MoveToward(Velocity.X, (float)(Speed * direction), (float)(Speed * delta)), Velocity.Y);
 
+		}
 		immunityTime -= delta;
-
 		MoveAndSlide();
 	}
 

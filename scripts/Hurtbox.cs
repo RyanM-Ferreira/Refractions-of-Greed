@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Threading.Tasks;
 
 public partial class Hurtbox : Area2D
 {
@@ -22,6 +23,7 @@ public partial class Hurtbox : Area2D
             {
                 GD.Print($"Hurtbox owner: {Owner.Name} hurt by {HitboxOwner.Name} ");
                 Owner.Call("Hurt", damage);
+                return;
             }
         }
     }
