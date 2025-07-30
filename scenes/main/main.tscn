@@ -1,74 +1,111 @@
-[gd_scene load_steps=4 format=3 uid="uid://b0o40dsimxg5c"]
+[gd_scene load_steps=7 format=3 uid="uid://b0o40dsimxg5c"]
 
 [ext_resource type="Script" uid="uid://cfdksr6fa6i4o" path="res://scripts/main/mainActions.cs" id="1_hyk8p"]
-[ext_resource type="Texture2D" uid="uid://biw5w21yd0nce" path="res://assets/sketchs/Cave_Design.png" id="1_k2fmo"]
+[ext_resource type="Texture2D" uid="uid://d2ewa5gelgmw3" path="res://assets/mainMenu/menuBackground.png" id="1_ow5a4"]
+[ext_resource type="Texture2D" uid="uid://dosydny11b0ea" path="res://assets/mainMenu/titleLogo_v4_white.png" id="4_6q06x"]
 [ext_resource type="Theme" uid="uid://bi1jnicihv01e" path="res://themes/text/bold.tres" id="4_l3cfh"]
+[ext_resource type="StyleBox" uid="uid://clkelnpcbfymq" path="res://themes/emptyStyleBox_Button.tres" id="4_ow5a4"]
+[ext_resource type="Texture2D" uid="uid://0j338ib8igoe" path="res://assets/mainMenu/optionArc.png" id="6_b1x3f"]
 
 [node name="main" type="Node2D"]
 
-[node name="CaveDesign" type="Sprite2D" parent="."]
-position = Vector2(1248, 168)
-scale = Vector2(4, 4)
-texture = ExtResource("1_k2fmo")
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="TextureRect" type="TextureRect" parent="Control"]
+modulate = Color(0.0862745, 0.0862745, 0.0862745, 1)
+layout_mode = 0
+offset_right = 320.0
+offset_bottom = 180.0
+scale = Vector2(2, 2)
+texture = ExtResource("1_ow5a4")
 
-[node name="startButton" type="Button" parent="CanvasLayer"]
-offset_left = 24.0
-offset_top = 288.0
-offset_right = 120.0
-offset_bottom = 311.0
+[node name="UI" type="CanvasLayer" parent="Control"]
+follow_viewport_enabled = true
+
+[node name="OptionArc_UP" type="Sprite2D" parent="Control/UI"]
+position = Vector2(318, 226)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("6_b1x3f")
+
+[node name="startButton" type="Button" parent="Control/UI"]
+offset_left = 272.0
+offset_top = 237.0
+offset_right = 368.0
+offset_bottom = 255.0
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 10
+theme_override_styles/focus = ExtResource("4_ow5a4")
 text = "Iniciar
 "
+flat = true
 script = ExtResource("1_hyk8p")
 
-[node name="debugButton" type="Button" parent="CanvasLayer"]
-offset_left = 133.0
-offset_top = 322.0
-offset_right = 224.0
-offset_bottom = 342.0
+[node name="optionsButton" type="Button" parent="Control/UI"]
+offset_left = 272.0
+offset_top = 255.0
+offset_right = 368.0
+offset_bottom = 273.0
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 10
+theme_override_styles/focus = ExtResource("4_ow5a4")
+text = "Opções"
+flat = true
+script = ExtResource("1_hyk8p")
+
+[node name="debugButton2" type="Button" parent="Control/UI"]
+editor_description = "Debug Level"
+offset_top = 337.0
+offset_right = 54.0
+offset_bottom = 358.0
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 10
+theme_override_styles/focus = ExtResource("4_ow5a4")
 text = "Debug"
+flat = true
 script = ExtResource("1_hyk8p")
 
-[node name="quitButton" type="Button" parent="CanvasLayer"]
-offset_left = 24.0
-offset_top = 320.0
-offset_right = 120.0
-offset_bottom = 343.0
+[node name="quitButton" type="Button" parent="Control/UI"]
+offset_left = 272.0
+offset_top = 273.0
+offset_right = 368.0
+offset_bottom = 291.0
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 10
+theme_override_styles/focus = ExtResource("4_ow5a4")
 text = "Sair"
+flat = true
 script = ExtResource("1_hyk8p")
 
-[node name="version" type="Label" parent="CanvasLayer"]
-offset_left = 568.0
-offset_top = 334.0
-offset_right = 640.0
+[node name="OptionArc_DOWN" type="Sprite2D" parent="Control/UI"]
+position = Vector2(318, 303)
+scale = Vector2(1.5, -1.5)
+texture = ExtResource("6_b1x3f")
+
+[node name="TitleLogoV4" type="Sprite2D" parent="Control/UI"]
+position = Vector2(320, 100)
+scale = Vector2(1.25, 1.25)
+texture = ExtResource("4_6q06x")
+
+[node name="version" type="Label" parent="Control/UI"]
+offset_left = 561.0
+offset_top = 345.0
+offset_right = 633.0
 offset_bottom = 357.0
+size_flags_horizontal = 8
 theme = ExtResource("4_l3cfh")
-text = "v0.0"
+text = "v0.0.1"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="title" type="Label" parent="CanvasLayer"]
-offset_left = 24.0
-offset_top = 216.0
-offset_right = 465.0
-offset_bottom = 256.0
-theme = ExtResource("4_l3cfh")
-theme_override_font_sizes/font_size = 24
-text = "Refractions of Greed"
-
-[node name="title" type="Label" parent="CanvasLayer/title"]
-layout_mode = 0
-offset_left = 2008.0
-offset_top = -32.0
-offset_right = 2395.0
-offset_bottom = 8.0
-theme = ExtResource("4_l3cfh")
-theme_override_font_sizes/font_size = 24
-text = "Bungas Bold"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[connection signal="pressed" from="CanvasLayer/startButton" to="CanvasLayer/startButton" method="StartButtonPressed"]
-[connection signal="pressed" from="CanvasLayer/debugButton" to="CanvasLayer/debugButton" method="DebugButtonPressed"]
-[connection signal="pressed" from="CanvasLayer/quitButton" to="CanvasLayer/startButton" method="QuitButtonPressed"]
+[connection signal="pressed" from="Control/UI/startButton" to="Control/UI/startButton" method="StartButtonPressed"]
+[connection signal="pressed" from="Control/UI/optionsButton" to="Control/UI/startButton" method="OptionsMenuButtonPressed"]
+[connection signal="pressed" from="Control/UI/debugButton2" to="Control/UI/debugButton2" method="DebugButtonPressed"]
+[connection signal="pressed" from="Control/UI/quitButton" to="Control/UI/startButton" method="QuitButtonPressed"]
