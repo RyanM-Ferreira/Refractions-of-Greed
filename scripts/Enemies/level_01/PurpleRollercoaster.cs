@@ -2,25 +2,24 @@ using Godot;
 
 public partial class PurpleRollercoaster : Enemy
 {
-
-	//import Animation elements
+	// Import Animation elements
 	private AnimatedSprite2D Sprite;
 	private AnimationTree animationTree;
 	private AnimationNodeStateMachinePlayback AnimationPlayback;
 
-	//import hitbox
+	// Import hitbox
 	private Area2D hitbox;
 
-	//import RayCast2D
+	// Import RayCast2D
 	private RayCast2D raycast_Left;
 	private RayCast2D raycast_Right;
 	private RayCast2D raycast_DownLeft;
 	private RayCast2D raycast_DownRight;
 
+	// Enemy properties
 	public double Speed = 40.0;
 	public double Gravity = 100;
 	public double direction = -1.0;
-
 	public double health = 20.0;
 
 	public override void _Ready()
@@ -37,8 +36,7 @@ public partial class PurpleRollercoaster : Enemy
 
 	public override void _Process(double delta)
 	{
-		// Raycast 
-		// Muda a direção do inimigo
+		// Muda a direção do inimigo de acordo com o RayCast
 		if (raycast_Left.IsColliding())
 		{
 			direction = 1;
