@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Refractions of Greed"
 config/version="0.0"
-run/main_scene="uid://b0o40dsimxg5c"
+run/main_scene="uid://dpfynnsl8f6ga"
 config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
