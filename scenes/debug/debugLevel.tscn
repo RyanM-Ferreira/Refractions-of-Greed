@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://yumngb5g653t" path="res://scripts/Global.cs" id="1_qybow"]
 [ext_resource type="PackedScene" uid="uid://d4mg546sapinq" path="res://scenes/player/player.tscn" id="2_wwkcr"]
 [ext_resource type="Texture2D" uid="uid://biw5w21yd0nce" path="res://assets/sketchs/caveDesign.png" id="3_tidam"]
-[ext_resource type="PackedScene" uid="uid://tadv4ch0tx4j" path="res://scenes/HitBox.tscn" id="4_e5kto"]
+[ext_resource type="PackedScene" uid="uid://tadv4ch0tx4j" path="res://scenes/damage/hitBox.tscn" id="4_e5kto"]
 [ext_resource type="Texture2D" uid="uid://dkspkcqlj7pnx" path="res://assets/tilemaps/spike.png" id="5_26hog"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nrqd8"]

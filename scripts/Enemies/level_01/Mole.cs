@@ -1,15 +1,16 @@
 using Godot;
 
-public partial class TopeiraMovel : Enemy
-{   //import AnimatedSprite2D
+public partial class Mole : Enemy
+{
+	// Import AnimatedSprite2D
 	private AnimatedSprite2D sprite;
 	private AnimationTree animationTree;
 	private AnimationNodeStateMachinePlayback AnimationPlayback;
 
-	//import hitbox
+	// Import Hitbox
 	private Area2D hitbox;
 
-	//import RayCast2D
+	// Import RayCast2D
 	private RayCast2D raycast_Left;
 	private RayCast2D raycast_Right;
 	private RayCast2D playerdetect;
@@ -38,7 +39,6 @@ public partial class TopeiraMovel : Enemy
 		{
 			is_attacking = false;
 			animationTree.Set("parameters/conditions/attacking", false);
-
 		}
 		if (anim_name == "attack_end")
 		{
@@ -48,7 +48,7 @@ public partial class TopeiraMovel : Enemy
 
 	public override void _Process(double delta)
 	{
-		//raycast 
+		// Raycast 
 		if (raycast_Left.IsColliding())
 		{
 			// Muda a direção do inimigo
@@ -69,21 +69,20 @@ public partial class TopeiraMovel : Enemy
 			AnimationPlayback.Travel("moving");
 		}
 
-		// Verifica se o inimigo deve mudar de direção
+		// Verifica direção e ajusta o sprite e hitbox
 		if (direction > 0)
 		{
-			sprite.FlipH = true;
 			playerdetect.Scale = new Vector2(-1, 1);
 			hitbox.Scale = new Vector2(-1, 1);
+			sprite.FlipH = true;
 		}
 		else if (direction < 0)
 		{
-			sprite.FlipH = false;
 			playerdetect.Scale = new Vector2(1, 1);
 			hitbox.Scale = new Vector2(1, 1);
+			sprite.FlipH = false;
 		}
 
 		GroundEnemy(delta, Gravity, direction, Speed);
 	}
-
 }

@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://kse62udlwkfy" path="res://scripts/player/Player.cs" id="1_tum32"]
 [ext_resource type="Texture2D" uid="uid://c52epg8sofxu5" path="res://assets/player/john_sim.png" id="2_tum32"]
-[ext_resource type="PackedScene" uid="uid://bm6lma81gxrxn" path="res://scenes/hurtbox.tscn" id="3_0vjlc"]
-[ext_resource type="PackedScene" uid="uid://kelt753b0v6o" path="res://scenes/HealthBar.tscn" id="4_bnvp8"]
+[ext_resource type="PackedScene" uid="uid://bm6lma81gxrxn" path="res://scenes/damage/hurtbox.tscn" id="3_0vjlc"]
+[ext_resource type="PackedScene" uid="uid://kelt753b0v6o" path="res://scenes/damage/healthBar.tscn" id="4_bnvp8"]
 [ext_resource type="Texture2D" uid="uid://cjgxunm72wy8g" path="res://assets/ui/statusBar/healthBarTexture.png" id="5_erpy8"]
 [ext_resource type="Texture2D" uid="uid://bryqhx6exjsg3" path="res://assets/ui/statusBar/lifeBarBackgroundTexture.png" id="5_wmtbp"]
 [ext_resource type="Texture2D" uid="uid://bn5g8tcf6j2iq" path="res://assets/ui/statusBar/statusBar.png" id="6_wmtbp"]
@@ -161,11 +161,10 @@ shape = SubResource("RectangleShape2D_bnvp8")
 [node name="HealthBar" parent="CanvasLayer" instance=ExtResource("4_bnvp8")]
 clip_contents = true
 layout_direction = 2
-offset_left = 47.25
-offset_top = 14.25
-offset_right = 128.25
-offset_bottom = 21.5
-scale = Vector2(1.5, 1.5)
+offset_left = 42.4852
+offset_top = 14.0882
+offset_right = 146.485
+offset_bottom = 24.0882
 size_flags_horizontal = 6
 size_flags_vertical = 6
 theme_override_styles/background = SubResource("StyleBoxTexture_uicah")
@@ -174,6 +173,6 @@ value = 50.0
 show_percentage = false
 
 [node name="StatusBarSprite" type="Sprite2D" parent="CanvasLayer"]
-position = Vector2(85.5148, 22.9118)
-scale = Vector2(1.75, 1.75)
+position = Vector2(75, 22)
+scale = Vector2(1.5, 1.5)
 texture = ExtResource("6_wmtbp")

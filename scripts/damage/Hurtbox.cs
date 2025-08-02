@@ -9,7 +9,6 @@ public partial class Hurtbox : Area2D
         var HitboxOwner = Area2D.Owner;
         if (Owner != HitboxOwner && Owner.GetType() != HitboxOwner.GetType())
         {
-
             var damage = Area2D.Get("Damage");
             float knockback = (float)Area2D.Get("Knockback");
 
@@ -19,6 +18,7 @@ public partial class Hurtbox : Area2D
                 Owner.Call("Hurt", damage, hitboxlocation, knockback);
                 return;
             }
+
             if (Owner.HasMethod("Hurt"))
             {
                 GD.Print($"Hurtbox owner: {Owner.Name} hurt by {HitboxOwner.Name} ");

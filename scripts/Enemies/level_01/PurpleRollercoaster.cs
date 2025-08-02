@@ -17,19 +17,14 @@ public partial class PurpleRollercoaster : Enemy
 	private RayCast2D raycast_DownLeft;
 	private RayCast2D raycast_DownRight;
 
-
 	public double Speed = 40.0;
 	public double Gravity = 100;
-
 	public double direction = -1.0;
-
 
 	public double health = 20.0;
 
-
 	public override void _Ready()
 	{
-
 		raycast_Right = GetNode<RayCast2D>("RayCast_Right");
 		raycast_Left = GetNode<RayCast2D>("RayCast_Left");
 		raycast_DownLeft = GetNode<RayCast2D>("RayCast_DownLeft");
@@ -42,20 +37,18 @@ public partial class PurpleRollercoaster : Enemy
 
 	public override void _Process(double delta)
 	{
-		//raycast 
+		// Raycast 
+		// Muda a direção do inimigo
 		if (raycast_Left.IsColliding())
 		{
-			// Muda a direção do inimigo
 			direction = 1;
 		}
 		if (raycast_Right.IsColliding())
 		{
-			// Muda a direção do inimigo
 			direction = -1;
 		}
 		if (!raycast_DownLeft.IsColliding() && raycast_DownRight.IsColliding())
 		{
-			// Muda a direção do inimigo
 			direction = -1;
 		}
 		if (!raycast_DownRight.IsColliding() && raycast_DownLeft.IsColliding())
@@ -66,15 +59,14 @@ public partial class PurpleRollercoaster : Enemy
 		// Verifica se o inimigo deve mudar de direção
 		if (direction > 0)
 		{
-			Sprite.FlipH = true;
 			hitbox.Scale = new Vector2(-1, 1);
+			Sprite.FlipH = true;
 		}
 		else if (direction < 0)
 		{
-			Sprite.FlipH = false;
 			hitbox.Scale = new Vector2(1, 1);
+			Sprite.FlipH = false;
 		}
-
 
 		GroundEnemy(delta, Gravity, direction, Speed);
 	}

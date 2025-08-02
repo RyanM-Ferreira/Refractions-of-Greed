@@ -1,9 +1,8 @@
-[gd_scene load_steps=23 format=3 uid="uid://belih6cl0jtlp"]
+[gd_scene load_steps=22 format=3 uid="uid://belih6cl0jtlp"]
 
-[ext_resource type="Script" uid="uid://diqohd2m06pex" path="res://scripts/enemies/level_01/Morcego.cs" id="1_ss8ju"]
 [ext_resource type="Texture2D" uid="uid://csu11o4b2fym5" path="res://assets/enemies/level_01/mrocego/mrocego.png" id="2_duhak"]
-[ext_resource type="PackedScene" uid="uid://tadv4ch0tx4j" path="res://scenes/HitBox.tscn" id="3_0npo2"]
-[ext_resource type="PackedScene" uid="uid://bm6lma81gxrxn" path="res://scenes/hurtbox.tscn" id="4_duhak"]
+[ext_resource type="PackedScene" uid="uid://tadv4ch0tx4j" path="res://scenes/damage/hitBox.tscn" id="3_0npo2"]
+[ext_resource type="PackedScene" uid="uid://bm6lma81gxrxn" path="res://scenes/damage/hurtbox.tscn" id="4_duhak"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5vyd3"]
 atlas = ExtResource("2_duhak")
@@ -115,18 +114,17 @@ graph_offset = Vector2(-71, -21)
 radius = 15.1327
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ss8ju"]
-radius = 19.105
+radius = 16.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_duhak"]
-radius = 304.002
+radius = 320.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0npo2"]
-radius = 17.0
+radius = 16.0
 
 [node name="Morcego" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 9
-script = ExtResource("1_ss8ju")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(3, -2)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://be2upkt55v8rf"]
+[gd_scene load_steps=16 format=4 uid="uid://be2upkt55v8rf"]
 
 [ext_resource type="Script" uid="uid://yumngb5g653t" path="res://scripts/Global.cs" id="1_8ryxd"]
 [ext_resource type="PackedScene" uid="uid://d4mg546sapinq" path="res://scenes/player/player.tscn" id="1_e4h6s"]
@@ -6,8 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://cwpqg4e0a3fn5" path="res://assets/tilemaps/level_01/Cave_Tileset.png" id="2_e4h6s"]
 [ext_resource type="Texture2D" uid="uid://bmyctlwvtr2tg" path="res://assets/tilemaps/Level1_Tileset.png" id="3_8ryxd"]
 [ext_resource type="PackedScene" uid="uid://belih6cl0jtlp" path="res://scenes/levels/cave/enemies/mrocego.tscn" id="5_0iege"]
+[ext_resource type="Script" uid="uid://0p1hswuk54w5" path="res://scripts/enemies/level_01/Mrocego.cs" id="7_ob5xq"]
 [ext_resource type="PackedScene" uid="uid://bkxpvk74ouka2" path="res://scenes/levels/cave/enemies/purpleRollercoaster.tscn" id="8_dkyq7"]
 [ext_resource type="PackedScene" uid="uid://smn2wmm61xkk" path="res://scenes/levels/cave/enemies/mole.tscn" id="8_kfgjw"]
+[ext_resource type="Script" uid="uid://bugo7jvbanylx" path="res://scripts/enemies/level_01/Mole.cs" id="10_pdt63"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0iege"]
 texture = ExtResource("2_e4h6s")
@@ -318,22 +320,24 @@ tile_set = SubResource("TileSet_fpjjv")
 
 [node name="hitbox" type="Node2D" parent="."]
 
-[node name="Flying collision" type="Node2D" parent="."]
+[node name="flyingCollision" type="Node2D" parent="."]
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Flying collision"]
+[node name="StaticBody2D" type="StaticBody2D" parent="flyingCollision"]
 position = Vector2(0, 6)
 collision_layer = 8
 collision_mask = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Flying collision/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="flyingCollision/StaticBody2D"]
 position = Vector2(225, -132)
 shape = SubResource("RectangleShape2D_e2473")
 
-[node name="Morcego" parent="." instance=ExtResource("5_0iege")]
+[node name="mrocego" parent="." instance=ExtResource("5_0iege")]
 position = Vector2(593, -79)
+script = ExtResource("7_ob5xq")
 
 [node name="PurpleRollercoaster" parent="." instance=ExtResource("8_dkyq7")]
-position = Vector2(1451, 20)
+position = Vector2(-442, 29)
 
-[node name="TopeiraMovel" parent="." instance=ExtResource("8_kfgjw")]
+[node name="mole" parent="." instance=ExtResource("8_kfgjw")]
 position = Vector2(-681, 62)
+script = ExtResource("10_pdt63")

@@ -2,24 +2,22 @@ using Godot;
 using System;
 public partial class Enemy : CharacterBody2D
 {
+	// Sessão de variáveis
+
+	// Movimento
 	public double Speed = 20.0;
 	public double Gravity = 100.0;
 	public float direction = -1.0f;
 
-	//combate
+	// Combate
 	public double max_health = 50.0;
 	public double health = 50.0;
 	public bool is_alive = true;
-
 	double immunityTime = 0.5;
-
-
 	Vector2 knockback;
 	float knockbackTimer = 0;
 
-
 	[Signal] public delegate void HealthChangedEventHandler();
-
 
 	public void Hurt(double damage, Vector2 hitboxLocation, float knockbackForce)
 	{
@@ -40,14 +38,10 @@ public partial class Enemy : CharacterBody2D
 				immunityTime += 0.5;
 			}
 		}
-
 	}
-
-
 
 	public void GroundEnemy(double delta, double Gravity, double direction, double Speed)
 	{
-
 		if (knockbackTimer > 0)
 		{
 			Velocity = new Vector2(knockback.X, knockback.Y);
@@ -59,7 +53,7 @@ public partial class Enemy : CharacterBody2D
 		}
 		else
 		{
-			//Gravidade
+			// Gravidade
 			if (!IsOnFloor())
 			{
 				Velocity = new Vector2(Velocity.X, Velocity.Y + (float)Gravity * (float)delta);
@@ -67,13 +61,10 @@ public partial class Enemy : CharacterBody2D
 
 			// Mover o inimigo para frente
 			Velocity = new Vector2(Mathf.MoveToward(Velocity.X, (float)(Speed * direction), (float)(Speed * delta)), Velocity.Y);
-
 		}
 		immunityTime -= delta;
 		MoveAndSlide();
 	}
-
-
 
 	public void FlyingEnemy(double delta, double direction, double Speed)
 	{

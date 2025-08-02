@@ -1,17 +1,17 @@
 using Godot;
 using System;
-public partial class Morcego : Enemy
+public partial class Mrocego : Enemy
 {
-	public new double Speed = 50.0;
-
+	public new double Speed = 75.0;
 	private new (int, int) direction = (-1, 1);
 	bool is_chassing;
 
-	//import animation elements
+	// Import elementos de animação
 	private AnimatedSprite2D sprite;
 	private AnimationTree animationTree;
 	private AnimationNodeStateMachinePlayback AnimationPlayback;
-	//import timer
+
+	// Import Timer
 	private Timer timer;
 
 	private Player player;
@@ -43,16 +43,12 @@ public partial class Morcego : Enemy
 		}
 	}
 
-
-
-
 	private void OnTimerTimeout()
 	{
 		timer.WaitTime = choose([1, 0.8]);
 		if (!is_chassing)
 		{
 			direction = ((int)choose([-1.0, 1.0, 0.0]), (int)choose([-1.0, 1.0, 0.0]));
-
 		}
 	}
 
@@ -65,7 +61,6 @@ public partial class Morcego : Enemy
 
 	public void Move(double delta)
 	{
-
 		if (!is_chassing)
 		{
 			Vector2 velocity = new Vector2(
@@ -92,7 +87,6 @@ public partial class Morcego : Enemy
 		MoveAndSlide();
 	}
 
-
 	public override void _PhysicsProcess(double delta)
 	{
 		if (direction.Item1 <= -1)
@@ -104,7 +98,5 @@ public partial class Morcego : Enemy
 			sprite.FlipH = true;
 		}
 		Move(delta);
-	
 	}
-
 }

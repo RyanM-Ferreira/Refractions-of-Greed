@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cdgw0cd6sr6aq" path="res://scripts/enemies/level_01/PurpleRollercoaster.cs" id="1_x8idb"]
 [ext_resource type="Texture2D" uid="uid://dntyitsukgvd0" path="res://assets/enemies/level_01/purpleRollercoaster/purpleRollercoaster.png" id="2_5cwbv"]
-[ext_resource type="PackedScene" uid="uid://tadv4ch0tx4j" path="res://scenes/HitBox.tscn" id="3_76xs0"]
+[ext_resource type="PackedScene" uid="uid://tadv4ch0tx4j" path="res://scenes/damage/hitBox.tscn" id="3_76xs0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_re7mq"]
 atlas = ExtResource("2_5cwbv")
@@ -111,12 +111,12 @@ transitions = ["Start", "moving", SubResource("AnimationNodeStateMachineTransiti
 graph_offset = Vector2(-71, -21)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x8idb"]
-radius = 15.0
-height = 60.0
+radius = 17.0
+height = 50.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s2m8c"]
-radius = 17.0
-height = 48.0
+radius = 16.0
+height = 50.0
 
 [node name="PurpleRollercoaster" type="CharacterBody2D"]
 collision_layer = 4
@@ -124,25 +124,25 @@ collision_mask = 5
 script = ExtResource("1_x8idb")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -32)
+position = Vector2(-2, -32)
 sprite_frames = SubResource("SpriteFrames_x07vq")
 animation = &"moving"
 
 [node name="RayCast_Left" type="RayCast2D" parent="."]
-position = Vector2(0, -3)
-target_position = Vector2(-28, 0)
+position = Vector2(0, -5)
+target_position = Vector2(-24, 0)
 
 [node name="RayCast_DownLeft" type="RayCast2D" parent="."]
-position = Vector2(33, -3)
+position = Vector2(28, -3)
 target_position = Vector2(0, 5)
 
 [node name="RayCast_DownRight" type="RayCast2D" parent="."]
-position = Vector2(-33, -3)
+position = Vector2(-28, -3)
 target_position = Vector2(0, 5)
 
 [node name="RayCast_Right" type="RayCast2D" parent="."]
-position = Vector2(0, -3)
-target_position = Vector2(22, 0)
+position = Vector2(0, -5)
+target_position = Vector2(24, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -155,12 +155,12 @@ anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/end = false
 
 [node name="Map collision" type="CollisionShape2D" parent="."]
-position = Vector2(2, -17)
+position = Vector2(0, -17)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_x8idb")
 
 [node name="Hitbox" parent="." instance=ExtResource("3_76xs0")]
-position = Vector2(0, -18)
+position = Vector2(0, -16)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 rotation = 1.5708
