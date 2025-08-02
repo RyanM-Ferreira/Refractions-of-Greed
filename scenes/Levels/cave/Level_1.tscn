@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://yumngb5g653t" path="res://scripts/Global.cs" id="1_8ryxd"]
 [ext_resource type="PackedScene" uid="uid://d4mg546sapinq" path="res://scenes/character/player.tscn" id="1_e4h6s"]
-[ext_resource type="Texture2D" uid="uid://bu5n3wvymf20t" path="res://assets/tilemaps/General_Tileset.png" id="2_0iege"]
-[ext_resource type="Texture2D" uid="uid://cwpqg4e0a3fn5" path="res://assets/tilemaps/Level1/Cave_Tileset.png" id="2_e4h6s"]
+[ext_resource type="Texture2D" uid="uid://bu5n3wvymf20t" path="res://assets/sketchs/generalTileset.png" id="2_0iege"]
+[ext_resource type="Texture2D" uid="uid://cwpqg4e0a3fn5" path="res://assets/tilemaps/level_01/Cave_Tileset.png" id="2_e4h6s"]
 [ext_resource type="Texture2D" uid="uid://bmyctlwvtr2tg" path="res://assets/tilemaps/Level1_Tileset.png" id="3_8ryxd"]
 [ext_resource type="PackedScene" uid="uid://belih6cl0jtlp" path="res://scenes/Levels/cave/enemies/morcego.tscn" id="5_0iege"]
 [ext_resource type="PackedScene" uid="uid://smn2wmm61xkk" path="res://scenes/Levels/cave/enemies/topeira movel.tscn" id="7_e2473"]

@@ -1,11 +1,11 @@
 [gd_scene load_steps=53 format=3 uid="uid://smn2wmm61xkk"]
 
-[ext_resource type="Script" uid="uid://dxkc0wwuniqs6" path="res://scripts/Enemies/Level1/TopeiraMovel.cs" id="1_6qymu"]
+[ext_resource type="Script" uid="uid://dxkc0wwuniqs6" path="res://scripts/enemies/level_01/TopeiraMovel.cs" id="1_6qymu"]
 [ext_resource type="PackedScene" uid="uid://tadv4ch0tx4j" path="res://scenes/HitBox.tscn" id="2_6qymu"]
-[ext_resource type="Texture2D" uid="uid://cquuw3s2fbsmo" path="res://assets/Enemies/Level 1/topeira movel/attack.png" id="2_s2m8c"]
-[ext_resource type="Texture2D" uid="uid://bn6r8q82wenj7" path="res://assets/Enemies/Level 1/topeira movel/attack_end.png" id="3_08ycf"]
-[ext_resource type="Texture2D" uid="uid://coajdu1617ti1" path="res://assets/Enemies/Level 1/topeira movel/walk.png" id="4_s2m8c"]
-[ext_resource type="Texture2D" uid="uid://1ryqvyt1x3fd" path="res://assets/Enemies/Level 1/topeira movel/start_attack.png" id="5_kvw1f"]
+[ext_resource type="Texture2D" uid="uid://cquuw3s2fbsmo" path="res://assets/enemies/level_01/mole/attack.png" id="2_s2m8c"]
+[ext_resource type="Texture2D" uid="uid://bn6r8q82wenj7" path="res://assets/enemies/level_01/mole/attack_end.png" id="3_08ycf"]
+[ext_resource type="Texture2D" uid="uid://coajdu1617ti1" path="res://assets/enemies/level_01/mole/walk.png" id="4_s2m8c"]
+[ext_resource type="Texture2D" uid="uid://1ryqvyt1x3fd" path="res://assets/enemies/level_01/mole/start_attack.png" id="5_kvw1f"]
 [ext_resource type="PackedScene" uid="uid://bm6lma81gxrxn" path="res://scenes/hurtbox.tscn" id="7_08ycf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0kpml"]

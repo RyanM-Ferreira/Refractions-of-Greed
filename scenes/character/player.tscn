@@ -4,9 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://c52epg8sofxu5" path="res://assets/player/john_sim.png" id="2_tum32"]
 [ext_resource type="PackedScene" uid="uid://bm6lma81gxrxn" path="res://scenes/hurtbox.tscn" id="3_0vjlc"]
 [ext_resource type="PackedScene" uid="uid://kelt753b0v6o" path="res://scenes/HealthBar.tscn" id="4_bnvp8"]
-[ext_resource type="Texture2D" uid="uid://cjgxunm72wy8g" path="res://assets/UI/statusBar/healthBarTexture.png" id="5_erpy8"]
-[ext_resource type="Texture2D" uid="uid://bryqhx6exjsg3" path="res://assets/UI/statusBar/lifeBarBackgroundTexture.png" id="5_wmtbp"]
-[ext_resource type="Texture2D" uid="uid://bn5g8tcf6j2iq" path="res://assets/UI/statusBar/statusBar.png" id="6_wmtbp"]
+[ext_resource type="Texture2D" uid="uid://cjgxunm72wy8g" path="res://assets/ui/statusBar/healthBarTexture.png" id="5_erpy8"]
+[ext_resource type="Texture2D" uid="uid://bryqhx6exjsg3" path="res://assets/ui/statusBar/lifeBarBackgroundTexture.png" id="5_wmtbp"]
+[ext_resource type="Texture2D" uid="uid://bn5g8tcf6j2iq" path="res://assets/ui/statusBar/statusBar.png" id="6_wmtbp"]
 
 [sub_resource type="Curve" id="Curve_bnvp8"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]

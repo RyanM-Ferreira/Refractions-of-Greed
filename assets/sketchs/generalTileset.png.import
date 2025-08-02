@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bryqhx6exjsg3"
-path="res://.godot/imported/lifeBarBackgroundTexture.png-776c55b96cf78dea672484a6797b4b3f.ctex"
+uid="uid://bu5n3wvymf20t"
+path="res://.godot/imported/generalTileset.png-956b73fdaa98a91800077f3891b78f8f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/statusBar/lifeBarBackgroundTexture.png"
-dest_files=["res://.godot/imported/lifeBarBackgroundTexture.png-776c55b96cf78dea672484a6797b4b3f.ctex"]
+source_file="res://assets/sketchs/generalTileset.png"
+dest_files=["res://.godot/imported/generalTileset.png-956b73fdaa98a91800077f3891b78f8f.ctex"]
 
 [params]
 

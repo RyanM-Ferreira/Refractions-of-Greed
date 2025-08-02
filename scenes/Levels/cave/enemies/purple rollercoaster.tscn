@@ -1,7 +1,7 @@
 [gd_scene load_steps=20 format=3 uid="uid://bkxpvk74ouka2"]
 
-[ext_resource type="Script" uid="uid://cdgw0cd6sr6aq" path="res://scripts/Enemies/Level1/PurpleRollercoaster.cs" id="1_x8idb"]
-[ext_resource type="Texture2D" uid="uid://dntyitsukgvd0" path="res://assets/Enemies/Level 1/purple rollercoaster/purple rollercoaster.png" id="2_5cwbv"]
+[ext_resource type="Script" uid="uid://cdgw0cd6sr6aq" path="res://scripts/enemies/level_01/PurpleRollercoaster.cs" id="1_x8idb"]
+[ext_resource type="Texture2D" uid="uid://dntyitsukgvd0" path="res://assets/enemies/level_01/purpleRollercoaster/purpleRollercoaster.png" id="2_5cwbv"]
 [ext_resource type="PackedScene" uid="uid://tadv4ch0tx4j" path="res://scenes/HitBox.tscn" id="3_76xs0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_re7mq"]

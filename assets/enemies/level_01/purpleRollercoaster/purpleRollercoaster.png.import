@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bryqhx6exjsg3"
-path="res://.godot/imported/lifeBarBackgroundTexture.png-776c55b96cf78dea672484a6797b4b3f.ctex"
+uid="uid://dntyitsukgvd0"
+path="res://.godot/imported/purpleRollercoaster.png-8e4ce6b578009d99762605fad8ba0b15.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/statusBar/lifeBarBackgroundTexture.png"
-dest_files=["res://.godot/imported/lifeBarBackgroundTexture.png-776c55b96cf78dea672484a6797b4b3f.ctex"]
+source_file="res://assets/enemies/level_01/purpleRollercoaster/purpleRollercoaster.png"
+dest_files=["res://.godot/imported/purpleRollercoaster.png-8e4ce6b578009d99762605fad8ba0b15.ctex"]
 
 [params]
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://kelt753b0v6o"]
 
-[ext_resource type="Script" uid="uid://djm7e2lbpeuvl" path="res://scripts/HealthBar.cs" id="1_tmb1u"]
+[ext_resource type="Script" uid="uid://djm7e2lbpeuvl" path="res://scripts/damage/HealthBar.cs" id="1_tmb1u"]
 
 [node name="HealthBar" type="ProgressBar"]
 offset_right = 35.0

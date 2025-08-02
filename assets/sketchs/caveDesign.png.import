@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bryqhx6exjsg3"
-path="res://.godot/imported/lifeBarBackgroundTexture.png-776c55b96cf78dea672484a6797b4b3f.ctex"
+uid="uid://biw5w21yd0nce"
+path="res://.godot/imported/caveDesign.png-1345138d54f5a68b0c0ed79d4284e1ef.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/statusBar/lifeBarBackgroundTexture.png"
-dest_files=["res://.godot/imported/lifeBarBackgroundTexture.png-776c55b96cf78dea672484a6797b4b3f.ctex"]
+source_file="res://assets/sketchs/caveDesign.png"
+dest_files=["res://.godot/imported/caveDesign.png-1345138d54f5a68b0c0ed79d4284e1ef.ctex"]
 
 [params]
 

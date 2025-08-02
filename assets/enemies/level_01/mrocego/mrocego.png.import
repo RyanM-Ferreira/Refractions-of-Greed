@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bryqhx6exjsg3"
-path="res://.godot/imported/lifeBarBackgroundTexture.png-776c55b96cf78dea672484a6797b4b3f.ctex"
+uid="uid://csu11o4b2fym5"
+path="res://.godot/imported/mrocego.png-f3f99c997eca6fec2b752bfd4258a4fd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/statusBar/lifeBarBackgroundTexture.png"
-dest_files=["res://.godot/imported/lifeBarBackgroundTexture.png-776c55b96cf78dea672484a6797b4b3f.ctex"]
+source_file="res://assets/enemies/level_01/mrocego/mrocego.png"
+dest_files=["res://.godot/imported/mrocego.png-f3f99c997eca6fec2b752bfd4258a4fd.ctex"]
 
 [params]
 
