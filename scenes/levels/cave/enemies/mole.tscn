@@ -721,17 +721,17 @@ animation = &"moving"
 
 [node name="RayCast_Left" type="RayCast2D" parent="."]
 position = Vector2(-28, -3)
-target_position = Vector2(-28, 0)
+target_position = Vector2(-15, 0)
 collision_mask = 5
 
 [node name="RayCast_Right" type="RayCast2D" parent="."]
 position = Vector2(27, -3)
-target_position = Vector2(22, 0)
+target_position = Vector2(15, 0)
 collision_mask = 5
 
 [node name="Player_detection" type="RayCast2D" parent="."]
 position = Vector2(0, -18)
-target_position = Vector2(-143, 0)
+target_position = Vector2(-200, 0)
 collision_mask = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -746,7 +746,6 @@ parameters/conditions/attacking = false
 parameters/conditions/end = false
 
 [node name="Map collision" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(0.5, -17)
 shape = SubResource("RectangleShape2D_s2m8c")
 

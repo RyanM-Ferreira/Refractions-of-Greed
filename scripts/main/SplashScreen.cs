@@ -1,10 +1,10 @@
 using Godot;
 
-public partial class SplashScreen : Node2D
+public partial class splashScreen : Node2D
 {
 	public override void _Ready()
 	{
-		Timer timer = GetNode<Timer>("Timer");
+		Timer timer = GetNode<Timer>("timer");
 		timer.Timeout += OnTimeout;
 		timer.Start();
 	}

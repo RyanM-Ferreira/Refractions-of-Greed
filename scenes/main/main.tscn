@@ -9,7 +9,7 @@
 
 [node name="main" type="Node2D"]
 
-[node name="Control" type="Control" parent="."]
+[node name="uiControl" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -19,7 +19,7 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="Control"]
+[node name="background" type="TextureRect" parent="uiControl"]
 modulate = Color(0.0862745, 0.0862745, 0.0862745, 1)
 layout_mode = 0
 offset_right = 320.0
@@ -27,20 +27,21 @@ offset_bottom = 180.0
 scale = Vector2(2, 2)
 texture = ExtResource("1_ow5a4")
 
-[node name="UI" type="CanvasLayer" parent="Control"]
+[node name="ui" type="CanvasLayer" parent="uiControl"]
 follow_viewport_enabled = true
 
-[node name="OptionArc_UP" type="Sprite2D" parent="Control/UI"]
-position = Vector2(318, 226)
+[node name="optionArc_UP" type="Sprite2D" parent="uiControl/ui"]
+position = Vector2(319, 226)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("6_b1x3f")
 
-[node name="startButton" type="Button" parent="Control/UI"]
+[node name="startButton" type="Button" parent="uiControl/ui"]
 offset_left = 272.0
 offset_top = 237.0
 offset_right = 368.0
 offset_bottom = 255.0
 size_flags_horizontal = 4
+size_flags_vertical = 4
 theme_override_font_sizes/font_size = 10
 theme_override_styles/focus = ExtResource("4_ow5a4")
 text = "Iniciar
@@ -48,7 +49,7 @@ text = "Iniciar
 flat = true
 script = ExtResource("1_hyk8p")
 
-[node name="optionsButton" type="Button" parent="Control/UI"]
+[node name="optionsButton" type="Button" parent="uiControl/ui"]
 offset_left = 272.0
 offset_top = 255.0
 offset_right = 368.0
@@ -60,7 +61,7 @@ text = "Opções"
 flat = true
 script = ExtResource("1_hyk8p")
 
-[node name="debugButton2" type="Button" parent="Control/UI"]
+[node name="debugButton" type="Button" parent="uiControl/ui"]
 editor_description = "Debug Level"
 offset_top = 337.0
 offset_right = 54.0
@@ -72,7 +73,7 @@ text = "Debug"
 flat = true
 script = ExtResource("1_hyk8p")
 
-[node name="quitButton" type="Button" parent="Control/UI"]
+[node name="quitButton" type="Button" parent="uiControl/ui"]
 offset_left = 272.0
 offset_top = 273.0
 offset_right = 368.0
@@ -84,17 +85,17 @@ text = "Sair"
 flat = true
 script = ExtResource("1_hyk8p")
 
-[node name="OptionArc_DOWN" type="Sprite2D" parent="Control/UI"]
-position = Vector2(318, 303)
+[node name="optionArc_DOWN" type="Sprite2D" parent="uiControl/ui"]
+position = Vector2(319, 303)
 scale = Vector2(1.5, -1.5)
 texture = ExtResource("6_b1x3f")
 
-[node name="TitleLogoV4" type="Sprite2D" parent="Control/UI"]
-position = Vector2(320, 100)
+[node name="titleLogo" type="Sprite2D" parent="uiControl/ui"]
+position = Vector2(320, 98)
 scale = Vector2(1.25, 1.25)
 texture = ExtResource("4_6q06x")
 
-[node name="version" type="Label" parent="Control/UI"]
+[node name="version" type="Label" parent="uiControl/ui"]
 offset_left = 561.0
 offset_top = 345.0
 offset_right = 633.0
@@ -105,7 +106,7 @@ text = "v0.0.1"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[connection signal="pressed" from="Control/UI/startButton" to="Control/UI/startButton" method="StartButtonPressed"]
-[connection signal="pressed" from="Control/UI/optionsButton" to="Control/UI/startButton" method="OptionsMenuButtonPressed"]
-[connection signal="pressed" from="Control/UI/debugButton2" to="Control/UI/debugButton2" method="DebugButtonPressed"]
-[connection signal="pressed" from="Control/UI/quitButton" to="Control/UI/startButton" method="QuitButtonPressed"]
+[connection signal="pressed" from="uiControl/ui/startButton" to="uiControl/ui/startButton" method="StartButtonPressed"]
+[connection signal="pressed" from="uiControl/ui/optionsButton" to="uiControl/ui/startButton" method="OptionsMenuButtonPressed"]
+[connection signal="pressed" from="uiControl/ui/debugButton" to="uiControl/ui/debugButton" method="DebugButtonPressed"]
+[connection signal="pressed" from="uiControl/ui/quitButton" to="uiControl/ui/startButton" method="QuitButtonPressed"]

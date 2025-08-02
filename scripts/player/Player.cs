@@ -8,24 +8,20 @@ public partial class Player : CharacterBody2D
 	[Export] public double health = 50.0;
 	bool isAlive = true;
 
-
 	//knockback
 	Vector2 knockback;
 	float knockbackTimer = 0;
 	[Signal] public delegate void PlayerDiedEventHandler();
 	[Signal] public delegate void HealthChangedEventHandler();
 
-
 	// Variaveis de animação
 	private AnimatedSprite2D sprite;
-
 
 	// Variaveis de movimento
 	double walkSpeed = 175.0;
 	double acceleration = 0.1; //até 1
 	double deceleration = 0.1; //até 1
 	float direction = 1;
-
 
 	// Variaveis de pulo
 	bool canJump = true;
@@ -34,30 +30,24 @@ public partial class Player : CharacterBody2D
 	double decelerateOnJumpRelease = 0.5; //até 1
 	double gravity = (double)ProjectSettings.GetSetting("physics/2d/default_gravity");
 
-
 	// Variaveis de dash
 	double dashSpeed = 100.0;
 	double dashMaxDistance = 100.0;
 	[Export] public Curve dashCurve;
 	double dashCooldown = 1.0;
 
-	
 
 	bool isDashing = false;
 	double dashStartPosition = 0;
 	double dashDirection = 0;
 	double dashTimer = 0;
 
-	double immunityTime = 0.5;
-
-
+	double immunityTime = 2;
 
 	public override void _Ready()
 	{
-
 		sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		GD.Print($"Player {Name} ready with health: {health} and max health: {maxHealth}");
-
 	}
 
 	// Processamento de fisica do jogador
@@ -85,7 +75,7 @@ public partial class Player : CharacterBody2D
 		}
 		else
 		{
-			coyoteTime = 0.3f; // Resetando o coyote time quando está no chão
+			coyoteTime = 0.15f; // Resetando o coyote time quando está no chão
 			canJump = true;
 		}
 
@@ -104,13 +94,9 @@ public partial class Player : CharacterBody2D
 			Movement(delta);
 		}
 
-
-
 		immunityTime -= delta;
 		MoveAndSlide();
 	}
-
-
 
 	public void Movement(double delta)
 	{

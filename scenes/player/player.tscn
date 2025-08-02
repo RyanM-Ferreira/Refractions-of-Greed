@@ -161,10 +161,11 @@ shape = SubResource("RectangleShape2D_bnvp8")
 [node name="HealthBar" parent="CanvasLayer" instance=ExtResource("4_bnvp8")]
 clip_contents = true
 layout_direction = 2
-offset_left = 47.35
+offset_left = 47.25
 offset_top = 14.25
-offset_right = 168.6
-offset_bottom = 25.0
+offset_right = 128.25
+offset_bottom = 21.5
+scale = Vector2(1.5, 1.5)
 size_flags_horizontal = 6
 size_flags_vertical = 6
 theme_override_styles/background = SubResource("StyleBoxTexture_uicah")

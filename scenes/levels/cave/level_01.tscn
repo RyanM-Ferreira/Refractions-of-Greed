@@ -1,13 +1,13 @@
 [gd_scene load_steps=14 format=4 uid="uid://be2upkt55v8rf"]
 
 [ext_resource type="Script" uid="uid://yumngb5g653t" path="res://scripts/Global.cs" id="1_8ryxd"]
-[ext_resource type="PackedScene" uid="uid://d4mg546sapinq" path="res://scenes/character/player.tscn" id="1_e4h6s"]
+[ext_resource type="PackedScene" uid="uid://d4mg546sapinq" path="res://scenes/player/player.tscn" id="1_e4h6s"]
 [ext_resource type="Texture2D" uid="uid://bu5n3wvymf20t" path="res://assets/sketchs/generalTileset.png" id="2_0iege"]
 [ext_resource type="Texture2D" uid="uid://cwpqg4e0a3fn5" path="res://assets/tilemaps/level_01/Cave_Tileset.png" id="2_e4h6s"]
 [ext_resource type="Texture2D" uid="uid://bmyctlwvtr2tg" path="res://assets/tilemaps/Level1_Tileset.png" id="3_8ryxd"]
-[ext_resource type="PackedScene" uid="uid://belih6cl0jtlp" path="res://scenes/Levels/cave/enemies/morcego.tscn" id="5_0iege"]
-[ext_resource type="PackedScene" uid="uid://smn2wmm61xkk" path="res://scenes/Levels/cave/enemies/topeira movel.tscn" id="7_e2473"]
-[ext_resource type="PackedScene" uid="uid://bkxpvk74ouka2" path="res://scenes/Levels/cave/enemies/purple rollercoaster.tscn" id="8_dkyq7"]
+[ext_resource type="PackedScene" uid="uid://belih6cl0jtlp" path="res://scenes/levels/cave/enemies/mrocego.tscn" id="5_0iege"]
+[ext_resource type="PackedScene" uid="uid://bkxpvk74ouka2" path="res://scenes/levels/cave/enemies/purpleRollercoaster.tscn" id="8_dkyq7"]
+[ext_resource type="PackedScene" uid="uid://smn2wmm61xkk" path="res://scenes/levels/cave/enemies/mole.tscn" id="8_kfgjw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0iege"]
 texture = ExtResource("2_e4h6s")
@@ -332,8 +332,8 @@ shape = SubResource("RectangleShape2D_e2473")
 [node name="Morcego" parent="." instance=ExtResource("5_0iege")]
 position = Vector2(593, -79)
 
-[node name="TopeiraMovel" parent="." instance=ExtResource("7_e2473")]
-position = Vector2(-686, 37)
-
 [node name="PurpleRollercoaster" parent="." instance=ExtResource("8_dkyq7")]
 position = Vector2(1451, 20)
+
+[node name="TopeiraMovel" parent="." instance=ExtResource("8_kfgjw")]
+position = Vector2(-681, 62)

@@ -1,7 +1,5 @@
 using Godot;
 
-
-
 public partial class TopeiraMovel : Enemy
 {   //import AnimatedSprite2D
 	private AnimatedSprite2D sprite;
@@ -11,16 +9,12 @@ public partial class TopeiraMovel : Enemy
 	//import hitbox
 	private Area2D hitbox;
 
-
 	//import RayCast2D
 	private RayCast2D raycast_Left;
 	private RayCast2D raycast_Right;
 	private RayCast2D playerdetect;
 
-	[Export] public bool is_attacking ;
-
-
-
+	[Export] public bool is_attacking;
 
 	[Export] public double Speed = 40.0;
 	public double direction = -1.0;
@@ -48,11 +42,9 @@ public partial class TopeiraMovel : Enemy
 		}
 		if (anim_name == "attack_end")
 		{
-			Velocity = new Vector2( (float)(direction * 60), 0);
+			Velocity = new Vector2((float)(direction * 60), 0);
 		}
 	}
-
-
 
 	public override void _Process(double delta)
 	{
@@ -91,11 +83,7 @@ public partial class TopeiraMovel : Enemy
 			hitbox.Scale = new Vector2(1, 1);
 		}
 
-		
-		
-
 		GroundEnemy(delta, Gravity, direction, Speed);
 	}
-
 
 }

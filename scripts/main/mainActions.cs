@@ -8,7 +8,7 @@ public partial class mainActions : Button
 	}
 	public void StartButtonPressed()
 	{
-		GetTree().ChangeSceneToFile("res://scenes//Levels/cave/Level_1.tscn");
+		GetTree().ChangeSceneToFile("res://scenes/Levels/cave/level_01.tscn");
 	}
 
 	public void OptionsMenuButtonPressed()
@@ -18,7 +18,7 @@ public partial class mainActions : Button
 
 	public void DebugButtonPressed()
 	{
-		GetTree().ChangeSceneToFile("res://scenes//debug/debug_level.tscn");
+		GetTree().ChangeSceneToFile("res://scenes/debug/debugLevel.tscn");
 	}
 
 	private Vector2 originalPosition;
@@ -34,12 +34,12 @@ public partial class mainActions : Button
 	{
 		Scale = new Vector2(1.125f, 1.125f);
 
-		Position = originalPosition - ((Scale - new Vector2(1,1)) * Size) / 2;
+		Position = originalPosition - ((Scale - new Vector2(1, 1)) * Size) / 2;
 	}
 
 	private void OnMouseExited()
 	{
-		Scale = new Vector2(1,1);
+		Scale = new Vector2(1, 1);
 		Position = originalPosition;
 	}
 }
