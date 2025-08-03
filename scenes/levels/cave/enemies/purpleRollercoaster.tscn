@@ -159,7 +159,7 @@ position = Vector2(0, -17)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_x8idb")
 
-[node name="Hitbox" parent="." instance=ExtResource("3_76xs0")]
+[node name="Hitbox" parent="." groups=["enemyHitbox"] instance=ExtResource("3_76xs0")]
 position = Vector2(0, -16)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]

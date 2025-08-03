@@ -1,5 +1,6 @@
-[gd_scene load_steps=22 format=3 uid="uid://belih6cl0jtlp"]
+[gd_scene load_steps=23 format=3 uid="uid://belih6cl0jtlp"]
 
+[ext_resource type="Script" uid="uid://0p1hswuk54w5" path="res://scripts/enemies/level_01/Mrocego.cs" id="1_l7rgu"]
 [ext_resource type="Texture2D" uid="uid://csu11o4b2fym5" path="res://assets/enemies/level_01/mrocego/mrocego.png" id="2_duhak"]
 [ext_resource type="PackedScene" uid="uid://tadv4ch0tx4j" path="res://scenes/damage/hitBox.tscn" id="3_0npo2"]
 [ext_resource type="PackedScene" uid="uid://bm6lma81gxrxn" path="res://scenes/damage/hurtbox.tscn" id="4_duhak"]
@@ -111,7 +112,7 @@ transitions = ["Start", "moving", SubResource("AnimationNodeStateMachineTransiti
 graph_offset = Vector2(-71, -21)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rnamo"]
-radius = 15.1327
+radius = 24.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ss8ju"]
 radius = 16.0
@@ -123,8 +124,9 @@ radius = 192.0
 radius = 16.0
 
 [node name="Morcego" type="CharacterBody2D"]
-collision_layer = 4
+collision_layer = 8
 collision_mask = 9
+script = ExtResource("1_l7rgu")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(3, -2)
@@ -141,7 +143,7 @@ tree_root = SubResource("AnimationNodeStateMachine_f64sh")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/end = false
 
-[node name="Hitbox" parent="." instance=ExtResource("3_0npo2")]
+[node name="Hitbox" parent="." groups=["enemyHitbox"] instance=ExtResource("3_0npo2")]
 Damage = 5
 Knockback = 300.0
 

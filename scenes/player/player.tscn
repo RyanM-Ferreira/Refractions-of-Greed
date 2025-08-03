@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://d4mg546sapinq"]
+[gd_scene load_steps=31 format=3 uid="uid://d4mg546sapinq"]
 
 [ext_resource type="Script" uid="uid://kse62udlwkfy" path="res://scripts/player/Player.cs" id="1_tum32"]
 [ext_resource type="Texture2D" uid="uid://bcdq2eqnyptlh" path="res://assets/player/john_spritesheet.png" id="2_0owmy"]
@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cjgxunm72wy8g" path="res://assets/ui/statusBar/healthBarTexture.png" id="5_erpy8"]
 [ext_resource type="Texture2D" uid="uid://bryqhx6exjsg3" path="res://assets/ui/statusBar/lifeBarBackgroundTexture.png" id="5_wmtbp"]
 [ext_resource type="Texture2D" uid="uid://bn5g8tcf6j2iq" path="res://assets/ui/statusBar/statusBar.png" id="6_wmtbp"]
-[ext_resource type="Script" uid="uid://bfnnsljw6yt0b" path="res://scripts/ui/FpsCounter.cs" id="8_qek5x"]
+[ext_resource type="Script" uid="uid://dgb7flpg0b3ov" path="res://scripts/ui/DebugMenu.cs" id="9_5gtgg"]
 
 [sub_resource type="Curve" id="Curve_bnvp8"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -174,8 +174,11 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tum32"]
 size = Vector2(27, 55)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qek5x"]
+size = Vector2(31, 61)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bnvp8"]
-size = Vector2(20, 51)
+size = Vector2(20, 52)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_uicah"]
 texture = ExtResource("5_wmtbp")
@@ -201,18 +204,34 @@ animation = &"backDash"
 position = Vector2(0, 4.5)
 shape = SubResource("RectangleShape2D_tum32")
 
+[node name="EnemyDetector" type="Area2D" parent="."]
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDetector"]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_qek5x")
+
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.8, 0.8)
 position_smoothing_enabled = true
-position_smoothing_speed = 20.0
+position_smoothing_speed = 8.0
 
 [node name="hurtbox" parent="." instance=ExtResource("3_0vjlc")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox"]
-position = Vector2(0, 5.5)
+position = Vector2(0, 5)
 shape = SubResource("RectangleShape2D_bnvp8")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="debugMenu" type="Label" parent="CanvasLayer"]
+offset_left = 3.0
+offset_top = 181.0
+offset_right = 211.0
+offset_bottom = 355.0
+text = "Debug Menu:"
+vertical_alignment = 2
+script = ExtResource("9_5gtgg")
 
 [node name="HealthBar" parent="CanvasLayer" instance=ExtResource("4_bnvp8")]
 clip_contents = true
@@ -233,10 +252,5 @@ position = Vector2(75, 22)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("6_wmtbp")
 
-[node name="FpsCounter" type="Label" parent="CanvasLayer"]
-offset_left = 594.0
-offset_top = 6.0
-offset_right = 634.0
-offset_bottom = 17.0
-text = "FPS:"
-script = ExtResource("8_qek5x")
+[connection signal="area_entered" from="EnemyDetector" to="." method="OnAreaEntered"]
+[connection signal="area_exited" from="EnemyDetector" to="." method="OnAreaExited"]

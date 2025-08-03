@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://b0o40dsimxg5c"]
+[gd_scene load_steps=6 format=3 uid="uid://b0o40dsimxg5c"]
 
 [ext_resource type="Script" uid="uid://cfdksr6fa6i4o" path="res://scripts/main/mainActions.cs" id="1_hyk8p"]
 [ext_resource type="Texture2D" uid="uid://d2ewa5gelgmw3" path="res://assets/mainMenu/background/menuBackground.png" id="1_ow5a4"]
 [ext_resource type="Texture2D" uid="uid://dosydny11b0ea" path="res://assets/logos/titleLogo_v4_white.png" id="4_6q06x"]
-[ext_resource type="Theme" uid="uid://bi1jnicihv01e" path="res://themes/text/bold.tres" id="4_l3cfh"]
 [ext_resource type="StyleBox" uid="uid://clkelnpcbfymq" path="res://themes/ui/emptyStyleBox_Button.tres" id="4_ow5a4"]
 [ext_resource type="Texture2D" uid="uid://0j338ib8igoe" path="res://assets/mainMenu/optionArc.png" id="6_b1x3f"]
 
@@ -63,8 +62,9 @@ script = ExtResource("1_hyk8p")
 
 [node name="debugButton" type="Button" parent="uiControl/ui"]
 editor_description = "Debug Level"
-offset_top = 337.0
-offset_right = 54.0
+offset_left = 2.0
+offset_top = 341.0
+offset_right = 56.0
 offset_bottom = 358.0
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 10
@@ -96,14 +96,13 @@ scale = Vector2(1.25, 1.25)
 texture = ExtResource("4_6q06x")
 
 [node name="version" type="Label" parent="uiControl/ui"]
-offset_left = 561.0
+offset_left = 584.0
 offset_top = 345.0
-offset_right = 633.0
-offset_bottom = 357.0
+offset_right = 638.0
+offset_bottom = 358.0
 size_flags_horizontal = 8
-theme = ExtResource("4_l3cfh")
 text = "v0.0.1"
-horizontal_alignment = 2
+horizontal_alignment = 1
 vertical_alignment = 1
 
 [connection signal="pressed" from="uiControl/ui/startButton" to="uiControl/ui/startButton" method="StartButtonPressed"]

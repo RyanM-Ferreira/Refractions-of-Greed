@@ -1,11 +1,10 @@
-[gd_scene load_steps=12 format=4 uid="uid://be2upkt55v8rf"]
+[gd_scene load_steps=11 format=4 uid="uid://be2upkt55v8rf"]
 
 [ext_resource type="Script" uid="uid://yumngb5g653t" path="res://scripts/Global.cs" id="1_8ryxd"]
 [ext_resource type="PackedScene" uid="uid://d4mg546sapinq" path="res://scenes/player/player.tscn" id="1_e4h6s"]
 [ext_resource type="TileSet" uid="uid://vv1l5kh20b2l" path="res://themes/tileMapLayer/level_01_tileMapLayer.tres" id="3_kfgjw"]
 [ext_resource type="Texture2D" uid="uid://b8unylf5gt5dl" path="res://assets/tilemaps/level_01/background/Cave_Background  full.png" id="4_fvk6h"]
 [ext_resource type="PackedScene" uid="uid://belih6cl0jtlp" path="res://scenes/levels/cave/enemies/mrocego.tscn" id="5_0iege"]
-[ext_resource type="Script" uid="uid://0p1hswuk54w5" path="res://scripts/enemies/level_01/Mrocego.cs" id="7_ob5xq"]
 [ext_resource type="PackedScene" uid="uid://bkxpvk74ouka2" path="res://scenes/levels/cave/enemies/purpleRollercoaster.tscn" id="8_dkyq7"]
 [ext_resource type="PackedScene" uid="uid://smn2wmm61xkk" path="res://scenes/levels/cave/enemies/mole.tscn" id="8_kfgjw"]
 [ext_resource type="Script" uid="uid://bugo7jvbanylx" path="res://scripts/enemies/level_01/Mole.cs" id="10_pdt63"]
@@ -65,7 +64,6 @@ shape = SubResource("RectangleShape2D_dobhn")
 
 [node name="mrocego" parent="." instance=ExtResource("5_0iege")]
 position = Vector2(593, -79)
-script = ExtResource("7_ob5xq")
 
 [node name="purpleRollercoaster" parent="." instance=ExtResource("8_dkyq7")]
 position = Vector2(-442, 29)

@@ -4,7 +4,7 @@ using System;
 public partial class Player : CharacterBody2D
 {
 	// Variaveis do combate
-	double maxHealth = 50;
+	public double maxHealth = 50;
 	[Export] public double health = 50.0;
 	bool isAlive = true;
 
@@ -28,29 +28,35 @@ public partial class Player : CharacterBody2D
 	double coyoteTime = 0.2;
 	double jumpForce = -500.0;
 	double decelerateOnJumpRelease = 0.5; //até 1
-	double gravity = (double)ProjectSettings.GetSetting("physics/2d/default_gravity");
+	public double gravity = (double)ProjectSettings.GetSetting("physics/2d/default_gravity");
 
 	// Variaveis de dash
 	double dashSpeed = 100.0;
 	double dashMaxDistance = 100.0;
 	bool backDash = false;
-
 	float lastDirection = 1;
 
 	[Export] public Curve dashCurve;
-	double dashCooldown = 1.0;
+	public double dashCooldown = 1.0;
 
-	bool isDashing = false;
+	public bool isDashing = false;
+
+	public bool isInsideEnemy = false;
+
 	double dashStartPosition = 0;
 	double dashDirection = 0;
-	double dashTimer = 0;
+	public double dashTimer = 0;
 
-	double immunityTime = 2;
+	public double immunityTime = 2;
 
 	public override void _Ready()
 	{
 		sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		GD.Print($"Player {Name} ready with health: {health} and max health: {maxHealth}");
+
+		var detector = GetNode<Area2D>("EnemyDetector");
+		detector.AreaEntered += OnAreaEntered;
+		detector.AreaExited += OnAreaExited;
 	}
 
 	// Processamento de fisica do jogador
@@ -102,6 +108,24 @@ public partial class Player : CharacterBody2D
 		}
 
 		MoveAndSlide();
+	}
+
+	private void OnAreaEntered(Area2D area)
+	{
+		if (area.IsInGroup("enemyHitbox"))
+		{
+			isInsideEnemy = true;
+			GD.Print($"Entrou de: {area.Name}");
+		}
+	}
+
+	private void OnAreaExited(Area2D area)
+	{
+		if (area.IsInGroup("enemyHitbox"))
+		{
+			isInsideEnemy = false;
+			GD.Print($"Saiu de: {area.Name}");
+		}
 	}
 
 	// Movimentaç~ao do jogador
@@ -194,8 +218,6 @@ public partial class Player : CharacterBody2D
 			}
 
 			dashTimer = dashCooldown;
-
-			immunityTime = 0.5;
 		}
 
 		if (immunityTime > 0)
@@ -220,11 +242,12 @@ public partial class Player : CharacterBody2D
 			{
 				isDashing = false;
 				backDash = false;
-				RotationDegrees = 0;
 			}
 
 			else
 			{
+				immunityTime = 0.45;
+
 				// Mover o personagem
 				double curveFactor = dashCurve.Sample((float)Math.Abs(currentDistance / dashMaxDistance));
 				Velocity = new Vector2((float)(Velocity.X + dashDirection * dashSpeed * curveFactor), Velocity.Y);

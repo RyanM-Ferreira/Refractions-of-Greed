@@ -747,7 +747,7 @@ parameters/conditions/end = false
 position = Vector2(0, -16)
 shape = SubResource("RectangleShape2D_s2m8c")
 
-[node name="Hitbox" parent="." instance=ExtResource("2_6qymu")]
+[node name="Hitbox" parent="." groups=["enemyHitbox"] instance=ExtResource("2_6qymu")]
 z_index = 1
 position = Vector2(0, -14)
 Knockback = 600.0
