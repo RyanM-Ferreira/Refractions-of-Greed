@@ -96,11 +96,15 @@ public partial class Player : CharacterBody2D
 			Movement(delta);
 		}
 
-		immunityTime -= delta;
+		if (immunityTime > 0)
+		{
+			immunityTime -= delta;
+		}
+
 		MoveAndSlide();
 	}
 
-	// Movimento do jogador
+	// Movimentaç~ao do jogador
 	public void Movement(double delta)
 	{
 		if (direction != 0)
@@ -190,6 +194,13 @@ public partial class Player : CharacterBody2D
 			}
 
 			dashTimer = dashCooldown;
+
+			immunityTime = 0.5;
+		}
+
+		if (immunityTime > 0)
+		{
+			sprite.Modulate = new Color(1, 1, 1, 1);
 		}
 
 		if (isDashing)
@@ -234,8 +245,11 @@ public partial class Player : CharacterBody2D
 		// Verifica se o jogador está imune a ataques
 		if (immunityTime <= 0)
 		{
+			sprite.Modulate = new Color(5f, 1, 1, 0.75f);
+
 			health -= damage;
 			GD.Print($"Jogador {Name} recebeu {damage} de dano, vida restante: {health}");
+
 			if (health <= 0)
 			{
 				isAlive = false;

@@ -14,15 +14,15 @@ config/name="Refractions of Greed"
 config/version="0.0.1"
 run/main_scene="uid://dpfynnsl8f6ga"
 config/features=PackedStringArray("4.4", "C#", "Forward Plus")
-boot_splash/bg_color=Color(0.129412, 0.101961, 0.305882, 1)
+boot_splash/bg_color=Color(0.470588, 0.282353, 0.972549, 1)
 boot_splash/use_filter=false
 config/icon="res://icon.svg"
+boot_splash/minimum_display_time=1000
 
 [display]
 
 window/size/viewport_width=640
 window/size/viewport_height=360
-window/size/mode=2
 window/stretch/mode="canvas_items"
 mouse_cursor/custom_image="uid://cg006dpnumgp4"
 
