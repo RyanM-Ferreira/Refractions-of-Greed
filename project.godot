@@ -11,17 +11,19 @@ config_version=5
 [application]
 
 config/name="Refractions of Greed"
-config/version="0.0"
+config/version="0.0.1"
 run/main_scene="uid://dpfynnsl8f6ga"
 config/features=PackedStringArray("4.4", "C#", "Forward Plus")
+boot_splash/bg_color=Color(0.129412, 0.101961, 0.305882, 1)
+boot_splash/use_filter=false
 config/icon="res://icon.svg"
 
 [display]
 
 window/size/viewport_width=640
 window/size/viewport_height=360
+window/size/mode=2
 window/stretch/mode="canvas_items"
-window/vsync/vsync_mode=2
 mouse_cursor/custom_image="uid://cg006dpnumgp4"
 
 [dotnet]
@@ -85,3 +87,4 @@ dbg={
 
 textures/canvas_textures/default_texture_filter=3
 2d/snap/snap_2d_transforms_to_pixel=true
+2d/snap/snap_2d_vertices_to_pixel=true

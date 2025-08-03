@@ -718,17 +718,17 @@ sprite_frames = SubResource("SpriteFrames_10ca4")
 animation = &"moving"
 
 [node name="RayCast_Left" type="RayCast2D" parent="."]
-position = Vector2(-28, -1)
-target_position = Vector2(-5, 0)
+position = Vector2(-24, -1)
+target_position = Vector2(-10, 0)
 collision_mask = 5
 
 [node name="RayCast_Right" type="RayCast2D" parent="."]
-position = Vector2(28, -1)
-target_position = Vector2(5, 0)
+position = Vector2(24, -1)
+target_position = Vector2(10, 0)
 collision_mask = 5
 
 [node name="Player_detection" type="RayCast2D" parent="."]
-position = Vector2(0, -18)
+position = Vector2(0, -16)
 target_position = Vector2(-200, 0)
 collision_mask = 2
 

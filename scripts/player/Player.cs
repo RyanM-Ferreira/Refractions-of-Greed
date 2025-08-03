@@ -8,7 +8,7 @@ public partial class Player : CharacterBody2D
 	[Export] public double health = 50.0;
 	bool isAlive = true;
 
-	//knockback
+	// Knockback
 	Vector2 knockback;
 	float knockbackTimer = 0;
 	[Signal] public delegate void PlayerDiedEventHandler();
@@ -33,9 +33,12 @@ public partial class Player : CharacterBody2D
 	// Variaveis de dash
 	double dashSpeed = 100.0;
 	double dashMaxDistance = 100.0;
+	bool backDash = false;
+
+	float lastDirection = 1;
+
 	[Export] public Curve dashCurve;
 	double dashCooldown = 1.0;
-
 
 	bool isDashing = false;
 	double dashStartPosition = 0;
@@ -75,7 +78,7 @@ public partial class Player : CharacterBody2D
 		}
 		else
 		{
-			coyoteTime = 0.15f; // Resetando o coyote time quando está no chão
+			coyoteTime = 0.2f; // Resetando o coyote time quando está no chão
 			canJump = true;
 		}
 
@@ -90,7 +93,6 @@ public partial class Player : CharacterBody2D
 		}
 		else
 		{
-			// Movimento do jogador
 			Movement(delta);
 		}
 
@@ -98,14 +100,19 @@ public partial class Player : CharacterBody2D
 		MoveAndSlide();
 	}
 
+	// Movimento do jogador
 	public void Movement(double delta)
 	{
+		if (direction != 0)
+		{
+			lastDirection = direction;
+		}
+
 		// Pulo
 		if (Input.IsActionJustPressed("jump") && canJump == true)
 		{
 			canJump = false;
 			Velocity = new Vector2(Velocity.X, (float)jumpForce);
-			// GD.Print("Pulando");
 		}
 
 		if (Input.IsActionJustReleased("jump") && Velocity.Y < 0)
@@ -113,16 +120,10 @@ public partial class Player : CharacterBody2D
 			Velocity = new Vector2(Velocity.X, (float)(Velocity.Y * decelerateOnJumpRelease));
 		}
 
-		//Apenas para visual enquanto prototipo
-		if (!isDashing && sprite.RotationDegrees != 0)
-		{
-			sprite.RotationDegrees = 0;
-		}
-
-
 		// Andar
 		if (Input.IsActionPressed("left") && Input.IsActionPressed("right"))
 		{
+			sprite.Play("idle");
 			direction = 0;
 			Velocity = new Vector2(Mathf.MoveToward(Velocity.X, 0, (float)(walkSpeed * deceleration)), Velocity.Y);
 		}
@@ -140,41 +141,83 @@ public partial class Player : CharacterBody2D
 		}
 		else
 		{
+			sprite.Play("idle");
 			direction = 0;
 			Velocity = new Vector2(Mathf.MoveToward(Velocity.X, 0, (float)(walkSpeed * deceleration)), Velocity.Y);
 		}
-		
 
+		// Animações
+		if (!IsOnFloor())
+		{
+			if (Velocity.Y < 0)
+			{
+				if (sprite.Animation != "jump")
+				{
+					sprite.Play("jump");
+				}
+			}
+			else
+			{
+				if (sprite.Animation != "fall")
+				{
+					sprite.Play("fall");
+				}
+			}
+		}
 
-		// Codigo para o dash
-		if (Input.IsActionJustPressed("dash") && direction != 0 && dashTimer <= 0)
+		if (direction != 0 && IsOnFloor())
+		{
+			if (sprite.Animation != "walk")
+			{
+				sprite.Play("walk");
+			}
+		}
+
+		// Sistema de Dash
+		if (Input.IsActionJustPressed("dash") && dashTimer <= 0)
 		{
 			isDashing = true;
 			dashStartPosition = Position.X;
-			dashDirection = direction;
-			dashTimer = dashCooldown;
 
-			//Apenas para visual enquanto prototipo
-			sprite.RotationDegrees = 25 * direction;
+			if (direction != 0)
+			{
+				dashDirection = direction;
+			}
+			else
+			{
+				backDash = true;
+				dashDirection = -lastDirection;
+			}
+
+			dashTimer = dashCooldown;
 		}
 
-		// Dash
 		if (isDashing)
 		{
+			if (!backDash)
+			{
+				sprite.Play("dash");
+			}
+			else
+			{
+				sprite.Play("backDash");
+			}
+
 			double currentDistance = Math.Abs(Position.X - dashStartPosition);
 
 			if (currentDistance >= dashMaxDistance || IsOnWall())
 			{
 				isDashing = false;
+				backDash = false;
 				RotationDegrees = 0;
 			}
-			// Mover o personagem
+
 			else
 			{
+				// Mover o personagem
 				double curveFactor = dashCurve.Sample((float)Math.Abs(currentDistance / dashMaxDistance));
 				Velocity = new Vector2((float)(Velocity.X + dashDirection * dashSpeed * curveFactor), Velocity.Y);
 				Velocity = new Vector2(Velocity.X, 0);
-
 			}
 		}
 
@@ -188,8 +231,7 @@ public partial class Player : CharacterBody2D
 	// Função para receber dano
 	public void Hurt(double damage, Vector2 hitboxLocation, float knockbackForce)
 	{
-		//verifica se o jogador está imune a ataques
-		
+		// Verifica se o jogador está imune a ataques
 		if (immunityTime <= 0)
 		{
 			health -= damage;
@@ -212,5 +254,3 @@ public partial class Player : CharacterBody2D
 		}
 	}
 }
-
-

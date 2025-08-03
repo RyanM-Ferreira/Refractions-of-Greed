@@ -13,7 +13,7 @@ public partial class mainActions : Button
 
 	public void OptionsMenuButtonPressed()
 	{
-		// Provavelmente
+		// A implementar
 	}
 
 	public void DebugButtonPressed()
