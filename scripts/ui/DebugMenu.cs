@@ -39,8 +39,8 @@ public partial class DebugMenu : Label
             if (player != null)
             {
                 Text = $"FPS: {currentFPS}\nMinFPS: {minFPS}\nMaxFPS: {maxFPS}" +
-                $"\n\nHealth: {player.health}/{player.maxHealth}\nisDashing: {player.isDashing}\nisInsideEnemy: {player.isInsideEnemy}\nImmunityTime: {player.immunityTime.ToString("F2")}. {(player.immunityTime > 0 ? "Imune" : "Não Imune")}" +
-                $"\n\nPlayerPosition: {player.GlobalPosition.ToString("F2")}\nPlayerVelocity: {player.Velocity.ToString("F2")}.\nDashCooldown: {player.dashTimer.ToString("F2")}. {(player.dashTimer > 0 ? "Recarregando." : "Disponível.")}";
+                $"\n\nHealth: {player.health}/{player.maxHealth}\nisDashing: {player.isDashing}\nisInsideEnemy: {player.isInsideEnemy}\nImmunityTime: {player.immunityTime.ToString("F2")}. {(player.immunityTime > 0 ? "Immune" : "Not Immune")}" +
+                $"\n\nPlayerPosition: {player.GlobalPosition.ToString("F2")}\nPlayerVelocity: {player.Velocity.ToString("F2")}.\nDashCooldown: {player.dashTimer.ToString("F2")}. {(player.dashTimer > 0 ? "Reloading." : "Available.")}";
             }
             else
             {

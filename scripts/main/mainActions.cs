@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class mainActions : Button
+public partial class MainActions : Button
 {
 	public void QuitButtonPressed()
 	{

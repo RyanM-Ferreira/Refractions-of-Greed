@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dpfynnsl8f6ga"]
 
-[ext_resource type="Script" uid="uid://3oefsymaorcm" path="res://scripts/main/splashScreen.cs" id="1_a8gmj"]
+[ext_resource type="Script" uid="uid://3oefsymaorcm" path="res://scripts/main/SplashScreen.cs" id="1_a8gmj"]
 [ext_resource type="Texture2D" uid="uid://6dok5ajwgc5g" path="res://assets/logos/rainingGearsLogo.png" id="2_2oyr7"]
 
 [node name="splashScreen" type="Node2D"]

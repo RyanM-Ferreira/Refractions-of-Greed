@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class splashScreen : Node2D
+public partial class SplashScreen : Node2D
 {
 	public override void _Ready()
 	{
