@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bryqhx6exjsg3"
-path="res://.godot/imported/lifeBarBackgroundTexture.png-776c55b96cf78dea672484a6797b4b3f.ctex"
+path="res://.godot/imported/lifeBarBackgroundTexture.png-11172d09cb33e31adc945872f4b4f421.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/statusBar/lifeBarBackgroundTexture.png"
-dest_files=["res://.godot/imported/lifeBarBackgroundTexture.png-776c55b96cf78dea672484a6797b4b3f.ctex"]
+source_file="res://assets/UI/statusBar/lifeBarBackgroundTexture.png"
+dest_files=["res://.godot/imported/lifeBarBackgroundTexture.png-11172d09cb33e31adc945872f4b4f421.ctex"]
 
 [params]
 

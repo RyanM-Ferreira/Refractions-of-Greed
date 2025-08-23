@@ -8,7 +8,6 @@ public partial class Global : Node2D
     public override void _Ready()
     {
         player = GetTree().Root.FindChild("Player", true, false) as Player;
-        player.PlayerDied += OnPlayerDied;
     }
     private void OnPlayerDied()
     {

@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=4 uid="uid://duxg1c2gsxw0s"]
+[gd_scene load_steps=9 format=4 uid="uid://duxg1c2gsxw0s"]
 
 [ext_resource type="Script" uid="uid://yumngb5g653t" path="res://scripts/Global.cs" id="1_qybow"]
 [ext_resource type="PackedScene" uid="uid://d4mg546sapinq" path="res://scenes/player/player.tscn" id="2_wwkcr"]
 [ext_resource type="Texture2D" uid="uid://biw5w21yd0nce" path="res://assets/sketchs/caveDesign.png" id="3_tidam"]
 [ext_resource type="PackedScene" uid="uid://tadv4ch0tx4j" path="res://scenes/damage/hitBox.tscn" id="4_e5kto"]
 [ext_resource type="Texture2D" uid="uid://dkspkcqlj7pnx" path="res://assets/tilemaps/spike.png" id="5_26hog"]
+[ext_resource type="PackedScene" uid="uid://c8cy4l2ew2wda" path="res://scenes/levels/cave/enemies/mengão.tscn" id="6_d8smh"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nrqd8"]
 texture = ExtResource("3_tidam")
@@ -152,3 +153,5 @@ texture = ExtResource("5_26hog")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Node2D/hitbox"]
 polygon = PackedVector2Array(-17, 16, 15, 16, 0, -7)
+
+[node name="mengão" parent="." instance=ExtResource("6_d8smh")]

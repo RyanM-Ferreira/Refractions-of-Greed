@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cjgxunm72wy8g"
-path="res://.godot/imported/healthBarTexture.png-4accb6470016a4f0d59bc4f5d09e8373.ctex"
+uid="uid://daerpxqndgc7v"
+path="res://.godot/imported/attack5.png-8ade29f11e83c0fc4fc49ca02f5caa10.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/statusBar/healthBarTexture.png"
-dest_files=["res://.godot/imported/healthBarTexture.png-4accb6470016a4f0d59bc4f5d09e8373.ctex"]
+source_file="res://assets/enemies/level_01/mengao/attack5.png"
+dest_files=["res://.godot/imported/attack5.png-8ade29f11e83c0fc4fc49ca02f5caa10.ctex"]
 
 [params]
 

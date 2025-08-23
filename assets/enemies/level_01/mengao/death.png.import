@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cjgxunm72wy8g"
-path="res://.godot/imported/healthBarTexture.png-4accb6470016a4f0d59bc4f5d09e8373.ctex"
+uid="uid://dji45ntmdujxx"
+path="res://.godot/imported/death.png-722288d6a8d7082a6d618c3f6bdf0ef6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/statusBar/healthBarTexture.png"
-dest_files=["res://.godot/imported/healthBarTexture.png-4accb6470016a4f0d59bc4f5d09e8373.ctex"]
+source_file="res://assets/enemies/level_01/mengao/death.png"
+dest_files=["res://.godot/imported/death.png-722288d6a8d7082a6d618c3f6bdf0ef6.ctex"]
 
 [params]
 
