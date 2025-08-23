@@ -24,11 +24,11 @@ public partial class Enemy : CharacterBody2D
 		if (immunityTime <= 0)
 		{
 			health -= damage;
-			GD.Print($"Jogador {Name} recebeu {damage} de dano, vida restante: {health}");
+			GD.Print($"{Name} recebeu {damage} de dano, vida restante: {health}");
 			if (health <= 0)
 			{
 				GetTree().CreateTimer(0.01).Timeout += () => QueueFree();
-				GD.Print("Jogador morreu");
+				GD.Print($"{Name} morreu");
 			}
 			else
 			{
@@ -46,6 +46,7 @@ public partial class Enemy : CharacterBody2D
 		{
 			Velocity = new Vector2(knockback.X, knockback.Y);
 			knockbackTimer -= (float)delta;
+			
 			if (knockbackTimer <= 0)
 			{
 				knockback = Vector2.Zero; // Reseta o knockback quando o tempo acaba
@@ -62,12 +63,15 @@ public partial class Enemy : CharacterBody2D
 			// Mover o inimigo para frente
 			Velocity = new Vector2(Mathf.MoveToward(Velocity.X, (float)(Speed * direction), (float)(Speed * delta)), Velocity.Y);
 		}
+
 		immunityTime -= delta;
+
 		MoveAndSlide();
 	}
 
 	public void FlyingEnemy(double delta, double direction, double Speed)
 	{
+		// TODO: Complicado isso aí...
 		GD.Print("FlyingEnemy");
 	}
 }

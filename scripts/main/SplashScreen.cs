@@ -11,10 +11,19 @@ public partial class SplashScreen : Node2D
 
 	private void OnTimeout()
 	{
-		GetTree().ChangeSceneToFile("res://scenes/main/main.tscn");
+		GoToMainScreen();
 	}
 
 	public override void _Process(double delta)
 	{
+		if (Input.IsActionJustPressed("menu"))
+		{
+			GoToMainScreen();
+		}
+	}
+
+	public void GoToMainScreen()
+	{
+		GetTree().ChangeSceneToFile("res://scenes/main/main.tscn");
 	}
 }

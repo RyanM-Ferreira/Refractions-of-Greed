@@ -17,10 +17,10 @@ public partial class PurpleRollercoaster : Enemy
 	private RayCast2D raycast_DownRight;
 
 	// Enemy properties
-	public double Speed = 40.0;
-	public double Gravity = 100;
-	public double direction = -1.0;
-	public double health = 20.0;
+	public new double Speed = 40.0;
+	public new double Gravity = 100;
+	public new double direction = -1.0;
+	public new double health = 20.0;
 
 	public override void _Ready()
 	{

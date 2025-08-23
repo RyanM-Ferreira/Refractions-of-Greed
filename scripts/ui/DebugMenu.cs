@@ -83,7 +83,8 @@ public partial class DebugMenu : Label
         {
             Text = $"FPS: {currentFPS}\nMinFPS: {minFPS}\nMaxFPS: {maxFPS}" +
                 $"\n\nHealth: {player.health}/{player.maxHealth}\nIsDashing: {player.isDashing}\nIsInsideEnemy: {player.isInsideEnemy}\nImmunityTime: {player.immunityTime:F2}. {(player.immunityTime > 0 ? "Immune" : "Not Immune")}\nCollisionView: {viewCollision}\nIsAttacking: {player.isAttacking}" +
-                $"\n\nPlayerPosition: {player.GlobalPosition:F2}\nPlayerVelocity: {player.Velocity:F2}.\nDashCooldown: {player.dashTimer:F2}. {(player.dashTimer > 0 ? "Reloading." : "Available.")}";
+                $"\n\nPlayerPosition: {player.GlobalPosition:F2}\nPlayerVelocity: {player.Velocity:F2}.\nDashCooldown: {player.dashTimer:F2}. {(player.dashTimer > 0 ? "Reloading." : "Available.")}" +
+                $"\n\nCameraZoom: {player.camera.Zoom:F2}";
         }
         else
         {

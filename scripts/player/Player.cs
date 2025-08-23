@@ -3,12 +3,15 @@ using System;
 
 public partial class Player : CharacterBody2D
 {
-	// Variaveis do combate
+	// Seção de Variáveis
+	// Vida
 	public double maxHealth = 50;
 	[Export] public double health = 50.0;
 	bool isAlive = true;
 
+	// Colisões
 	private CollisionShape2D hitboxShape;
+	private Area2D enemyDetector;
 
 	// Knockback
 	Vector2 knockback;
@@ -16,11 +19,11 @@ public partial class Player : CharacterBody2D
 	[Signal] public delegate void PlayerDiedEventHandler();
 	[Signal] public delegate void HealthChangedEventHandler();
 
-	// Variaveis de animação
+	// Animação
 	private AnimatedSprite2D sprite;
 	private AnimationPlayer animationPlayer;
 
-	// Variaveis de movimento
+	// Movimento
 	double walkSpeed = 175.0;
 	double acceleration = 0.1; //até 1
 	double deceleration = 0.1; //até 1
@@ -38,53 +41,52 @@ public partial class Player : CharacterBody2D
 	double dashMaxDistance = 100.0;
 	bool backDash = false;
 	float lastDirection = 1;
-
 	[Export] public Curve dashCurve;
 	public double dashCooldown = 1.0;
-
 	public bool isDashing = false;
-	public bool isAttacking = false;
-
-	public bool isInsideEnemy = false;
-
 	double dashStartPosition = 0;
 	double dashDirection = 0;
 	public double dashTimer = 0;
 
+	// Tempo de Imunidade e Combate
 	public double immunityTime = 2;
+	public bool isAttacking = false;
+	public bool isInsideEnemy = false;
+
+	// Camera
+	public Camera2D camera;
 
 	public override void _Ready()
 	{
 		sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
-		var detector = GetNode<Area2D>("EnemyDetector");
-		hitboxShape = GetNode<Area2D>("Hitbox").GetNode<CollisionShape2D>("CollisionShape2D");
+		enemyDetector = GetNode<Area2D>("EnemyDetector");
+		hitboxShape = GetNode<CollisionShape2D>("Hitbox/CollisionShape2D");
+		camera = GetNode<Camera2D>("Camera2D");
 
+		// Desativa a Hitbox por padrão.
 		hitboxShape.Disabled = true;
 
-		GD.Print($"Player {Name} ready with health: {health} and max health: {maxHealth}");
+		GD.Print($"{Name} ready with health: {health} and max health: {maxHealth}");
 
+		// Conecta os delegates (event handlers) para os sinais
 		animationPlayer.AnimationFinished += OnAnimationFinished;
-		detector.AreaEntered += OnAreaEntered;
-		detector.AreaExited += OnAreaExited;
+		enemyDetector.AreaEntered += OnAreaEntered;
+		enemyDetector.AreaExited += OnAreaExited;
 	}
 
 	// Processamento de fisica do jogador
 	public override void _PhysicsProcess(double delta)
 	{
-		if (!isAlive)
-		{
-			return;
-		}
+		if (!IsInsideTree()) return;
+		if (!isAlive) return;
 
-		//Botão para pausar o jogo
 		if (Input.IsActionJustPressed("menu"))
 		{
 			GetTree().ChangeSceneToFile("res://scenes/main/Main.tscn");
-			return;
 		}
 
-		// Adiciona a gravidade e coyote time
+		// Aplica Gravidade e Coyote Time
 		if (!IsOnFloor())
 		{
 			Velocity = new Vector2(Velocity.X, (float)(Velocity.Y + gravity * delta));
@@ -96,12 +98,14 @@ public partial class Player : CharacterBody2D
 		}
 		else
 		{
-			coyoteTime = 0.2f; // Resetando o coyote time quando está no chão
+			coyoteTime = 0.2f; // Reseta o coyote time quando está no chão;
 			canJump = true;
 		}
 
+		// Funções Diversas
 		Attack();
 		Animations();
+		CameraZoom();
 
 		if (knockbackTimer > 0)
 		{
@@ -109,7 +113,7 @@ public partial class Player : CharacterBody2D
 			knockbackTimer -= (float)delta;
 			if (knockbackTimer <= 0)
 			{
-				knockback = Vector2.Zero; // Reseta o knockback quando o tempo acaba
+				knockback = Vector2.Zero; // Reseta o knockback quando o tempo acaba;
 			}
 		}
 		else
@@ -120,14 +124,17 @@ public partial class Player : CharacterBody2D
 			}
 		}
 
+		// Só diminui o contador se for maior que zero
 		if (immunityTime > 0)
 		{
 			immunityTime -= delta;
 		}
 
+		// Processa o Movimento
 		MoveAndSlide();
 	}
 
+	// !! Ele verifica se tá dentro ou não, mas e agora?
 	private void OnAreaEntered(Area2D area)
 	{
 		if (area.IsInGroup("enemyHitbox"))
@@ -146,6 +153,18 @@ public partial class Player : CharacterBody2D
 		}
 	}
 
+	private void CameraZoom()
+	{
+		if (Input.IsActionJustPressed("zoomIn") && camera.Zoom.X > 0)
+		{
+			camera.Zoom += new Vector2(0.1f, 0.1f);
+		}
+		else if (Input.IsActionJustPressed("zoomOut"))
+		{
+			camera.Zoom -= new Vector2(0.1f, 0.1f);
+		}
+	}
+
 	private void OnAnimationFinished(StringName animName)
 	{
 		if (animName == "punch1")
@@ -156,6 +175,8 @@ public partial class Player : CharacterBody2D
 		}
 	}
 
+	// ? Eu deveria fazer um handler para isso?
+	// TODO: Um dia, eu faço combos, um dia...
 	public void Attack()
 	{
 		if (!isAttacking && Input.IsActionJustPressed("attack"))
@@ -169,6 +190,7 @@ public partial class Player : CharacterBody2D
 	// Movimentação do jogador
 	public void Movement(double delta)
 	{
+		// Pega a última direção
 		if (direction != 0)
 		{
 			lastDirection = direction;
@@ -235,7 +257,6 @@ public partial class Player : CharacterBody2D
 
 		if (isDashing)
 		{
-
 			double currentDistance = Math.Abs(Position.X - dashStartPosition);
 
 			if (currentDistance >= dashMaxDistance || IsOnWall())
@@ -243,7 +264,6 @@ public partial class Player : CharacterBody2D
 				isDashing = false;
 				backDash = false;
 			}
-
 			else
 			{
 				immunityTime = 0.45;
@@ -264,6 +284,7 @@ public partial class Player : CharacterBody2D
 
 	public void Animations()
 	{
+		// Volta para a cor padrão.
 		if (immunityTime > 0)
 		{
 			sprite.Modulate = new Color(1, 1, 1, 1);
@@ -346,6 +367,7 @@ public partial class Player : CharacterBody2D
 		// Verifica se o jogador está imune a ataques
 		if (immunityTime <= 0)
 		{
+			// Pisca o sprite
 			sprite.Modulate = new Color(5f, 1, 1, 0.75f);
 
 			health -= damage;
