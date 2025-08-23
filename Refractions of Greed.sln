@@ -1,6 +1,6 @@
 ﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Refractions of Greed", "Refractions of Greed.csproj", "{CA2F8671-526E-4472-A05C-8DBABF4749E8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Refractions of Greed", "Refractions of Greed.csproj", "{B0508436-950C-40A0-B660-874938B81EB7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,11 +9,11 @@ Global
 	ExportRelease|Any CPU = ExportRelease|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{CA2F8671-526E-4472-A05C-8DBABF4749E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CA2F8671-526E-4472-A05C-8DBABF4749E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CA2F8671-526E-4472-A05C-8DBABF4749E8}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
-		{CA2F8671-526E-4472-A05C-8DBABF4749E8}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
-		{CA2F8671-526E-4472-A05C-8DBABF4749E8}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
-		{CA2F8671-526E-4472-A05C-8DBABF4749E8}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+		{B0508436-950C-40A0-B660-874938B81EB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0508436-950C-40A0-B660-874938B81EB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0508436-950C-40A0-B660-874938B81EB7}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{B0508436-950C-40A0-B660-874938B81EB7}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{B0508436-950C-40A0-B660-874938B81EB7}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{B0508436-950C-40A0-B660-874938B81EB7}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
 	EndGlobalSection
 EndGlobal

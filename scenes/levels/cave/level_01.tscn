@@ -21,7 +21,7 @@ unique_name_in_owner = true
 script = ExtResource("1_8ryxd")
 
 [node name="Player" parent="." instance=ExtResource("1_e4h6s")]
-position = Vector2(-1434, 20)
+position = Vector2(-1425, 24)
 
 [node name="layer_01" type="TileMapLayer" parent="."]
 visibility_layer = 3
