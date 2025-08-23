@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class HealthBar : ProgressBar
+public partial class HealthBar : TextureProgressBar
 {
     Node parent;
     public override void _Ready()
@@ -18,6 +18,7 @@ public partial class HealthBar : ProgressBar
             parent.Connect("HealthChanged", new Callable(this, nameof(UpdateHealthBar)));
             UpdateHealthBar();
         }
+
         GD.Print($"Health bar ready with parent: {parent.Name}");
     }
 

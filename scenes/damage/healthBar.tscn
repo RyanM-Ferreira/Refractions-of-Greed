@@ -1,9 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://kelt753b0v6o"]
+[gd_scene load_steps=4 format=3 uid="uid://kelt753b0v6o"]
 
+[ext_resource type="Texture2D" uid="uid://bryqhx6exjsg3" path="res://assets/ui/statusBar/lifeBarBackgroundTexture.png" id="1_cdenf"]
 [ext_resource type="Script" uid="uid://djm7e2lbpeuvl" path="res://scripts/damage/HealthBar.cs" id="1_tmb1u"]
+[ext_resource type="Texture2D" uid="uid://cjgxunm72wy8g" path="res://assets/ui/statusBar/healthBarTexture.png" id="2_77uxs"]
 
-[node name="HealthBar" type="ProgressBar"]
-offset_right = 35.0
-offset_bottom = 9.0
-max_value = 50.0
+[node name="TextureProgressBar" type="TextureProgressBar"]
+clip_contents = true
+offset_right = 128.0
+offset_bottom = 17.0
+value = 100.0
+rounded = true
+nine_patch_stretch = true
+texture_under = ExtResource("1_cdenf")
+texture_progress = ExtResource("2_77uxs")
 script = ExtResource("1_tmb1u")

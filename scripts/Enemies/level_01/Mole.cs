@@ -17,9 +17,9 @@ public partial class Mole : Enemy
 
 	[Export] public bool is_attacking;
 
-	[Export] public double Speed = 40.0;
-	public double direction = -1.0;
-	public double Gravity = 140;
+	[Export] public new double Speed = 40.0;
+	public new double direction = -1.0;
+	public new double Gravity = 140;
 
 	public override void _Ready()
 	{

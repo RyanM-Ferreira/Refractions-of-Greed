@@ -21,7 +21,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="background" type="TextureRect" parent="uiControl"]
-modulate = Color(0.371622, 0.371622, 0.371622, 1)
+modulate = Color(0.361576, 0.361575, 0.361575, 1)
 layout_mode = 0
 offset_right = 320.0
 offset_bottom = 180.0

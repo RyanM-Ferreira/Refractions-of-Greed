@@ -67,4 +67,4 @@ position = Vector2(593, -79)
 position = Vector2(-442, 29)
 
 [node name="TopeiraMovel" parent="." instance=ExtResource("8_kfgjw")]
-position = Vector2(-687, 51)
+position = Vector2(-686, 47)

@@ -8,6 +8,7 @@ public partial class DebugMenu : Label
     private double maxFPS = 0;
 
     bool isVisible = true;
+    bool viewCollision = false;
 
     public override void _Ready()
     {
@@ -16,40 +17,77 @@ public partial class DebugMenu : Label
 
     public override void _Process(double delta)
     {
-        if (Input.IsActionJustPressed("F3"))
+        HandleInput();
+        UpdateDebugDisplay();
+    }
+
+    private void HandleInput()
+    {
+        HandleCollisionToggle();
+        HandleDebugMenuToggle();
+    }
+
+    private void HandleCollisionToggle()
+    {
+        if (Input.IsActionJustPressed("toggleDebugCollision"))
         {
-            GD.Print("Debug Menu Ativo!");
-            isVisible = !isVisible;
+            viewCollision = !viewCollision;
+
         }
 
-        if (isVisible)
+        if (viewCollision)
         {
-            double currentFPS = Engine.GetFramesPerSecond();
+            GetTree().DebugCollisionsHint = true;
+            GD.Print("Collision Shapes Visible!");
 
-            if (currentFPS < minFPS || minFPS == 0)
-            {
-                minFPS = currentFPS;
-            }
+            GetTree().ReloadCurrentScene();
+            GD.Print("Reloaded Scene!");
 
-            if (currentFPS > maxFPS)
-            {
-                maxFPS = currentFPS;
-            }
-
-            if (player != null)
-            {
-                Text = $"FPS: {currentFPS}\nMinFPS: {minFPS}\nMaxFPS: {maxFPS}" +
-                $"\n\nHealth: {player.health}/{player.maxHealth}\nisDashing: {player.isDashing}\nisInsideEnemy: {player.isInsideEnemy}\nImmunityTime: {player.immunityTime.ToString("F2")}. {(player.immunityTime > 0 ? "Immune" : "Not Immune")}" +
-                $"\n\nPlayerPosition: {player.GlobalPosition.ToString("F2")}\nPlayerVelocity: {player.Velocity.ToString("F2")}.\nDashCooldown: {player.dashTimer.ToString("F2")}. {(player.dashTimer > 0 ? "Reloading." : "Available.")}";
-            }
-            else
-            {
-                Text = "Sei lá, player não encontrado. Faz o L!";
-            }
         }
         else
         {
+            GetTree().DebugCollisionsHint = false;
+        }
+    }
+
+    private void HandleDebugMenuToggle()
+    {
+        if (Input.IsActionJustPressed("F3"))
+        {
+            isVisible = !isVisible;
+            GD.Print("Debug Menu Ativo!");
+        }
+    }
+
+    private void UpdateDebugDisplay()
+    {
+        if (!isVisible)
+        {
             Text = "";
+            return;
+        }
+
+        double currentFPS = Engine.GetFramesPerSecond();
+
+        if (currentFPS < minFPS || minFPS == 0)
+        {
+            minFPS = currentFPS;
+        }
+
+        if (currentFPS > maxFPS)
+        {
+            maxFPS = currentFPS;
+        }
+
+        if (player != null)
+        {
+            Text = $"FPS: {currentFPS}\nMinFPS: {minFPS}\nMaxFPS: {maxFPS}" +
+                $"\n\nHealth: {player.health}/{player.maxHealth}\nIsDashing: {player.isDashing}\nIsInsideEnemy: {player.isInsideEnemy}\nImmunityTime: {player.immunityTime:F2}. {(player.immunityTime > 0 ? "Immune" : "Not Immune")}\nCollisionView: {viewCollision}\nIsAttacking: {player.isAttacking}" +
+                $"\n\nPlayerPosition: {player.GlobalPosition:F2}\nPlayerVelocity: {player.Velocity:F2}.\nDashCooldown: {player.dashTimer:F2}. {(player.dashTimer > 0 ? "Reloading." : "Available.")}";
+        }
+        else
+        {
+            Text = "Sei lá, player não encontrado. Faz o L!";
         }
     }
 }

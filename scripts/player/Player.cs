@@ -8,6 +8,8 @@ public partial class Player : CharacterBody2D
 	[Export] public double health = 50.0;
 	bool isAlive = true;
 
+	private CollisionShape2D hitboxShape;
+
 	// Knockback
 	Vector2 knockback;
 	float knockbackTimer = 0;
@@ -16,6 +18,7 @@ public partial class Player : CharacterBody2D
 
 	// Variaveis de animação
 	private AnimatedSprite2D sprite;
+	private AnimationPlayer animationPlayer;
 
 	// Variaveis de movimento
 	double walkSpeed = 175.0;
@@ -40,6 +43,7 @@ public partial class Player : CharacterBody2D
 	public double dashCooldown = 1.0;
 
 	public bool isDashing = false;
+	public bool isAttacking = false;
 
 	public bool isInsideEnemy = false;
 
@@ -52,9 +56,15 @@ public partial class Player : CharacterBody2D
 	public override void _Ready()
 	{
 		sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+		animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+		var detector = GetNode<Area2D>("EnemyDetector");
+		hitboxShape = GetNode<Area2D>("Hitbox").GetNode<CollisionShape2D>("CollisionShape2D");
+
+		hitboxShape.Disabled = true;
+
 		GD.Print($"Player {Name} ready with health: {health} and max health: {maxHealth}");
 
-		var detector = GetNode<Area2D>("EnemyDetector");
+		animationPlayer.AnimationFinished += OnAnimationFinished;
 		detector.AreaEntered += OnAreaEntered;
 		detector.AreaExited += OnAreaExited;
 	}
@@ -63,7 +73,9 @@ public partial class Player : CharacterBody2D
 	public override void _PhysicsProcess(double delta)
 	{
 		if (!isAlive)
+		{
 			return;
+		}
 
 		//Botão para pausar o jogo
 		if (Input.IsActionJustPressed("menu"))
@@ -88,6 +100,9 @@ public partial class Player : CharacterBody2D
 			canJump = true;
 		}
 
+		Attack();
+		Animations();
+
 		if (knockbackTimer > 0)
 		{
 			Velocity = new Vector2(knockback.X, knockback.Y);
@@ -99,7 +114,10 @@ public partial class Player : CharacterBody2D
 		}
 		else
 		{
-			Movement(delta);
+			if (!isAttacking)
+			{
+				Movement(delta);
+			}
 		}
 
 		if (immunityTime > 0)
@@ -128,7 +146,27 @@ public partial class Player : CharacterBody2D
 		}
 	}
 
-	// Movimentaç~ao do jogador
+	private void OnAnimationFinished(StringName animName)
+	{
+		if (animName == "punch1")
+		{
+			isAttacking = false;
+			hitboxShape.Disabled = true;
+			sprite.Offset = new Vector2(0, 0);
+		}
+	}
+
+	public void Attack()
+	{
+		if (!isAttacking && Input.IsActionJustPressed("attack"))
+		{
+			Velocity = Vector2.Zero;
+			hitboxShape.Disabled = false;
+			isAttacking = true;
+		}
+	}
+
+	// Movimentação do jogador
 	public void Movement(double delta)
 	{
 		if (direction != 0)
@@ -151,54 +189,29 @@ public partial class Player : CharacterBody2D
 		// Andar
 		if (Input.IsActionPressed("left") && Input.IsActionPressed("right"))
 		{
-			sprite.Play("idle");
 			direction = 0;
 			Velocity = new Vector2(Mathf.MoveToward(Velocity.X, 0, (float)(walkSpeed * deceleration)), Velocity.Y);
 		}
 		else if (Input.IsActionPressed("left"))
 		{
+			hitboxShape.Transform = new Transform2D(0, new Vector2(-24, 0));
 			direction = -1;
 			sprite.FlipH = true;
+
 			Velocity = new Vector2(Mathf.MoveToward(Velocity.X, (float)(direction * walkSpeed), (float)(walkSpeed * acceleration)), Velocity.Y);
 		}
 		else if (Input.IsActionPressed("right"))
 		{
+			hitboxShape.Transform = new Transform2D(0, new Vector2(24, 0));
 			direction = 1;
 			sprite.FlipH = false;
+
 			Velocity = new Vector2(Mathf.MoveToward(Velocity.X, (float)(direction * walkSpeed), (float)(walkSpeed * acceleration)), Velocity.Y);
 		}
 		else
 		{
-			sprite.Play("idle");
 			direction = 0;
 			Velocity = new Vector2(Mathf.MoveToward(Velocity.X, 0, (float)(walkSpeed * deceleration)), Velocity.Y);
-		}
-
-		// Animações
-		if (!IsOnFloor())
-		{
-			if (Velocity.Y < 0)
-			{
-				if (sprite.Animation != "jump")
-				{
-					sprite.Play("jump");
-				}
-			}
-			else
-			{
-				if (sprite.Animation != "fall")
-				{
-					sprite.Play("fall");
-				}
-			}
-		}
-
-		if (direction != 0 && IsOnFloor())
-		{
-			if (sprite.Animation != "walk")
-			{
-				sprite.Play("walk");
-			}
 		}
 
 		// Sistema de Dash
@@ -220,21 +233,8 @@ public partial class Player : CharacterBody2D
 			dashTimer = dashCooldown;
 		}
 
-		if (immunityTime > 0)
-		{
-			sprite.Modulate = new Color(1, 1, 1, 1);
-		}
-
 		if (isDashing)
 		{
-			if (!backDash)
-			{
-				sprite.Play("dash");
-			}
-			else
-			{
-				sprite.Play("backDash");
-			}
 
 			double currentDistance = Math.Abs(Position.X - dashStartPosition);
 
@@ -259,6 +259,84 @@ public partial class Player : CharacterBody2D
 		if (dashTimer > 0)
 		{
 			dashTimer -= delta;
+		}
+	}
+
+	public void Animations()
+	{
+		if (immunityTime > 0)
+		{
+			sprite.Modulate = new Color(1, 1, 1, 1);
+		}
+
+		if (Input.IsActionJustPressed("attack"))
+		{
+			if (animationPlayer.CurrentAnimation != "punch1")
+			{
+				animationPlayer.Play("punch1");
+
+				if (lastDirection < 0)
+				{
+					sprite.Offset = new Vector2(-12, 0);
+				}
+				else
+				{
+					sprite.Offset = new Vector2(12, 0);
+				}
+			}
+		}
+
+		if (!isAttacking)
+		{
+			if (!IsOnFloor())
+			{
+				if (Velocity.Y < 0)
+				{
+					if (animationPlayer.CurrentAnimation != "jump")
+					{
+						animationPlayer.Play("jump");
+					}
+				}
+				else
+				{
+					if (animationPlayer.CurrentAnimation != "fall")
+					{
+						animationPlayer.Play("fall");
+					}
+				}
+			}
+
+			if (direction != 0 && IsOnFloor())
+			{
+				if (animationPlayer.CurrentAnimation != "walk")
+				{
+					animationPlayer.Play("walk");
+				}
+			}
+			else if (direction == 0 && IsOnFloor())
+			{
+				if (animationPlayer.CurrentAnimation != "idle" && !isAttacking)
+				{
+					animationPlayer.Play("idle");
+				}
+			}
+
+			if (isDashing)
+			{
+				if (!backDash)
+				{
+					animationPlayer.Play("dash");
+				}
+				else
+				{
+					animationPlayer.Play("backDash");
+				}
+			}
+
+			if (health <= 0)
+			{
+				animationPlayer.Play("death");
+			}
 		}
 	}
 
