@@ -3,7 +3,7 @@ using System;
 public partial class Mrocego : Enemy
 {
 	public new double Speed = 75.0;
-	private new (int, int) direction = (-1, 1);
+	public new (int, int) direction = (-1, 1);
 	bool is_chassing;
 
 	// Import elementos de animação

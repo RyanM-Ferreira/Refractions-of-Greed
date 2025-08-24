@@ -1,6 +1,6 @@
 [gd_scene load_steps=53 format=3 uid="uid://smn2wmm61xkk"]
 
-[ext_resource type="Script" uid="uid://bugo7jvbanylx" path="res://scripts/enemies/level_01/Mole.cs" id="1_u41je"]
+[ext_resource type="Script" uid="uid://dhh26dpucp1k2" path="res://scripts/enemies/level_01/Mole.cs" id="1_u41je"]
 [ext_resource type="PackedScene" uid="uid://tadv4ch0tx4j" path="res://scenes/damage/hitBox.tscn" id="2_6qymu"]
 [ext_resource type="Texture2D" uid="uid://cquuw3s2fbsmo" path="res://assets/enemies/level_01/mole/attack.png" id="2_s2m8c"]
 [ext_resource type="Texture2D" uid="uid://bn6r8q82wenj7" path="res://assets/enemies/level_01/mole/attack_end.png" id="3_08ycf"]

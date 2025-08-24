@@ -15,7 +15,6 @@ config/version="0.0.11"
 run/main_scene="uid://dpfynnsl8f6ga"
 config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 boot_splash/bg_color=Color(0.470588, 0.282353, 0.972549, 1)
-boot_splash/fullsize=false
 boot_splash/use_filter=false
 boot_splash/image="uid://c2l1jrl7rf3i2"
 config/icon="uid://c2l1jrl7rf3i2"

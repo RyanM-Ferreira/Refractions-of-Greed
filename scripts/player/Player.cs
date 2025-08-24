@@ -53,6 +53,12 @@ public partial class Player : CharacterBody2D
 	public bool isAttacking = false;
 	public bool isInsideEnemy = false;
 
+	// Combo
+	private int comboStep = 0; // qual ataque da sequência
+	private float comboTimer = 0f; // contador da janela de tempo
+	private float comboWindow = 0.6f; // tempo para apertar o próximo ataque
+
+
 	// Camera
 	public Camera2D camera;
 
@@ -98,14 +104,28 @@ public partial class Player : CharacterBody2D
 		}
 		else
 		{
-			coyoteTime = 0.2f; // Reseta o coyote time quando está no chão;
+			coyoteTime = 0.2f; // * Reseta o coyote time quando está no chão;
 			canJump = true;
 		}
 
-		// Funções Diversas
+		// * Aqui é onde as ações do jogador são processadas
 		Attack();
 		Animations();
 		CameraZoom();
+
+		if (comboStep > 0)
+		{
+			comboTimer -= (float)delta;
+
+			if (comboTimer <= 0)
+			{
+				comboStep = 0;
+				isAttacking = false;
+				hitboxShape.Disabled = true;
+
+				sprite.Offset = new Vector2(0, 0);
+			}
+		}
 
 		if (knockbackTimer > 0)
 		{
@@ -113,7 +133,13 @@ public partial class Player : CharacterBody2D
 			knockbackTimer -= (float)delta;
 			if (knockbackTimer <= 0)
 			{
-				knockback = Vector2.Zero; // Reseta o knockback quando o tempo acaba;
+				knockback = Vector2.Zero; // * Reseta o knockback quando o tempo acaba;
+
+				// * Volta para a cor padrão depois de ser atingido.
+				if (immunityTime > 0)
+				{
+					sprite.Modulate = new Color(1, 1, 1, 1);
+				}
 			}
 		}
 		else
@@ -124,7 +150,7 @@ public partial class Player : CharacterBody2D
 			}
 		}
 
-		// Só diminui o contador se for maior que zero
+		// ! Só diminui o contador se for maior que zero
 		if (immunityTime > 0)
 		{
 			immunityTime -= delta;
@@ -134,7 +160,7 @@ public partial class Player : CharacterBody2D
 		MoveAndSlide();
 	}
 
-	// !! Ele verifica se tá dentro ou não, mas e agora?
+	// ? Ele verifica se tá dentro ou não, mas e agora?
 	private void OnAreaEntered(Area2D area)
 	{
 		if (area.IsInGroup("enemyHitbox"))
@@ -167,48 +193,65 @@ public partial class Player : CharacterBody2D
 
 	private void OnAnimationFinished(StringName animName)
 	{
-		if (animName == "punch1")
+		if (animName == "punch1" || animName == "punch2")
 		{
-			isAttacking = false;
 			hitboxShape.Disabled = true;
-			sprite.Offset = new Vector2(0, 0);
+
+			if (comboTimer <= 0)
+			{
+				comboStep = 0;
+				isAttacking = false;
+			}
 		}
 	}
 
-	// ? Eu deveria fazer um handler para isso?
-	// TODO: Um dia, eu faço combos, um dia...
+	/**
+		* TODO: Ele repete o mesmo ataque, depois eu conserto isso.
+		* ? Antes que eu mexa, vale a pena manter esse sistema?
+		* ! Não que eu provavelmente vá refazer, mas...
+		*/
 	public void Attack()
 	{
-		if (!isAttacking && Input.IsActionJustPressed("attack"))
+		if (Input.IsActionJustPressed("attack") && !isDashing)
 		{
 			Velocity = Vector2.Zero;
-			hitboxShape.Disabled = false;
+
 			isAttacking = true;
+			hitboxShape.Disabled = false;
+
+			// * Acrescenta a sequência de combos.
+			comboStep++;
+
+			if (comboStep > 2)
+			{
+				comboStep = 1; // * volta pro início da sequência se passar do último ataque.
+			}
+
+			comboTimer = comboWindow;
 		}
 	}
 
 	// Movimentação do jogador
 	public void Movement(double delta)
 	{
-		// Pega a última direção
+		// *Pega a última direção
 		if (direction != 0)
 		{
 			lastDirection = direction;
 		}
 
-		// Pulo
+		// * Pulo
 		if (Input.IsActionJustPressed("jump") && canJump == true)
 		{
 			canJump = false;
 			Velocity = new Vector2(Velocity.X, (float)jumpForce);
 		}
-
 		if (Input.IsActionJustReleased("jump") && Velocity.Y < 0)
 		{
 			Velocity = new Vector2(Velocity.X, (float)(Velocity.Y * decelerateOnJumpRelease));
 		}
 
-		// Andar
+		// * Movimento
 		if (Input.IsActionPressed("left") && Input.IsActionPressed("right"))
 		{
 			direction = 0;
@@ -236,7 +279,7 @@ public partial class Player : CharacterBody2D
 			Velocity = new Vector2(Mathf.MoveToward(Velocity.X, 0, (float)(walkSpeed * deceleration)), Velocity.Y);
 		}
 
-		// Sistema de Dash
+		// * Sistema de Dash
 		if (Input.IsActionJustPressed("dash") && dashTimer <= 0)
 		{
 			isDashing = true;
@@ -268,14 +311,14 @@ public partial class Player : CharacterBody2D
 			{
 				immunityTime = 0.45;
 
-				// Mover o personagem
+				// * Mover o personagem
 				double curveFactor = dashCurve.Sample((float)Math.Abs(currentDistance / dashMaxDistance));
 				Velocity = new Vector2((float)(Velocity.X + dashDirection * dashSpeed * curveFactor), Velocity.Y);
 				Velocity = new Vector2(Velocity.X, 0);
 			}
 		}
 
-		// Cooldown do dash
+		// * Cooldown do dash
 		if (dashTimer > 0)
 		{
 			dashTimer -= delta;
@@ -284,18 +327,11 @@ public partial class Player : CharacterBody2D
 
 	public void Animations()
 	{
-		// Volta para a cor padrão.
-		if (immunityTime > 0)
-		{
-			sprite.Modulate = new Color(1, 1, 1, 1);
-		}
-
 		if (Input.IsActionJustPressed("attack"))
 		{
-			if (animationPlayer.CurrentAnimation != "punch1")
+			if (animationPlayer.CurrentAnimation != "punch1" && animationPlayer.CurrentAnimation != "punch2")
 			{
-				animationPlayer.Play("punch1");
-
+				// * Ajusta a posição do sprite ao bater.
 				if (lastDirection < 0)
 				{
 					sprite.Offset = new Vector2(-12, 0);
@@ -304,9 +340,21 @@ public partial class Player : CharacterBody2D
 				{
 					sprite.Offset = new Vector2(12, 0);
 				}
+
+				// * Determina qual das animações tocar.
+				switch (comboStep)
+				{
+					case 1:
+						animationPlayer.Play("punch1");
+						break;
+					case 2:
+						animationPlayer.Play("punch2");
+						break;
+				}
 			}
 		}
 
+		// * Para evitar problemas, enquanto o player ataca, nenhuma outra animação é executada.
 		if (!isAttacking)
 		{
 			if (!IsOnFloor())
@@ -371,7 +419,7 @@ public partial class Player : CharacterBody2D
 			sprite.Modulate = new Color(5f, 1, 1, 0.75f);
 
 			health -= damage;
-			GD.Print($"Jogador {Name} recebeu {damage} de dano, vida restante: {health}");
+			GD.Print($"{Name} recebeu {damage} de dano, vida restante: {health}");
 
 			if (health <= 0)
 			{

@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=4 uid="uid://be2upkt55v8rf"]
 
-[ext_resource type="Script" uid="uid://yumngb5g653t" path="res://scripts/Global.cs" id="1_8ryxd"]
+[ext_resource type="Script" uid="uid://dhah1w0jc28o1" path="res://scripts/Global.cs" id="1_8ryxd"]
 [ext_resource type="PackedScene" uid="uid://d4mg546sapinq" path="res://scenes/player/player.tscn" id="1_e4h6s"]
 [ext_resource type="TileSet" uid="uid://vv1l5kh20b2l" path="res://themes/tileMapLayer/level_01_tileMapLayer.tres" id="3_kfgjw"]
 [ext_resource type="Texture2D" uid="uid://b8unylf5gt5dl" path="res://assets/tilemaps/level_01/background/Cave_Background  full.png" id="4_fvk6h"]

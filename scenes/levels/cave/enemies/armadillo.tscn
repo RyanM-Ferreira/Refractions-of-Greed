@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://clcifj7evsaon"]
 
-[ext_resource type="Script" uid="uid://bugo7jvbanylx" path="res://scripts/enemies/level_01/Mole.cs" id="1_cgkt8"]
+[ext_resource type="Script" uid="uid://dhh26dpucp1k2" path="res://scripts/enemies/level_01/Mole.cs" id="1_cgkt8"]
 [ext_resource type="Texture2D" uid="uid://dxo3er5ngnbpp" path="res://assets/enemies/level_01/armadillo/armadillo.png" id="2_i6tva"]
 [ext_resource type="PackedScene" uid="uid://tadv4ch0tx4j" path="res://scenes/damage/hitBox.tscn" id="6_gl0up"]
 
