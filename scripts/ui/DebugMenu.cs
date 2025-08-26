@@ -38,7 +38,7 @@ public partial class DebugMenu : Label
         if (viewCollision)
         {
             GetTree().DebugCollisionsHint = true;
-            GD.Print("Collision Shapes Visible!");
+            GD.Print("Collision Shapes are visible!");
 
             GetTree().ReloadCurrentScene();
             GD.Print("Reloaded Scene!");
@@ -55,7 +55,7 @@ public partial class DebugMenu : Label
         if (Input.IsActionJustPressed("F3"))
         {
             isVisible = !isVisible;
-            GD.Print("Debug Menu Ativo!");
+            GD.Print("Debug Menu is Active!");
         }
     }
 
@@ -88,7 +88,8 @@ public partial class DebugMenu : Label
         }
         else
         {
-            Text = "Sei lá, player não encontrado. Faz o L!";
+            Text = "ERROR: Look at the console for more information.";
+            GD.PrintErr("Sei lá, player não encontrado. Faz o L!");
         }
     }
 }
