@@ -26,7 +26,7 @@ public partial class Player : CharacterBody2D
 	// Movimento
 	double walkSpeed = 175.0;
 	double acceleration = 0.1; //até 1
-	double deceleration = 0.1; //até 1
+	double deceleration = 0.075; //até 1
 	float direction = 1;
 
 	// Variaveis de pulo
@@ -56,8 +56,7 @@ public partial class Player : CharacterBody2D
 	// Combo
 	private int comboStep = 0; // qual ataque da sequência
 	private float comboTimer = 0f; // contador da janela de tempo
-	private float comboWindow = 0.6f; // tempo para apertar o próximo ataque
-
+	private float comboWindow = 0.45f; // tempo para apertar o próximo ataque
 
 	// Camera
 	public Camera2D camera;
@@ -81,11 +80,9 @@ public partial class Player : CharacterBody2D
 		enemyDetector.AreaExited += OnAreaExited;
 	}
 
-	// Processamento de fisica do jogador
 	public override void _PhysicsProcess(double delta)
 	{
-		if (!IsInsideTree()) return;
-		if (!isAlive) return;
+		if (!isAlive) { return; }
 
 		if (Input.IsActionJustPressed("menu"))
 		{
@@ -214,7 +211,7 @@ public partial class Player : CharacterBody2D
 	{
 		if (Input.IsActionJustPressed("attack") && !isDashing)
 		{
-			Velocity = Vector2.Zero;
+			Velocity = new Vector2(lastDirection < 0 ? -2.5f : 2.5f, Velocity.Y * 0.5f);
 
 			isAttacking = true;
 			hitboxShape.Disabled = false;
