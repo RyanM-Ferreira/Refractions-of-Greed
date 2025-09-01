@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://b0o40dsimxg5c"]
+[gd_scene load_steps=7 format=3 uid="uid://b0o40dsimxg5c"]
 
 [ext_resource type="Texture2D" uid="uid://d2ewa5gelgmw3" path="res://assets/mainMenu/background/menuBackground.png" id="1_ow5a4"]
 [ext_resource type="Script" uid="uid://ws8cvu2we64u" path="res://scripts/main/MainActions.cs" id="4_6q06x"]
 [ext_resource type="StyleBox" uid="uid://clkelnpcbfymq" path="res://themes/ui/emptyStyleBox_Button.tres" id="4_ow5a4"]
 [ext_resource type="Texture2D" uid="uid://b3us8eiguos8c" path="res://assets/logos/titleLogo_v4.png" id="5_6q06x"]
 [ext_resource type="Texture2D" uid="uid://0j338ib8igoe" path="res://assets/mainMenu/optionArc.png" id="6_b1x3f"]
+[ext_resource type="PackedScene" uid="uid://bqbsx46yfqavf" path="res://scenes/ui/config_menu.tscn" id="6_ow5a4"]
 
 [node name="Main" type="Node2D"]
 
@@ -124,16 +125,19 @@ scale = Vector2(1.25, 1.25)
 texture = ExtResource("5_6q06x")
 
 [node name="version" type="Label" parent="UiControl/UI"]
-offset_left = 584.0
+offset_left = 581.0
 offset_top = 345.0
-offset_right = 638.0
+offset_right = 635.0
 offset_bottom = 358.0
 size_flags_horizontal = 8
-text = "v0.0.11"
-horizontal_alignment = 1
+text = "v0.0.2"
+horizontal_alignment = 2
 vertical_alignment = 1
 
+[node name="ConfigMenu" parent="." instance=ExtResource("6_ow5a4")]
+visible = false
+
 [connection signal="pressed" from="UiControl/UI/StartButton" to="UiControl/UI/StartButton" method="StartButtonPressed"]
-[connection signal="pressed" from="UiControl/UI/OptionsButton" to="UiControl/UI/StartButton" method="OptionsMenuButtonPressed"]
+[connection signal="pressed" from="UiControl/UI/OptionsButton" to="ConfigMenu" method="OpenConfigMenu"]
 [connection signal="pressed" from="UiControl/UI/QuitButton" to="UiControl/UI/StartButton" method="QuitButtonPressed"]
-[connection signal="pressed" from="UiControl/UI/debugButton" to="UiControl/UI/debugButton" method="DebugButtonPressed"]
+[connection signal="pressed" from="UiControl/UI/debugButton" to="UiControl/UI/StartButton" method="DebugButtonPressed"]

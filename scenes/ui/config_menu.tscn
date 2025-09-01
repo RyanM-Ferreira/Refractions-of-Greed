@@ -1,0 +1,38 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqbsx46yfqavf"]
+
+[ext_resource type="Script" uid="uid://dfkwy0v8k520k" path="res://scripts/UI/ConfigMenu.cs" id="1_2e045"]
+
+[node name="ConfigMenu" type="CanvasLayer"]
+script = ExtResource("1_2e045")
+
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 320.0
+offset_bottom = 180.0
+scale = Vector2(2, 2)
+color = Color(0, 0, 0, 0.705882)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = 128.0
+offset_top = 72.0
+offset_right = 512.0
+offset_bottom = 272.0
+color = Color(0.63551, 0.347998, 0.812596, 1)
+
+[node name="Vsync" type="CheckButton" parent="."]
+offset_left = 136.0
+offset_top = 152.0
+offset_right = 191.0
+offset_bottom = 167.0
+text = "V-Sync"
+flat = true
+
+[node name="CloseButton" type="Button" parent="."]
+offset_left = 136.0
+offset_top = 80.0
+offset_right = 171.0
+offset_bottom = 95.0
+text = "Fechar
+"
+
+[connection signal="pressed" from="CloseButton" to="." method="CloseConfigMenu"]

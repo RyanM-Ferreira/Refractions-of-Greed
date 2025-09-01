@@ -54,9 +54,11 @@ public partial class Player : CharacterBody2D
 	public bool isInsideEnemy = false;
 
 	// Combo
-	private int comboStep = 0; // qual ataque da sequência
-	private float comboTimer = 0f; // contador da janela de tempo
-	private float comboWindow = 0.45f; // tempo para apertar o próximo ataque
+	public int comboStep = 0; // Qual ataque da sequência.
+	private float comboTimer = 0f; // Contador da janela de tempo.
+	public float attackTimer = 0f; // Tempo para o próximo ataque.
+	private const float comboWindow = 0.5f; // Tempo para apertar o próximo ataque.
+	public const float attackCooldown = 0.5f; // Tempo de recarga do ataque.
 
 	// Camera
 	public Camera2D camera;
@@ -84,12 +86,7 @@ public partial class Player : CharacterBody2D
 	{
 		if (!isAlive) { return; }
 
-		if (Input.IsActionJustPressed("menu"))
-		{
-			GetTree().ChangeSceneToFile("res://scenes/main/Main.tscn");
-		}
-
-		// Aplica Gravidade e Coyote Time
+		// Aplica Gravidade e Coyote Time.
 		if (!IsOnFloor())
 		{
 			Velocity = new Vector2(Velocity.X, (float)(Velocity.Y + gravity * delta));
@@ -101,7 +98,7 @@ public partial class Player : CharacterBody2D
 		}
 		else
 		{
-			coyoteTime = 0.2f; // * Reseta o coyote time quando está no chão;
+			coyoteTime = 0.2f; // Reseta o coyote time quando está no chão.
 			canJump = true;
 		}
 
@@ -117,9 +114,9 @@ public partial class Player : CharacterBody2D
 			if (comboTimer <= 0)
 			{
 				comboStep = 0;
+				attackTimer = attackCooldown;
 				isAttacking = false;
 				hitboxShape.Disabled = true;
-
 				sprite.Offset = new Vector2(0, 0);
 			}
 		}
@@ -130,9 +127,9 @@ public partial class Player : CharacterBody2D
 			knockbackTimer -= (float)delta;
 			if (knockbackTimer <= 0)
 			{
-				knockback = Vector2.Zero; // * Reseta o knockback quando o tempo acaba;
+				knockback = Vector2.Zero; // Reseta o knockback quando o tempo acaba;
 
-				// * Volta para a cor padrão depois de ser atingido.
+				// Volta para a cor padrão depois de ser atingido.
 				if (immunityTime > 0)
 				{
 					sprite.Modulate = new Color(1, 1, 1, 1);
@@ -153,7 +150,11 @@ public partial class Player : CharacterBody2D
 			immunityTime -= delta;
 		}
 
-		// Processa o Movimento
+		if (attackTimer > 0)
+		{
+			attackTimer -= (float)delta;
+		}
+
 		MoveAndSlide();
 	}
 
@@ -206,25 +207,29 @@ public partial class Player : CharacterBody2D
 		* TODO: Ele repete o mesmo ataque, depois eu conserto isso.
 		* ? Antes que eu mexa, vale a pena manter esse sistema?
 		* ! Não que eu provavelmente vá refazer, mas...
-		*/
+	*/
 	public void Attack()
 	{
 		if (Input.IsActionJustPressed("attack") && !isDashing)
 		{
-			Velocity = new Vector2(lastDirection < 0 ? -2.5f : 2.5f, Velocity.Y * 0.5f);
-
-			isAttacking = true;
-			hitboxShape.Disabled = false;
-
-			// * Acrescenta a sequência de combos.
-			comboStep++;
-
-			if (comboStep > 2)
+			if (attackTimer <= 0)
 			{
-				comboStep = 1; // * volta pro início da sequência se passar do último ataque.
-			}
+				Velocity = new Vector2(lastDirection < 0 ? -2.5f : 2.5f, Velocity.Y * 0.5f);
 
-			comboTimer = comboWindow;
+				isAttacking = true;
+				hitboxShape.Disabled = false;
+
+				// Acrescenta a sequência de combos.
+				comboStep++;
+
+				if (comboStep > 2)
+				{
+					comboStep = 1; // Volta pro início da sequência se passar do último ataque.
+					attackTimer = attackCooldown;
+				}
+
+				comboTimer = comboWindow;
+			}
 		}
 	}
 
@@ -254,7 +259,7 @@ public partial class Player : CharacterBody2D
 			direction = 0;
 			Velocity = new Vector2(Mathf.MoveToward(Velocity.X, 0, (float)(walkSpeed * deceleration)), Velocity.Y);
 		}
-		else if (Input.IsActionPressed("left"))
+		else if (Input.IsActionPressed("left") && !IsOnWall())
 		{
 			hitboxShape.Transform = new Transform2D(0, new Vector2(-24, 0));
 			direction = -1;
@@ -262,7 +267,7 @@ public partial class Player : CharacterBody2D
 
 			Velocity = new Vector2(Mathf.MoveToward(Velocity.X, (float)(direction * walkSpeed), (float)(walkSpeed * acceleration)), Velocity.Y);
 		}
-		else if (Input.IsActionPressed("right"))
+		else if (Input.IsActionPressed("right") && !IsOnWall())
 		{
 			hitboxShape.Transform = new Transform2D(0, new Vector2(24, 0));
 			direction = 1;
@@ -329,24 +334,23 @@ public partial class Player : CharacterBody2D
 			if (animationPlayer.CurrentAnimation != "punch1" && animationPlayer.CurrentAnimation != "punch2")
 			{
 				// * Ajusta a posição do sprite ao bater.
-				if (lastDirection < 0)
+				if (attackTimer <= 0)
 				{
-					sprite.Offset = new Vector2(-12, 0);
-				}
-				else
-				{
-					sprite.Offset = new Vector2(12, 0);
-				}
+					if (lastDirection < 0)
+					{
+						sprite.Offset = new Vector2(-12, 0);
+					}
+					else
+					{
+						sprite.Offset = new Vector2(12, 0);
+					}
 
-				// * Determina qual das animações tocar.
-				switch (comboStep)
-				{
-					case 1:
-						animationPlayer.Play("punch1");
-						break;
-					case 2:
-						animationPlayer.Play("punch2");
-						break;
+					// * Determina qual das animações tocar.
+					switch (comboStep)
+					{
+						case 1: animationPlayer.Play("punch1"); break;
+						case 2: animationPlayer.Play("punch2"); break;
+					}
 				}
 			}
 		}
@@ -372,16 +376,16 @@ public partial class Player : CharacterBody2D
 				}
 			}
 
-			if (direction != 0 && IsOnFloor())
+			if (direction != 0 && IsOnFloor() && !IsOnWall())
 			{
 				if (animationPlayer.CurrentAnimation != "walk")
 				{
 					animationPlayer.Play("walk");
 				}
 			}
-			else if (direction == 0 && IsOnFloor())
+			else if (direction == 0 && IsOnFloor() && !isAttacking)
 			{
-				if (animationPlayer.CurrentAnimation != "idle" && !isAttacking)
+				if (animationPlayer.CurrentAnimation != "idle")
 				{
 					animationPlayer.Play("idle");
 				}
