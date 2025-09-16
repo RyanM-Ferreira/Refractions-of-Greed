@@ -5,9 +5,9 @@
 [ext_resource type="PackedScene" uid="uid://bm6lma81gxrxn" path="res://scenes/damage/hurtbox.tscn" id="3_0vjlc"]
 [ext_resource type="PackedScene" uid="uid://kelt753b0v6o" path="res://scenes/damage/healthBar.tscn" id="4_bnvp8"]
 [ext_resource type="PackedScene" uid="uid://tadv4ch0tx4j" path="res://scenes/damage/hitBox.tscn" id="5_h17s1"]
-[ext_resource type="PackedScene" uid="uid://d4f16mw0qqtxi" path="res://scenes/ui/pause_menu.tscn" id="5_qek5x"]
+[ext_resource type="PackedScene" path="res://scenes/ui/pause_menu.tscn" id="5_qek5x"]
 [ext_resource type="Texture2D" uid="uid://bn5g8tcf6j2iq" path="res://assets/UI/statusBar/statusBar.png" id="6_wmtbp"]
-[ext_resource type="Script" uid="uid://bb4kmodl7akkx" path="res://scripts/UI/DebugMenu.cs" id="9_5gtgg"]
+[ext_resource type="Script" uid="uid://bb4kmodl7akkx" path="res://scripts/ui/DebugMenu.cs" id="9_5gtgg"]
 
 [sub_resource type="Curve" id="Curve_bnvp8"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -422,7 +422,7 @@ tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.166667, 0.333333),
 "transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
+"update": 0,
 "values": [0, 1, 2]
 }
 
@@ -480,7 +480,7 @@ tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.111111, 0.222222),
 "transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
+"update": 0,
 "values": [0, 1, 2]
 }
 

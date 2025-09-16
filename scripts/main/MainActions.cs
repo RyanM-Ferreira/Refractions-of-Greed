@@ -46,8 +46,10 @@ public partial class MainActions : Button
 
 	public void OptionsMenuButtonPressed()
 	{
-		GD.PrintErr("Não implementado");
+		var configMenu = GetParent().GetParent().GetNode<ConfigMenu>("ConfigMenu");
+		configMenu.OnOpenRequest();
 	}
+
 
 	public void QuitButtonPressed() => GetTree().Quit();
 

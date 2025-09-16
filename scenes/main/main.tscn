@@ -5,7 +5,7 @@
 [ext_resource type="StyleBox" uid="uid://clkelnpcbfymq" path="res://themes/ui/emptyStyleBox_Button.tres" id="4_ow5a4"]
 [ext_resource type="Texture2D" uid="uid://b3us8eiguos8c" path="res://assets/logos/titleLogo_v4.png" id="5_6q06x"]
 [ext_resource type="Texture2D" uid="uid://0j338ib8igoe" path="res://assets/mainMenu/optionArc.png" id="6_b1x3f"]
-[ext_resource type="PackedScene" uid="uid://bqbsx46yfqavf" path="res://scenes/ui/config_menu.tscn" id="6_ow5a4"]
+[ext_resource type="PackedScene" uid="uid://u8dhhofj0n3t" path="res://scenes/ui/config_menu.tscn" id="6_ow5a4"]
 
 [node name="Main" type="Node2D"]
 
@@ -20,6 +20,9 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="ConfigMenu" parent="UiControl" instance=ExtResource("6_ow5a4")]
+visible = false
 
 [node name="background" type="TextureRect" parent="UiControl"]
 modulate = Color(0.361576, 0.361575, 0.361575, 1)
@@ -134,10 +137,7 @@ text = "v0.0.2"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="ConfigMenu" parent="." instance=ExtResource("6_ow5a4")]
-visible = false
-
 [connection signal="pressed" from="UiControl/UI/StartButton" to="UiControl/UI/StartButton" method="StartButtonPressed"]
-[connection signal="pressed" from="UiControl/UI/OptionsButton" to="ConfigMenu" method="OpenConfigMenu"]
+[connection signal="pressed" from="UiControl/UI/OptionsButton" to="UiControl/UI/StartButton" method="OptionsMenuButtonPressed"]
 [connection signal="pressed" from="UiControl/UI/QuitButton" to="UiControl/UI/StartButton" method="QuitButtonPressed"]
 [connection signal="pressed" from="UiControl/UI/debugButton" to="UiControl/UI/StartButton" method="DebugButtonPressed"]

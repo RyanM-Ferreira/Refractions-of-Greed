@@ -55,9 +55,7 @@ public partial class Player : CharacterBody2D
 
 	// Combo
 	public int comboStep = 0; // Qual ataque da sequência.
-	private float comboTimer = 0f; // Contador da janela de tempo.
 	public float attackTimer = 0f; // Tempo para o próximo ataque.
-	private const float comboWindow = 0.5f; // Tempo para apertar o próximo ataque.
 	public const float attackCooldown = 0.5f; // Tempo de recarga do ataque.
 
 	// Camera
@@ -106,20 +104,6 @@ public partial class Player : CharacterBody2D
 		Attack();
 		Animations();
 		CameraZoom();
-
-		if (comboStep > 0)
-		{
-			comboTimer -= (float)delta;
-
-			if (comboTimer <= 0)
-			{
-				comboStep = 0;
-				attackTimer = attackCooldown;
-				isAttacking = false;
-				hitboxShape.Disabled = true;
-				sprite.Offset = new Vector2(0, 0);
-			}
-		}
 
 		if (knockbackTimer > 0)
 		{
@@ -183,7 +167,7 @@ public partial class Player : CharacterBody2D
 		{
 			camera.Zoom += new Vector2(0.1f, 0.1f);
 		}
-		else if (Input.IsActionJustPressed("zoomOut"))
+		else if (Input.IsActionJustPressed("zoomOut") && camera.Zoom.X < 0.8)
 		{
 			camera.Zoom -= new Vector2(0.1f, 0.1f);
 		}
@@ -191,46 +175,48 @@ public partial class Player : CharacterBody2D
 
 	private void OnAnimationFinished(StringName animName)
 	{
-		if (animName == "punch1" || animName == "punch2")
+		if (animName == "punch1")
 		{
-			hitboxShape.Disabled = true;
-
-			if (comboTimer <= 0)
+			if (comboStep > 1)
 			{
-				comboStep = 0;
-				isAttacking = false;
+				animationPlayer.Play("punch2");
 			}
+			else
+			{
+				StopAttack();
+			}
+		}
+		else if (animName == "punch2")
+		{
+			StopAttack();
 		}
 	}
 
-	/**
-		* TODO: Ele repete o mesmo ataque, depois eu conserto isso.
-		* ? Antes que eu mexa, vale a pena manter esse sistema?
-		* ! Não que eu provavelmente vá refazer, mas...
-	*/
 	public void Attack()
 	{
 		if (Input.IsActionJustPressed("attack") && !isDashing)
 		{
 			if (attackTimer <= 0)
 			{
-				Velocity = new Vector2(lastDirection < 0 ? -2.5f : 2.5f, Velocity.Y * 0.5f);
+				Velocity = new Vector2(lastDirection < 0 ? -2.5f : 2.5f, Velocity.Y * 0.75f);
 
 				isAttacking = true;
 				hitboxShape.Disabled = false;
 
 				// Acrescenta a sequência de combos.
 				comboStep++;
-
-				if (comboStep > 2)
-				{
-					comboStep = 1; // Volta pro início da sequência se passar do último ataque.
-					attackTimer = attackCooldown;
-				}
-
-				comboTimer = comboWindow;
 			}
 		}
+	}
+
+	public void StopAttack()
+	{
+		sprite.Offset = new Vector2(0f, 0f);
+
+		comboStep = 0;
+		hitboxShape.Disabled = true;
+		isAttacking = false;
+		attackTimer = attackCooldown;
 	}
 
 	// Movimentação do jogador
@@ -329,34 +315,26 @@ public partial class Player : CharacterBody2D
 
 	public void Animations()
 	{
-		if (Input.IsActionJustPressed("attack"))
+		if (isAttacking)
 		{
-			if (animationPlayer.CurrentAnimation != "punch1" && animationPlayer.CurrentAnimation != "punch2")
+			if (attackTimer <= 0)
 			{
-				// * Ajusta a posição do sprite ao bater.
-				if (attackTimer <= 0)
+				if (lastDirection < 0)
 				{
-					if (lastDirection < 0)
-					{
-						sprite.Offset = new Vector2(-12, 0);
-					}
-					else
-					{
-						sprite.Offset = new Vector2(12, 0);
-					}
+					sprite.Offset = new Vector2(-12, 0);
+				}
+				else
+				{
+					sprite.Offset = new Vector2(12, 0);
+				}
 
-					// * Determina qual das animações tocar.
-					switch (comboStep)
-					{
-						case 1: animationPlayer.Play("punch1"); break;
-						case 2: animationPlayer.Play("punch2"); break;
-					}
+				if (comboStep == 1 && animationPlayer.CurrentAnimation != "punch1")
+				{
+					animationPlayer.Play("punch1");
 				}
 			}
 		}
-
-		// * Para evitar problemas, enquanto o player ataca, nenhuma outra animação é executada.
-		if (!isAttacking)
+		else
 		{
 			if (!IsOnFloor())
 			{

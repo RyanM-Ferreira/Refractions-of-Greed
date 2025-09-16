@@ -7,8 +7,3 @@
 ````
 
 ---
-
-### Editor Theming
-
-- Base color: `#222135`.
-- Accent Color: `#7848f8`.
