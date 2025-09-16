@@ -13,9 +13,9 @@ public partial class Enemy : CharacterBody2D
 	public double max_health = 50.0;
 	public double health = 50.0;
 	public bool is_alive = true;
-	double immunityTime = 0.5;
-	Vector2 knockback;
-	float knockbackTimer = 0;
+	public double immunityTime = 0.5;
+	public Vector2 knockback;
+	public float knockbackTimer = 0;
 
 	[Signal] public delegate void HealthChangedEventHandler();
 
@@ -62,7 +62,10 @@ public partial class Enemy : CharacterBody2D
 			// Mover o inimigo para frente
 			Velocity = new Vector2(Mathf.MoveToward(Velocity.X, (float)(Speed * direction), (float)(Speed * delta)), Velocity.Y);
 		}
-		immunityTime -= delta;
+		if (immunityTime > 0)
+		{
+			immunityTime -= delta;
+		}
 		MoveAndSlide();
 	}
 
