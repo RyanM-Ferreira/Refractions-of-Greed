@@ -1,13 +1,14 @@
-[gd_scene load_steps=56 format=3 uid="uid://d4mg546sapinq"]
+[gd_scene load_steps=57 format=3 uid="uid://d4mg546sapinq"]
 
 [ext_resource type="Script" uid="uid://csoppwvxcr7n0" path="res://scripts/player/Player.cs" id="1_tum32"]
 [ext_resource type="Texture2D" uid="uid://b7gydtt2ihksy" path="res://assets/player/johnSpritesheet.png" id="2_5gtgg"]
 [ext_resource type="PackedScene" uid="uid://bm6lma81gxrxn" path="res://scenes/damage/hurtbox.tscn" id="3_0vjlc"]
 [ext_resource type="PackedScene" uid="uid://kelt753b0v6o" path="res://scenes/damage/healthBar.tscn" id="4_bnvp8"]
 [ext_resource type="PackedScene" uid="uid://tadv4ch0tx4j" path="res://scenes/damage/hitBox.tscn" id="5_h17s1"]
-[ext_resource type="PackedScene" path="res://scenes/ui/pause_menu.tscn" id="5_qek5x"]
+[ext_resource type="PackedScene" uid="uid://d4f16mw0qqtxi" path="res://scenes/ui/pause_menu.tscn" id="5_qek5x"]
 [ext_resource type="Texture2D" uid="uid://bn5g8tcf6j2iq" path="res://assets/UI/statusBar/statusBar.png" id="6_wmtbp"]
 [ext_resource type="Script" uid="uid://bb4kmodl7akkx" path="res://scripts/ui/DebugMenu.cs" id="9_5gtgg"]
+[ext_resource type="AudioStream" uid="uid://crvvl652nu407" path="res://assets/soundfx/collectibles/collect.wav" id="9_h17s1"]
 
 [sub_resource type="Curve" id="Curve_bnvp8"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -565,7 +566,7 @@ size = Vector2(40, 63)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0owmy"]
 size = Vector2(31, 61)
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
 z_index = 5
 collision_layer = 2
 script = ExtResource("1_tum32")
@@ -584,7 +585,7 @@ libraries = {
 &"": SubResource("AnimationLibrary_h17s1")
 }
 
-[node name="EnemyDetector" type="Area2D" parent="."]
+[node name="EnemyDetector" type="Area2D" parent="." groups=["Player"]]
 visible = false
 position = Vector2(-2, 0)
 collision_mask = 16
@@ -641,6 +642,11 @@ texture = ExtResource("6_wmtbp")
 
 [node name="pauseMenu" parent="." instance=ExtResource("5_qek5x")]
 visible = false
+
+[node name="Sounds" type="Node" parent="."]
+
+[node name="Collect" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = ExtResource("9_h17s1")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnAnimationFinished"]
 [connection signal="area_entered" from="EnemyDetector" to="." method="OnAreaEntered"]

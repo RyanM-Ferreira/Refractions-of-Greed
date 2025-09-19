@@ -7,8 +7,6 @@ public partial class SplashScreen : Node2D
 		Timer timer = GetNode<Timer>("timer");
 		timer.Timeout += OnTimeout;
 		timer.Start();
-
-		ConfigManager.LoadConfig();
 	}
 
 	private void OnTimeout()

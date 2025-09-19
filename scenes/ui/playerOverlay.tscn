@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://c3kon8t6wrpo1"]
 
-[ext_resource type="Script" uid="uid://bb4kmodl7akkx" path="res://scripts/UI/DebugMenu.cs" id="1_37rai"]
+[ext_resource type="Script" uid="uid://bb4kmodl7akkx" path="res://scripts/ui/DebugMenu.cs" id="1_37rai"]
 [ext_resource type="PackedScene" uid="uid://kelt753b0v6o" path="res://scenes/damage/healthBar.tscn" id="2_0qrqu"]
 [ext_resource type="Texture2D" uid="uid://bn5g8tcf6j2iq" path="res://assets/UI/statusBar/statusBar.png" id="3_mx0kw"]
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=23 format=3 uid="uid://belih6cl0jtlp"]
 
-[ext_resource type="Script" uid="uid://diod72buf7icg" path="res://scripts/enemies/level_01/Mrocego.cs" id="1_l7rgu"]
+[ext_resource type="Script" uid="uid://diod72buf7icg" path="res://scripts/enemy/level_01/Mrocego.cs" id="1_l7rgu"]
 [ext_resource type="Texture2D" uid="uid://csu11o4b2fym5" path="res://assets/enemies/level_01/mrocego/mrocego.png" id="2_duhak"]
 [ext_resource type="PackedScene" uid="uid://tadv4ch0tx4j" path="res://scenes/damage/hitBox.tscn" id="3_0npo2"]
 [ext_resource type="PackedScene" uid="uid://bm6lma81gxrxn" path="res://scenes/damage/hurtbox.tscn" id="4_duhak"]

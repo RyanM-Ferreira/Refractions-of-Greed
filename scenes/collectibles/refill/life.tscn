@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://d0201pdoxmoo1"]
+
+[ext_resource type="Script" uid="uid://c5fmno30mm1ls" path="res://scripts/collectibles/Collectibles.cs" id="1_45wbu"]
+[ext_resource type="Texture2D" uid="uid://b6hugg4v5vl8l" path="res://assets/collectibles/refill/lifeRefill.png" id="2_45wbu"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bn6ed"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_45wbu")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4njdf"]
+radius = 8.0
+height = 26.0
+
+[node name="Life" type="Area2D" groups=["Life"]]
+collision_mask = 3
+script = ExtResource("1_45wbu")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -2)
+sprite_frames = SubResource("SpriteFrames_bn6ed")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+light_mask = 3
+shape = SubResource("CapsuleShape2D_4njdf")

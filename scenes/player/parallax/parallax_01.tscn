@@ -1,0 +1,68 @@
+[gd_scene load_steps=6 format=3 uid="uid://o4xj2id325c3"]
+
+[ext_resource type="Texture2D" uid="uid://dh54600445vu4" path="res://assets/parallax/level_01/layer_05.png" id="1_xikh6"]
+[ext_resource type="Texture2D" uid="uid://5gl0kkjlgbef" path="res://assets/parallax/level_01/layer_04.png" id="2_l50nr"]
+[ext_resource type="Texture2D" uid="uid://cncl7drxfwek8" path="res://assets/parallax/level_01/layer_03.png" id="3_i2cp3"]
+[ext_resource type="Texture2D" uid="uid://bussoq88cy8gi" path="res://assets/parallax/level_01/layer_02.png" id="4_1v6bk"]
+[ext_resource type="Texture2D" uid="uid://cam2ncfaiy30m" path="res://assets/parallax/level_01/layer_00.png" id="5_mk7co"]
+
+[node name="CavernParallax" type="Node2D"]
+
+[node name="ParallaxLayer6" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.25, 0)
+repeat_size = Vector2(640, 360)
+repeat_times = 5
+
+[node name="ColorRect" type="ColorRect" parent="ParallaxLayer6"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -180.0
+offset_right = 320.0
+offset_bottom = 180.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.054902, 0.0666667, 0.109804, 1)
+
+[node name="ParallaxLayer5" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.2, 0.02)
+repeat_size = Vector2(500, 0)
+repeat_times = 5
+
+[node name="Layer05" type="Sprite2D" parent="ParallaxLayer5"]
+texture = ExtResource("1_xikh6")
+
+[node name="ParallaxLayer4" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.15, 0.015)
+repeat_size = Vector2(500, 0)
+repeat_times = 5
+
+[node name="Layer04" type="Sprite2D" parent="ParallaxLayer4"]
+texture = ExtResource("2_l50nr")
+
+[node name="ParallaxLayer3" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.1, 0.015)
+repeat_size = Vector2(500, 0)
+repeat_times = 5
+
+[node name="Layer03" type="Sprite2D" parent="ParallaxLayer3"]
+texture = ExtResource("3_i2cp3")
+
+[node name="ParallaxLayer2" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.05, 0.01)
+repeat_size = Vector2(500, 0)
+repeat_times = 5
+
+[node name="Layer02" type="Sprite2D" parent="ParallaxLayer2"]
+texture = ExtResource("4_1v6bk")
+
+[node name="ParallaxLayer" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.05, 0.01)
+repeat_size = Vector2(500, 0)
+repeat_times = 5
+
+[node name="Layer01" type="Sprite2D" parent="ParallaxLayer"]
+texture = ExtResource("5_mk7co")

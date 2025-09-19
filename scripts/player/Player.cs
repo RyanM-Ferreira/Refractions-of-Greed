@@ -60,6 +60,12 @@ public partial class Player : CharacterBody2D
 
 	// Camera
 	public Camera2D camera;
+	
+	AudioStreamPlayer2D audio;
+
+	// Itens
+	public int wallet { get; private set; } = 0;
+	public int lifeRefill { get; private set; } = 0;
 
 	public override void _Ready()
 	{
@@ -67,6 +73,7 @@ public partial class Player : CharacterBody2D
 		animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		enemyDetector = GetNode<Area2D>("EnemyDetector");
 		hitboxShape = GetNode<CollisionShape2D>("Hitbox/CollisionShape2D");
+		audio = GetNode<AudioStreamPlayer2D>("Sounds/Collect");
 		camera = GetNode<Camera2D>("Camera2D");
 
 		// Desativa a Hitbox por padrão.
@@ -148,7 +155,6 @@ public partial class Player : CharacterBody2D
 		if (area.IsInGroup("enemyHitbox"))
 		{
 			isInsideEnemy = true;
-			GD.Print($"Entrou de: {area.Name}");
 		}
 	}
 
@@ -157,7 +163,21 @@ public partial class Player : CharacterBody2D
 		if (area.IsInGroup("enemyHitbox"))
 		{
 			isInsideEnemy = false;
-			GD.Print($"Saiu de: {area.Name}");
+		}
+	}
+
+	public void CollectItens(int value, string itemType)
+	{
+		GD.Print($"Collected {itemType}: " + value);
+
+		if (itemType == "money")
+		{
+			audio.Play();
+			wallet += value;
+		}
+		else if (itemType == "lifeRefill")
+		{
+			lifeRefill += value;
 		}
 	}
 
