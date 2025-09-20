@@ -1,6 +1,6 @@
 [gd_scene load_steps=23 format=3 uid="uid://belih6cl0jtlp"]
 
-[ext_resource type="Script" uid="uid://diod72buf7icg" path="res://scripts/enemy/level_01/Mrocego.cs" id="1_l7rgu"]
+[ext_resource type="Script" uid="uid://0p1hswuk54w5" path="res://scripts/Enemies/level_01/Mrocego.cs" id="1_l7rgu"]
 [ext_resource type="Texture2D" uid="uid://csu11o4b2fym5" path="res://assets/enemies/level_01/mrocego/mrocego.png" id="2_duhak"]
 [ext_resource type="PackedScene" uid="uid://tadv4ch0tx4j" path="res://scenes/damage/hitBox.tscn" id="3_0npo2"]
 [ext_resource type="PackedScene" uid="uid://bm6lma81gxrxn" path="res://scenes/damage/hurtbox.tscn" id="4_duhak"]
@@ -121,7 +121,10 @@ radius = 24.0
 radius = 16.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_duhak"]
-radius = 192.0
+radius = 470.01
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0npo2"]
+radius = 16.0
 
 [node name="Morcego" type="CharacterBody2D"]
 collision_layer = 8
@@ -171,6 +174,19 @@ collision_mask = 2
 modulate = Color(0.912118, 0.374994, 1, 1)
 shape = SubResource("CircleShape2D_duhak")
 debug_color = Color(1, 1, 1, 0.42)
+
+[node name="hurtbox" parent="." instance=ExtResource("4_duhak")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox"]
+modulate = Color(1, 1, 0, 1)
+shape = SubResource("CircleShape2D_0npo2")
+debug_color = Color(1, 1, 1, 0.42)
+
+[node name="Label" type="Label" parent="."]
+offset_left = -21.0
+offset_top = -95.0
+offset_right = 19.0
+offset_bottom = -84.0
 
 [connection signal="timeout" from="Timer" to="." method="OnTimerTimeout"]
 [connection signal="body_entered" from="player_search" to="." method="Player_Search_Entered"]

@@ -19,6 +19,10 @@ boot_splash/use_filter=false
 boot_splash/image="uid://c2l1jrl7rf3i2"
 config/icon="uid://c2l1jrl7rf3i2"
 
+[autoload]
+
+Global="*res://scripts/Global.cs"
+
 [display]
 
 window/size/viewport_width=640

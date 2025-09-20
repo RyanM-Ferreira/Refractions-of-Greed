@@ -63,9 +63,10 @@ public partial class Enemy : CharacterBody2D
 			// Mover o inimigo para frente
 			Velocity = new Vector2(Mathf.MoveToward(Velocity.X, (float)(Speed * direction), (float)(Speed * delta)), Velocity.Y);
 		}
-
-		immunityTime -= delta;
-
+		if (immunityTime > 0)
+		{
+			immunityTime -= delta;
+		}
 		MoveAndSlide();
 	}
 
