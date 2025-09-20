@@ -107,7 +107,7 @@ public partial class Player : CharacterBody2D
 			canJump = true;
 		}
 
-		// * Aqui é onde as ações do jogador são processadas
+		// * Aqui é onde as ações do jogador serão processadas
 		Attack();
 		Animations();
 		CameraZoom();

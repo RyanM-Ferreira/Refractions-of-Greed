@@ -66,24 +66,24 @@ Speed = 40.0
 
 [node name="Misc" type="Node2D" parent="."]
 
-[node name="Life" parent="." instance=ExtResource("8_fvk6h")]
+[node name="Life" parent="Misc" instance=ExtResource("8_fvk6h")]
 position = Vector2(523, 212)
 
-[node name="Gem" parent="." instance=ExtResource("9_ob5xq")]
-position = Vector2(564, 215)
+[node name="Gem" parent="Misc" instance=ExtResource("9_ob5xq")]
+position = Vector2(578, 220)
 index = 2
 
-[node name="Gem2" parent="." instance=ExtResource("9_ob5xq")]
-position = Vector2(694, 214)
+[node name="Gem2" parent="Misc" instance=ExtResource("9_ob5xq")]
+position = Vector2(651, 220)
 
-[node name="Gem3" parent="." instance=ExtResource("9_ob5xq")]
-position = Vector2(627, 212)
+[node name="Gem3" parent="Misc" instance=ExtResource("9_ob5xq")]
+position = Vector2(606, 220)
 index = 1
 
-[node name="Gem4" parent="." instance=ExtResource("9_ob5xq")]
+[node name="Gem4" parent="Misc" instance=ExtResource("9_ob5xq")]
 position = Vector2(730, 248)
 index = 3
 
-[node name="Gem5" parent="." instance=ExtResource("9_ob5xq")]
+[node name="Gem5" parent="Misc" instance=ExtResource("9_ob5xq")]
 position = Vector2(779, 247)
 index = 4
