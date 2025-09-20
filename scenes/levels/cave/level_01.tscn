@@ -55,12 +55,14 @@ shape = SubResource("RectangleShape2D_dobhn")
 
 [node name="mrocego" parent="Enemies" instance=ExtResource("5_0iege")]
 position = Vector2(2306, 121)
+script = null
 
 [node name="purpleRollercoaster" parent="Enemies" instance=ExtResource("8_dkyq7")]
 position = Vector2(1271, 229)
 
 [node name="TopeiraMovel" parent="Enemies" instance=ExtResource("8_kfgjw")]
 position = Vector2(1027, 247)
+Speed = 40.0
 
 [node name="Misc" type="Node2D" parent="."]
 
