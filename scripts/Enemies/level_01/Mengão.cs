@@ -167,7 +167,7 @@ public partial class Mengão : CharacterBody2D
 
 	public void resetAttackCooldown()
 	{
-		attackCooldown = 1;
+		attackCooldown = 2;
 	}
 
 
