@@ -5,8 +5,8 @@ public partial class Player : CharacterBody2D
 {
 	// Seção de Variáveis
 	// Vida
-	public double maxHealth = 50;
-	[Export] public double health = 50.0;
+	[Export] public double maxHealth = 100;
+	[Export] public double health = 100.0;
 	bool isAlive = true;
 
 	// Colisões
@@ -60,8 +60,19 @@ public partial class Player : CharacterBody2D
 
 	// Camera
 	public Camera2D camera;
-	
-	AudioStreamPlayer2D audio;
+
+	// Sons de Efeito
+	AudioStreamPlayer audioGetRefillCollect => GetNode<AudioStreamPlayer>("Sounds/FX/GetRefill");
+	AudioStreamPlayer audioMoneyCollect => GetNode<AudioStreamPlayer>("Sounds/FX/MoneyCollect");
+	AudioStreamPlayer audioHeal => GetNode<AudioStreamPlayer>("Sounds/FX/Heal");
+
+	// Sons do Jogador
+	AudioStreamPlayer audioHurt => GetNode<AudioStreamPlayer>("Sounds/Player/Hurt");
+	AudioStreamPlayer audioJump => GetNode<AudioStreamPlayer>("Sounds/Player/Jump");
+	AudioStreamPlayer audioPunch => GetNode<AudioStreamPlayer>("Sounds/Player/Punch");
+	AudioStreamPlayer audioPunch2 => GetNode<AudioStreamPlayer>("Sounds/Player/Punch2");
+	AudioStreamPlayer audioDash => GetNode<AudioStreamPlayer>("Sounds/Player/Dash");
+	AudioStreamPlayer audioSteps => GetNode<AudioStreamPlayer>("Sounds/Player/Steps");
 
 	// Itens
 	public int wallet { get; private set; } = 0;
@@ -73,7 +84,7 @@ public partial class Player : CharacterBody2D
 		animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		enemyDetector = GetNode<Area2D>("EnemyDetector");
 		hitboxShape = GetNode<CollisionShape2D>("Hitbox/CollisionShape2D");
-		audio = GetNode<AudioStreamPlayer2D>("Sounds/Collect");
+
 		camera = GetNode<Camera2D>("Camera2D");
 
 		// Desativa a Hitbox por padrão.
@@ -83,8 +94,6 @@ public partial class Player : CharacterBody2D
 
 		// Conecta os delegates (event handlers) para os sinais
 		animationPlayer.AnimationFinished += OnAnimationFinished;
-		enemyDetector.AreaEntered += OnAreaEntered;
-		enemyDetector.AreaExited += OnAreaExited;
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -111,6 +120,9 @@ public partial class Player : CharacterBody2D
 		Attack();
 		Animations();
 		CameraZoom();
+		PlaySounds();
+
+		if (Input.IsActionJustPressed("heal")) HealLife(lifeRefill);
 
 		if (knockbackTimer > 0)
 		{
@@ -149,34 +161,18 @@ public partial class Player : CharacterBody2D
 		MoveAndSlide();
 	}
 
-	// ? Ele verifica se tá dentro ou não, mas e agora?
-	private void OnAreaEntered(Area2D area)
-	{
-		if (area.IsInGroup("enemyHitbox"))
-		{
-			isInsideEnemy = true;
-		}
-	}
-
-	private void OnAreaExited(Area2D area)
-	{
-		if (area.IsInGroup("enemyHitbox"))
-		{
-			isInsideEnemy = false;
-		}
-	}
-
 	public void CollectItens(int value, string itemType)
 	{
 		GD.Print($"Collected {itemType}: " + value);
 
 		if (itemType == "money")
 		{
-			audio.Play();
+			audioMoneyCollect.Play();
 			wallet += value;
 		}
 		else if (itemType == "lifeRefill")
 		{
+			audioGetRefillCollect.Play();
 			lifeRefill += value;
 		}
 	}
@@ -200,6 +196,7 @@ public partial class Player : CharacterBody2D
 			if (comboStep > 1)
 			{
 				animationPlayer.Play("punch2");
+				audioPunch2.Play();
 			}
 			else
 			{
@@ -237,6 +234,24 @@ public partial class Player : CharacterBody2D
 		hitboxShape.Disabled = true;
 		isAttacking = false;
 		attackTimer = attackCooldown;
+	}
+
+	// Função para curar vida
+	public void HealLife(int lifeRefill)
+	{
+		int amount = 50;
+		if (lifeRefill > 0 && health < maxHealth)
+		{
+			health += amount;
+
+			if (health > maxHealth) health = maxHealth;
+
+			audioHeal.Play();
+			EmitSignal(nameof(HealthChanged));
+
+			this.lifeRefill -= 1;
+			GD.Print($"{Name} curou {amount} de vida, vida atual: {health}");
+		}
 	}
 
 	// Movimentação do jogador
@@ -333,6 +348,28 @@ public partial class Player : CharacterBody2D
 		}
 	}
 
+	public void PlaySounds()
+	{
+		if (Input.IsActionJustPressed("jump") && canJump) audioJump.Play();
+
+		if (Input.IsActionJustPressed("attack") && !isDashing && isAttacking && comboStep <= 1)
+		{
+			if (!audioPunch.Playing && !audioPunch2.Playing) audioPunch.Play();
+		}
+
+		if (Input.IsActionJustPressed("dash") && !isDashing && dashTimer <= 0) audioDash.Play();
+
+		bool isWalking = IsOnFloor() && direction != 0;
+		if (isWalking && !audioSteps.Playing)
+		{
+			audioSteps.Play();
+		}
+		else if (!isWalking && audioSteps.Playing)
+		{
+			audioSteps.Stop();
+		}
+	}
+
 	public void Animations()
 	{
 		if (isAttacking)
@@ -416,6 +453,8 @@ public partial class Player : CharacterBody2D
 		{
 			// Pisca o sprite
 			sprite.Modulate = new Color(5f, 1, 1, 0.75f);
+
+			audioHurt.Play();
 
 			health -= damage;
 			GD.Print($"{Name} recebeu {damage} de dano, vida restante: {health}");

@@ -1,7 +1,7 @@
 [gd_scene load_steps=174 format=3 uid="uid://c8cy4l2ew2wda"]
 
 [ext_resource type="Texture2D" uid="uid://swp0nyeslo18" path="res://assets/enemies/level_01/mengao/attack1.png" id="1_ksark"]
-[ext_resource type="Script" uid="uid://cifxirtibrqov" path="res://scripts/Enemies/level_01/Mengão.cs" id="1_lqknb"]
+[ext_resource type="Script" uid="uid://cifxirtibrqov" path="res://scripts/enemy/level_01/Mengão.cs" id="1_lqknb"]
 [ext_resource type="Texture2D" uid="uid://b57q0nooewdej" path="res://assets/enemies/level_01/mengao/attack2.png" id="2_lqknb"]
 [ext_resource type="Texture2D" uid="uid://drkhkstn5kbna" path="res://assets/enemies/level_01/mengao/attack3.png" id="3_ha8ie"]
 [ext_resource type="Texture2D" uid="uid://dwwa8nt5mee4s" path="res://assets/enemies/level_01/mengao/attack4.png" id="4_tf8n3"]
@@ -2107,7 +2107,7 @@ font_size = 11
 [node name="mengão" type="CharacterBody2D"]
 collision_layer = 4
 script = ExtResource("1_lqknb")
-health = 40.0
+health = 100.0
 lastAttack = "meleeAttack3"
 metadata/_edit_horizontal_guides_ = [-204.0]
 

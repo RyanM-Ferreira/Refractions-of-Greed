@@ -17,7 +17,7 @@ public partial class ConfigMenu : Window
 		SaveAndInitialize();
 	}
 
-	public void SaveAndInitialize()
+	private void SaveAndInitialize()
 	{
 		var config = ConfigManager.LoadConfig();
 		vsync.ButtonPressed = config.vsync;
@@ -28,17 +28,17 @@ public partial class ConfigMenu : Window
 	{
 		Visible = true;
 	}
-	public void OnCloseRequest()
+	private void OnCloseRequest()
 	{
 		confirmationDialog.Visible = true;
 	}
 
-	public void ConfirmationOnCancel()
+	private void ConfirmationOnCancel()
 	{
 		Visible = false;
 	}
 
-	public void ConfirmationOnConfirm()
+	private void ConfirmationOnConfirm()
 	{
 		bool isVSyncEnabled = vsync.ButtonPressed;
 		bool isFullscreenEnabled = fullscreen.ButtonPressed;
@@ -48,7 +48,7 @@ public partial class ConfigMenu : Window
 		HideAll();
 	}
 
-	public void HideAll()
+	private void HideAll()
 	{
 		Visible = false;
 		confirmationDialog.Visible = false;

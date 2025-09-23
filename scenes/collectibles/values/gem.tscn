@@ -107,3 +107,6 @@ light_mask = 3
 position = Vector2(-1, 2.38419e-07)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_42ckm")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 12)
