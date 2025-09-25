@@ -3,6 +3,7 @@ using Godot;
 
 public partial class Mengão : CharacterBody2D
 {
+
 	[Export] double health = 300.0;
 	private CharacterBody2D mengao;
 
@@ -14,7 +15,6 @@ public partial class Mengão : CharacterBody2D
 	private Label label;
 	private Label label2;
 	private Node2D player;
-	private CollisionShape2D attackcollision;
 	[Export] public double speed = 35;
 
 	[Signal] public delegate void HealthChangedEventHandler();
@@ -23,14 +23,16 @@ public partial class Mengão : CharacterBody2D
 	private bool inRangedAttackRange = false;
 	private bool inMidAttackRange = false;
 	private bool inMeleeAttackRange = false;
+	private bool inAttackRange;
 	private bool isAttacking = false;
 	private bool canAttack = false;
 	private double attackCooldown = 0.5;
 	private int direction = 1;
 	public double Gravity = 100.0;
 
-	[Export] public string lastAttack;
+	public string[] Attacks = ["meleeAttack1", "meleeAttack2", "midAttack1", "rangedAttack1", "rangedAttack2"];
 
+	[Export] public string lastAttack;
 
 	public double immunityTime = 0.5;
 
@@ -44,9 +46,7 @@ public partial class Mengão : CharacterBody2D
 		label = GetNode<Label>("Label");
 		label2 = GetNode<Label>("Label2");
 		animationTree.Active = true;
-		attackcollision = GetNode<CollisionShape2D>("attackHitbox/CollisionShape2D");
 		Scale = new Vector2(1, 1);
-		player = Global.player;
 	}
 
 
@@ -54,6 +54,11 @@ public partial class Mengão : CharacterBody2D
 
 	public override void _Process(double delta)
 	{
+		if (player == null || !GodotObject.IsInstanceValid(player))
+		{
+			return;
+		}
+
 		if (attackCooldown > 0)
 		{
 			canAttack = false;
@@ -82,12 +87,12 @@ public partial class Mengão : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		
+
 		if (player == null || !GodotObject.IsInstanceValid(player))
 		{
 			return;
 		}
-		
+
 		int distanceToPlayer = (int)(player.GlobalPosition.X - GlobalPosition.X);
 
 
@@ -100,6 +105,20 @@ public partial class Mengão : CharacterBody2D
 		else if (distanceToPlayer < 0)
 			newDirection = -1;
 
+
+
+
+		if(health <= 0)
+		{
+			animationPlayback.Travel("death");
+			speed = 0;
+			return;
+		}
+
+		if (!isAttacking && canAttack && inAttackRange)
+		{
+			Attack();
+		}
 
 
 
@@ -175,6 +194,36 @@ public partial class Mengão : CharacterBody2D
 
 
 
+
+
+	private int choose(int[] options)
+	{
+		Random random = new Random();
+		int index = random.Next(options.Length);
+		return options[index];
+	}
+	private void Attack()
+	{
+		int Index = choose([0,1, 2, 3, 4]);
+		animationPlayback.Travel(Attacks[Index]);
+	}
+
+
+
+
+	private void in_attack_range_entered(Node2D body)
+	{
+		inAttackRange = true;
+	}
+	private void in_attack_range_exited(Node2D body)
+	{
+		inAttackRange = false;
+	}
+
+	private void player_found(Node2D body)
+	{
+		player = body;
+	}
 
 
 	private void ranged_area_entered(Node2D body)

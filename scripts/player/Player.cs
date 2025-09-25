@@ -11,7 +11,6 @@ public partial class Player : CharacterBody2D
 
 	// Colisões
 	private CollisionShape2D hitboxShape;
-	private Area2D enemyDetector;
 
 	// Knockback
 	Vector2 knockback;
@@ -71,7 +70,6 @@ public partial class Player : CharacterBody2D
 	{
 		sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
-		enemyDetector = GetNode<Area2D>("EnemyDetector");
 		hitboxShape = GetNode<CollisionShape2D>("Hitbox/CollisionShape2D");
 		audio = GetNode<AudioStreamPlayer2D>("Sounds/Collect");
 		camera = GetNode<Camera2D>("Camera2D");
@@ -83,8 +81,6 @@ public partial class Player : CharacterBody2D
 
 		// Conecta os delegates (event handlers) para os sinais
 		animationPlayer.AnimationFinished += OnAnimationFinished;
-		enemyDetector.AreaEntered += OnAreaEntered;
-		enemyDetector.AreaExited += OnAreaExited;
 	}
 
 	public override void _PhysicsProcess(double delta)
