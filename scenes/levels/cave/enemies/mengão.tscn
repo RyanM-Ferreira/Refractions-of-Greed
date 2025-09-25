@@ -2021,8 +2021,8 @@ states/death/node = SubResource("AnimationNodeAnimation_cy7xy")
 states/death/position = Vector2(785, 100)
 states/meleeAttack1/node = SubResource("AnimationNodeAnimation_kh1ve")
 states/meleeAttack1/position = Vector2(372, -31)
-states/meleeAttack3/node = SubResource("AnimationNodeAnimation_3eygc")
-states/meleeAttack3/position = Vector2(666, -31)
+states/meleeAttack2/node = SubResource("AnimationNodeAnimation_3eygc")
+states/meleeAttack2/position = Vector2(666, -31)
 states/midAttack1/node = SubResource("AnimationNodeAnimation_ej6tx")
 states/midAttack1/position = Vector2(372, 176)
 states/moving/node = SubResource("AnimationNodeAnimation_ur08l")
@@ -2031,7 +2031,7 @@ states/rangedAttack1/node = SubResource("AnimationNodeAnimation_1kyy0")
 states/rangedAttack1/position = Vector2(513, 247)
 states/rangedAttack2/node = SubResource("AnimationNodeAnimation_oy3eo")
 states/rangedAttack2/position = Vector2(666, 176)
-transitions = ["Start", "moving", SubResource("AnimationNodeStateMachineTransition_f7pkw"), "death", "End", SubResource("AnimationNodeStateMachineTransition_oeobi"), "meleeAttack1", "moving", SubResource("AnimationNodeStateMachineTransition_ox7sb"), "meleeAttack3", "moving", SubResource("AnimationNodeStateMachineTransition_nq6rp"), "midAttack1", "moving", SubResource("AnimationNodeStateMachineTransition_ig45c"), "rangedAttack1", "moving", SubResource("AnimationNodeStateMachineTransition_1qvda"), "rangedAttack2", "moving", SubResource("AnimationNodeStateMachineTransition_smux7")]
+transitions = ["Start", "moving", SubResource("AnimationNodeStateMachineTransition_f7pkw"), "death", "End", SubResource("AnimationNodeStateMachineTransition_oeobi"), "meleeAttack1", "moving", SubResource("AnimationNodeStateMachineTransition_ox7sb"), "meleeAttack2", "moving", SubResource("AnimationNodeStateMachineTransition_nq6rp"), "midAttack1", "moving", SubResource("AnimationNodeStateMachineTransition_ig45c"), "rangedAttack1", "moving", SubResource("AnimationNodeStateMachineTransition_1qvda"), "rangedAttack2", "moving", SubResource("AnimationNodeStateMachineTransition_smux7")]
 graph_offset = Vector2(38, -68)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3eygc"]
