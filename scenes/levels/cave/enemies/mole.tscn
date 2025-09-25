@@ -722,12 +722,18 @@ animation = &"moving"
 [node name="RayCast_Left" type="RayCast2D" parent="."]
 position = Vector2(-24, -1)
 target_position = Vector2(-10, 0)
-collision_mask = 5
 
 [node name="RayCast_Right" type="RayCast2D" parent="."]
 position = Vector2(24, -1)
 target_position = Vector2(10, 0)
-collision_mask = 5
+
+[node name="RayCast_DownLeft" type="RayCast2D" parent="."]
+position = Vector2(28, -4)
+target_position = Vector2(0, 5)
+
+[node name="RayCast_DownRight" type="RayCast2D" parent="."]
+position = Vector2(-29, -4)
+target_position = Vector2(0, 5)
 
 [node name="Player_detection" type="RayCast2D" parent="."]
 position = Vector2(0, -16)

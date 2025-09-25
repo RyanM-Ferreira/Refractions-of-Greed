@@ -1,11 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://b0o40dsimxg5c"]
+[gd_scene load_steps=9 format=3 uid="uid://b0o40dsimxg5c"]
 
 [ext_resource type="Texture2D" uid="uid://d2ewa5gelgmw3" path="res://assets/mainMenu/background/menuBackground.png" id="1_ow5a4"]
 [ext_resource type="Script" uid="uid://ws8cvu2we64u" path="res://scripts/main/MainActions.cs" id="4_6q06x"]
 [ext_resource type="StyleBox" uid="uid://clkelnpcbfymq" path="res://themes/ui/emptyStyleBox_Button.tres" id="4_ow5a4"]
 [ext_resource type="Texture2D" uid="uid://b3us8eiguos8c" path="res://assets/logos/titleLogo_v4.png" id="5_6q06x"]
 [ext_resource type="Texture2D" uid="uid://0j338ib8igoe" path="res://assets/mainMenu/optionArc.png" id="6_b1x3f"]
+[ext_resource type="PackedScene" uid="uid://4fnpk356go6i" path="res://scenes/cinematics/intro.tscn" id="6_hujxm"]
 [ext_resource type="PackedScene" uid="uid://u8dhhofj0n3t" path="res://scenes/ui/config_menu.tscn" id="6_ow5a4"]
+[ext_resource type="PackedScene" uid="uid://dc2dyv8e7fken" path="res://scenes/cinematics/transition.tscn" id="8_yyfjg"]
 
 [node name="Main" type="Node2D"]
 
@@ -62,6 +64,7 @@ flat = true
 icon_alignment = 1
 expand_icon = true
 script = ExtResource("4_6q06x")
+Scene = ExtResource("6_hujxm")
 
 [node name="OptionsButton" type="Button" parent="UiControl/UI"]
 anchors_preset = 8
@@ -136,6 +139,8 @@ size_flags_horizontal = 8
 text = "v0.0.2"
 horizontal_alignment = 2
 vertical_alignment = 1
+
+[node name="Transition" parent="UiControl/UI" instance=ExtResource("8_yyfjg")]
 
 [connection signal="pressed" from="UiControl/UI/StartButton" to="UiControl/UI/StartButton" method="StartButtonPressed"]
 [connection signal="pressed" from="UiControl/UI/OptionsButton" to="UiControl/UI/StartButton" method="OptionsMenuButtonPressed"]

@@ -1,0 +1,94 @@
+[gd_scene load_steps=11 format=3 uid="uid://uxjkd36y5fgw"]
+
+[ext_resource type="Script" uid="uid://rj26mx53hls6" path="res://scripts/scenery/Chest01.cs" id="1_gm6vm"]
+[ext_resource type="Texture2D" uid="uid://cfxh08q2uviul" path="res://assets/scenery/props/chest_01.png" id="2_wnhrt"]
+[ext_resource type="Texture2D" uid="uid://csvh8o1x8hyfn" path="res://assets/UI/keys/keyE.png" id="3_wnhrt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2p1dn"]
+atlas = ExtResource("2_wnhrt")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g10pe"]
+atlas = ExtResource("2_wnhrt")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mx0uk"]
+atlas = ExtResource("2_wnhrt")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6oui5"]
+atlas = ExtResource("2_wnhrt")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3tq3b"]
+atlas = ExtResource("2_wnhrt")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a1pol"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2p1dn")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_g10pe")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_mx0uk")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_6oui5")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_3tq3b")
+}],
+"loop": false,
+"name": &"open",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uk84h"]
+size = Vector2(86.5, 14.8755)
+
+[node name="Chest01" type="Area2D"]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_gm6vm")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -20)
+sprite_frames = SubResource("SpriteFrames_a1pol")
+animation = &"open"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4.43775)
+shape = SubResource("RectangleShape2D_uk84h")
+
+[node name="PopUp" type="Node2D" parent="."]
+visible = false
+z_index = 6
+position = Vector2(-27, -33)
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="PopUp"]
+position = Vector2(-3, 0)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_wnhrt")
+
+[node name="Label" type="Label" parent="PopUp"]
+offset_left = 7.0
+offset_top = -5.0
+offset_right = 65.0
+offset_bottom = 8.0
+theme_override_font_sizes/font_size = 9
+text = "Interagir"
+vertical_alignment = 1
+
+[connection signal="body_entered" from="." to="." method="OnBodyEntered"]
+[connection signal="body_exited" from="." to="." method="OnBodyExited"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="OnAnimationFinished"]

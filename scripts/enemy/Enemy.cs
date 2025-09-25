@@ -6,7 +6,7 @@ public partial class Enemy : CharacterBody2D
 
 	// Movimento
 	public double Speed = 20.0;
-	public double Gravity = 100.0;
+	public double Gravity = 256.0;
 	public float direction = -1.0f;
 
 	// Combate
@@ -21,14 +21,14 @@ public partial class Enemy : CharacterBody2D
 
 	public void Hurt(double damage, Vector2 hitboxLocation, float knockbackForce)
 	{
-		if (immunityTime <= 0)
+		if (immunityTime <= 0 && !IsInGroup("enemyHitbox"))
 		{
 			health -= damage;
-			GD.Print($"{Name} recebeu {damage} de dano, vida restante: {health}");
+			GD.Print($"{Name} received {damage} damage, ramaning: {health}.");
 			if (health <= 0)
 			{
 				GetTree().CreateTimer(0.01).Timeout += () => QueueFree();
-				GD.Print($"{Name} morreu");
+				GD.Print($"{Name} died.");
 			}
 			else
 			{

@@ -5,17 +5,23 @@ public partial class Collectibles : Area2D
 {
 	[Export] public int index { get; set; } = 0;
 	[Export] public int value { get; set; } = 1;
+	[Export] public float gravity = 400f;
 
+	private bool goingUp = true;
+	private Vector2 velocity = Vector2.Zero;
+
+	RayCast2D rayDown;
 	AnimatedSprite2D animatedSprite;
 
 	public override void _Ready()
 	{
+		rayDown = GetNode<RayCast2D>("RayCast2D");
+		animatedSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+
 		BodyEntered += OnBodyEntered;
 
 		if (IsInGroup("Gem"))
 		{
-			animatedSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-
 			switch (index)
 			{
 				case 1: animatedSprite.Play("green"); value = 5; break;
@@ -26,6 +32,19 @@ public partial class Collectibles : Area2D
 				case 6: animatedSprite.Play("yellow"); value = 200; break;
 				default: animatedSprite.Play("cyan"); value = 1; break;
 			}
+		}
+	}
+
+	public override void _PhysicsProcess(double delta)
+	{
+		if (rayDown.IsColliding())
+		{
+			velocity.Y = 0;
+		}
+		else
+		{
+			velocity.Y += gravity * (float)delta;
+			Position += velocity * (float)delta;
 		}
 	}
 

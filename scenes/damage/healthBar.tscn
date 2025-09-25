@@ -5,11 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://cjgxunm72wy8g" path="res://assets/UI/statusBar/healthBarTexture.png" id="2_77uxs"]
 
 [node name="TextureProgressBar" type="TextureProgressBar"]
-clip_contents = true
 offset_right = 128.0
 offset_bottom = 17.0
 value = 100.0
-rounded = true
 nine_patch_stretch = true
 texture_under = ExtResource("1_cdenf")
 texture_progress = ExtResource("2_77uxs")

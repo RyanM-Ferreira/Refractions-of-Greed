@@ -6,6 +6,8 @@ public partial class MainActions : Button
 	int selectedOption = -1;
 	int maxOptions = 2;
 
+	private Transition transition;
+
 	private Vector2 originalScale;
 	private Vector2 scaled;
 	private Vector2 originalPosition;
@@ -14,8 +16,14 @@ public partial class MainActions : Button
 	private Button[] buttons;
 	private Vector2[] originalPositions;
 
+	bool _IsStarted = false;
+
+	[Export] public PackedScene Scene;
+
 	public override void _Ready()
 	{
+		transition = GetParent().GetNode<Transition>("Transition");
+
 		originalScale = Scale;
 		originalPosition = Position;
 
@@ -39,9 +47,18 @@ public partial class MainActions : Button
 		MouseExited += OnMouseExited;
 	}
 
+	public override void _Process(double delta)
+	{
+		if (_IsStarted && transition.IsFinished)
+		{
+			GetTree().ChangeSceneToPacked(Scene);
+		}
+	}
+
 	public void StartButtonPressed()
 	{
-		GetTree().ChangeSceneToFile("res://scenes/levels/cave/level_01.tscn");
+		_IsStarted = true;
+		transition.PlayFadeOut();
 	}
 
 	public void OptionsMenuButtonPressed()

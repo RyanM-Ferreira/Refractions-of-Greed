@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://i1vd71ca7tlq" path="res://scripts/damage/Hurtbox.cs" id="1_ksusc"]
 
-[node name="hurtbox" type="Area2D"]
+[node name="Hurtbox" type="Area2D"]
 modulate = Color(0.0235294, 1, 0, 1)
 collision_layer = 32
 collision_mask = 16
