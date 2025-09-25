@@ -157,4 +157,3 @@ polygon = PackedVector2Array(-17, 16, 15, 16, 0, -7)
 
 [node name="mengão" parent="." instance=ExtResource("6_d8smh")]
 position = Vector2(-1057, -7)
-speed = 35.0
