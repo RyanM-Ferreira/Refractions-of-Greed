@@ -120,7 +120,6 @@ height = 50.0
 
 [node name="PurpleRollercoaster" type="CharacterBody2D"]
 collision_layer = 4
-collision_mask = 5
 script = ExtResource("1_x8idb")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]

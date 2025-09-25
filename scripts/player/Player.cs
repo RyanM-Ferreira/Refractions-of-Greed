@@ -38,7 +38,7 @@ public partial class Player : CharacterBody2D
 
 	// Variaveis de dash
 	double dashSpeed = 100.0;
-	double dashMaxDistance = 100.0;
+	double dashMaxDistance = 96.0;
 	bool backDash = false;
 	float lastDirection = 1;
 	[Export] public Curve dashCurve;
@@ -332,7 +332,7 @@ public partial class Player : CharacterBody2D
 			}
 			else
 			{
-				immunityTime = 0.45;
+				immunityTime = 0.2;
 
 				// * Mover o personagem
 				double curveFactor = dashCurve.Sample((float)Math.Abs(currentDistance / dashMaxDistance));
@@ -457,14 +457,14 @@ public partial class Player : CharacterBody2D
 			audioHurt.Play();
 
 			health -= damage;
-			GD.Print($"{Name} recebeu {damage} de dano, vida restante: {health}");
+			GD.Print($"\n{Name} received {damage} damage, life remaning: {health}.\n");
 
 			if (health <= 0)
 			{
 				isAlive = false;
 				EmitSignal(nameof(PlayerDied));
 				GetTree().CreateTimer(0.01).Timeout += () => QueueFree();
-				GD.Print("Jogador morreu");
+				GD.Print("Player died!");
 			}
 			else
 			{
@@ -472,7 +472,7 @@ public partial class Player : CharacterBody2D
 				knockback = (GlobalPosition - hitboxLocation).Normalized() * new Vector2(knockbackForce, 100);
 				knockbackTimer = 0.15f;
 				EmitSignal(nameof(HealthChanged));
-				immunityTime += 0.5;
+				immunityTime += 0.4;
 			}
 		}
 	}

@@ -21,6 +21,9 @@ public partial class Mole : Enemy
 	public new double direction = -1.0;
 	public new double Gravity = 140;
 
+	private RayCast2D raycast_DownLeft;
+	private RayCast2D raycast_DownRight;
+
 	public override void _Ready()
 	{
 		sprite = GetNode<AnimatedSprite2D>("sprite");
@@ -28,6 +31,9 @@ public partial class Mole : Enemy
 		raycast_Left = GetNode<RayCast2D>("RayCast_Left");
 		playerdetect = GetNode<RayCast2D>("Player_detection");
 		animationTree = GetNode<AnimationTree>("AnimationTree");
+		raycast_DownLeft = GetNode<RayCast2D>("RayCast_DownLeft");
+		raycast_DownRight = GetNode<RayCast2D>("RayCast_DownRight");
+
 		hitbox = GetNode<Area2D>("Hitbox");
 
 		AnimationPlayback = animationTree.Get("parameters/playback").As<AnimationNodeStateMachinePlayback>();
@@ -58,6 +64,14 @@ public partial class Mole : Enemy
 		{
 			// Muda a direção do inimigo
 			direction = -1;
+		}
+		if (!raycast_DownLeft.IsColliding() && raycast_DownRight.IsColliding())
+		{
+			direction = -1;
+		}
+		if (!raycast_DownRight.IsColliding() && raycast_DownLeft.IsColliding())
+		{
+			direction = 1;
 		}
 		if (playerdetect.IsColliding())
 		{
