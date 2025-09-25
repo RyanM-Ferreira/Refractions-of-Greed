@@ -712,6 +712,7 @@ size = Vector2(50, 32)
 
 [node name="TopeiraMovel" type="CharacterBody2D"]
 collision_layer = 4
+collision_mask = 9
 script = ExtResource("1_u41je")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
@@ -720,20 +721,22 @@ sprite_frames = SubResource("SpriteFrames_10ca4")
 animation = &"moving"
 
 [node name="RayCast_Left" type="RayCast2D" parent="."]
-position = Vector2(-24, -1)
+position = Vector2(-25, -8)
 target_position = Vector2(-10, 0)
+collision_mask = 9
 
 [node name="RayCast_Right" type="RayCast2D" parent="."]
-position = Vector2(24, -1)
+position = Vector2(23, -8)
 target_position = Vector2(10, 0)
+collision_mask = 9
 
 [node name="RayCast_DownLeft" type="RayCast2D" parent="."]
 position = Vector2(28, -4)
-target_position = Vector2(0, 5)
+target_position = Vector2(0, 16)
 
 [node name="RayCast_DownRight" type="RayCast2D" parent="."]
-position = Vector2(-29, -4)
-target_position = Vector2(0, 5)
+position = Vector2(-28, -5)
+target_position = Vector2(0, 16)
 
 [node name="Player_detection" type="RayCast2D" parent="."]
 position = Vector2(0, -16)

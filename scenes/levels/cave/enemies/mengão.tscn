@@ -2048,6 +2048,7 @@ font_size = 11
 
 [node name="mengão" type="CharacterBody2D"]
 collision_layer = 4
+collision_mask = 9
 script = ExtResource("1_lqknb")
 health = 100.0
 lastAttack = "meleeAttack3"
