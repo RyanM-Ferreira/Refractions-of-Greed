@@ -173,6 +173,7 @@ shape = SubResource("CircleShape2D_duhak")
 debug_color = Color(1, 1, 1, 0.42)
 
 [node name="Label" type="Label" parent="."]
+visible = false
 offset_left = -21.0
 offset_top = -95.0
 offset_right = 19.0

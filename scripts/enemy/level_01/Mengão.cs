@@ -204,7 +204,7 @@ public partial class Mengão : CharacterBody2D
 	}
 	private void Attack()
 	{
-		int Index = choose([0,1, 2, 3, 4]);
+		int Index = choose([0,1,2,3,4]);
 		animationPlayback.Travel(Attacks[Index]);
 	}
 

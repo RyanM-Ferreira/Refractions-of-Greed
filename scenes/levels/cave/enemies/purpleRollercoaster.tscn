@@ -129,20 +129,20 @@ sprite_frames = SubResource("SpriteFrames_x07vq")
 animation = &"moving"
 
 [node name="RayCast_Left" type="RayCast2D" parent="."]
-position = Vector2(0, -8)
+position = Vector2(0, -16)
 target_position = Vector2(-32, 0)
 collision_mask = 9
 
 [node name="RayCast_DownLeft" type="RayCast2D" parent="."]
 position = Vector2(28, -3)
-target_position = Vector2(0, 5)
+target_position = Vector2(0, 35)
 
 [node name="RayCast_DownRight" type="RayCast2D" parent="."]
 position = Vector2(-28, -3)
-target_position = Vector2(0, 5)
+target_position = Vector2(0, 35)
 
 [node name="RayCast_Right" type="RayCast2D" parent="."]
-position = Vector2(0, -8)
+position = Vector2(0, -16)
 target_position = Vector2(32, 0)
 collision_mask = 9
 

@@ -704,8 +704,9 @@ states/start_attack/position = Vector2(470, 50)
 transitions = ["Start", "moving", SubResource("AnimationNodeStateMachineTransition_v1mp7"), "moving", "start_attack", SubResource("AnimationNodeStateMachineTransition_r2wuc"), "start_attack", "attack", SubResource("AnimationNodeStateMachineTransition_i0t3d"), "attack", "attack_end", SubResource("AnimationNodeStateMachineTransition_bf4nj"), "attack_end", "moving", SubResource("AnimationNodeStateMachineTransition_bub7u"), "moving", "End", SubResource("AnimationNodeStateMachineTransition_s2m8c")]
 graph_offset = Vector2(51, -75)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_s2m8c"]
-size = Vector2(50, 32)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u41je"]
+radius = 16.0
+height = 50.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_10ca4"]
 size = Vector2(50, 32)
@@ -721,22 +722,22 @@ sprite_frames = SubResource("SpriteFrames_10ca4")
 animation = &"moving"
 
 [node name="RayCast_Left" type="RayCast2D" parent="."]
-position = Vector2(-25, -8)
+position = Vector2(-25, -16)
 target_position = Vector2(-10, 0)
 collision_mask = 9
 
 [node name="RayCast_Right" type="RayCast2D" parent="."]
-position = Vector2(23, -8)
+position = Vector2(23, -16)
 target_position = Vector2(10, 0)
 collision_mask = 9
 
 [node name="RayCast_DownLeft" type="RayCast2D" parent="."]
 position = Vector2(28, -4)
-target_position = Vector2(0, 16)
+target_position = Vector2(0, 36)
 
 [node name="RayCast_DownRight" type="RayCast2D" parent="."]
 position = Vector2(-28, -5)
-target_position = Vector2(0, 16)
+target_position = Vector2(0, 36)
 
 [node name="Player_detection" type="RayCast2D" parent="."]
 position = Vector2(0, -16)
@@ -756,7 +757,8 @@ parameters/conditions/end = false
 
 [node name="Map collision" type="CollisionShape2D" parent="."]
 position = Vector2(0, -16)
-shape = SubResource("RectangleShape2D_s2m8c")
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_u41je")
 
 [node name="Hitbox" parent="." groups=["enemyHitbox"] instance=ExtResource("2_6qymu")]
 z_index = 1

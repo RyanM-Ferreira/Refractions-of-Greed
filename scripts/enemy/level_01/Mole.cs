@@ -65,11 +65,13 @@ public partial class Mole : Enemy
 			// Muda a direção do inimigo
 			direction = -1;
 		}
-		if (!raycast_DownLeft.IsColliding() && raycast_DownRight.IsColliding())
+
+
+		if (!raycast_DownLeft.IsColliding() && raycast_DownRight.IsColliding() && IsOnFloor())
 		{
 			direction = -1;
 		}
-		if (!raycast_DownRight.IsColliding() && raycast_DownLeft.IsColliding())
+		if (!raycast_DownRight.IsColliding() && raycast_DownLeft.IsColliding() && IsOnFloor())
 		{
 			direction = 1;
 		}

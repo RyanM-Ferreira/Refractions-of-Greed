@@ -1,4 +1,4 @@
-[gd_scene load_steps=157 format=3 uid="uid://c8cy4l2ew2wda"]
+[gd_scene load_steps=161 format=3 uid="uid://c8cy4l2ew2wda"]
 
 [ext_resource type="Texture2D" uid="uid://swp0nyeslo18" path="res://assets/enemies/level_01/mengao/attack1.png" id="1_ksark"]
 [ext_resource type="Script" uid="uid://cifxirtibrqov" path="res://scripts/enemy/level_01/Mengão.cs" id="1_lqknb"]
@@ -988,18 +988,6 @@ tracks/14/keys = {
 "update": 0,
 "values": [0.0]
 }
-tracks/15/type = "value"
-tracks/15/imported = false
-tracks/15/enabled = true
-tracks/15/path = NodePath("attackHitbox/CollisionShape2D:shape:points")
-tracks/15/interp = 1
-tracks/15/loop_wrap = true
-tracks/15/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [PackedVector2Array(-55, 92, -55, -52, 25, -52, 25, 92, 105, 92, 113, 84, 121, 92, 177, 92, 185, 84, 193, 92, 249, 92, 257, 84, 265, 92)]
-}
 
 [sub_resource type="Animation" id="Animation_f7pkw"]
 resource_name = "death"
@@ -1108,7 +1096,7 @@ tracks/7/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f7pkw"]
-size = Vector2(200, 104)
+size = Vector2(74, 114)
 
 [sub_resource type="Animation" id="Animation_cy7xy"]
 resource_name = "meleeAttack1"
@@ -1229,16 +1217,27 @@ tracks/8/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ur08l"]
-size = Vector2(74, 114)
+size = Vector2(74, 144)
 
-[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_kh1ve"]
-points = PackedVector2Array(-55, 92, -55, -52, 25, -52, 25, 92, 97, 92, 113, 12, 129, 92, 169, 92, 185, 12, 201, 92, 241, 92, 257, 12, 273, 92)
+[sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_ej6tx"]
+
+[sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_kh1ve"]
+segments = PackedVector2Array(25, -52, 25, 92, 25, -52, -63, -52, -63, -52, 25, 92, 113, 76, 105, 92, 185, 76, 177, 92, 257, 76, 249, 92, 113, 76, 121, 92, 185, 76, 193, 92, 257, 76, 265, 92)
+
+[sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_3eygc"]
+segments = PackedVector2Array(25, -52, 25, 92, 25, -52, -63, -52, -63, -52, 25, 92, 113, 60, 97, 92, 185, 60, 169, 92, 257, 60, 241, 92, 113, 60, 129, 92, 185, 60, 201, 92, 257, 60, 273, 92)
+
+[sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_1kyy0"]
+segments = PackedVector2Array(25, -52, 25, 92, 25, -52, -63, -52, -63, -52, 25, 92, 113, 28, 97, 92, 185, 28, 169, 92, 257, 28, 241, 92, 113, 28, 129, 92, 185, 28, 201, 92, 257, 28, 273, 92)
+
+[sub_resource type="ConcavePolygonShape2D" id="ConcavePolygonShape2D_oy3eo"]
+segments = PackedVector2Array(25, -52, 25, 92, 25, -52, -63, -52, -63, -52, 25, 92, 113, 12, 97, 92, 185, 12, 169, 92, 257, 12, 241, 92, 113, 12, 129, 92, 185, 12, 201, 92, 257, 12, 273, 92)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1kyy0"]
-size = Vector2(58, 46)
+size = Vector2(74, 104)
 
 [sub_resource type="Animation" id="Animation_tf8n3"]
-resource_name = "attack4"
+resource_name = "meleeAttack2"
 length = 1.57144
 step = 0.142857
 tracks/0/type = "value"
@@ -1322,86 +1321,61 @@ tracks/6/path = NodePath("attackHitbox/CollisionShape2D:shape")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0, 0.714286, 0.977192),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.142857, 0.285714, 0.714286, 0.74801, 0.810752, 0.861054, 0.905406, 1, 1.14286),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [SubResource("RectangleShape2D_ur08l"), SubResource("ConvexPolygonShape2D_kh1ve"), SubResource("RectangleShape2D_1kyy0")]
+"values": [SubResource("RectangleShape2D_ur08l"), SubResource("RectangleShape2D_ur08l"), SubResource("RectangleShape2D_ur08l"), SubResource("ConcavePolygonShape2D_ej6tx"), SubResource("ConcavePolygonShape2D_kh1ve"), SubResource("ConcavePolygonShape2D_3eygc"), SubResource("ConcavePolygonShape2D_1kyy0"), SubResource("ConcavePolygonShape2D_oy3eo"), SubResource("RectangleShape2D_1kyy0"), SubResource("RectangleShape2D_ur08l")]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("attackHitbox/CollisionShape2D:shape:size")
+tracks/7/path = NodePath("attackHitbox/CollisionShape2D:position")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(0.00532076, 0.142857, 0.285714, 1, 1.14286),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.00532076, 0.142857, 0.285714, 0.714286, 1.01064, 1.14286),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [Vector2(20, 72), Vector2(74, 112), Vector2(74, 144), Vector2(74, 104), Vector2(74, 114)]
+"values": [Vector2(0, 0), Vector2(0, -13), Vector2(35, -1), Vector2(39, -17), Vector2(39, -36), Vector2(27, 3), Vector2(0, 0)]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("attackHitbox/CollisionShape2D:position")
+tracks/8/path = NodePath("effects:frame")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PackedFloat32Array(0, 0.00532076, 0.142857, 0.285714, 1.01064, 1.14286),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [Vector2(0, 0), Vector2(0, -13), Vector2(35, -1), Vector2(39, -37), Vector2(27, 3), Vector2(0, 0)]
-}
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("effects:frame")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
 "times": PackedFloat32Array(0, 0.285714, 0.714286, 0.7619, 0.8096, 0.857143, 0.9047, 1),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [6, 1, 1, 2, 3, 4, 5, 6]
 }
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("effects:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0.285714),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2(224, -104)]
+}
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("effects:position")
+tracks/10/path = NodePath("effects:scale")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
 "times": PackedFloat32Array(0.285714),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [Vector2(224, -104)]
-}
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("effects:scale")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
-"times": PackedFloat32Array(0.285714),
-"transitions": PackedFloat32Array(1),
-"update": 1,
 "values": [Vector2(1.2, 1.04)]
-}
-tracks/12/type = "value"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath("attackHitbox/CollisionShape2D:shape:points")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/keys = {
-"times": PackedFloat32Array(0.714286, 0.906494),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [PackedVector2Array(-55, 92, -55, -52, 25, -52, 25, 92, 105, 92, 113, 84, 121, 92, 177, 92, 185, 84, 193, 92, 249, 92, 257, 84, 265, 92), PackedVector2Array(-55, 92, -55, -52, 25, -52, 25, 92, 97, 92, 113, 12, 129, 92, 169, 92, 185, 12, 201, 92, 241, 92, 257, 12, 273, 92)]
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f7pkw"]
-radius = 32.0
 
 [sub_resource type="Animation" id="Animation_ha8ie"]
 resource_name = "midAttack1"
@@ -1551,7 +1525,7 @@ tracks/11/path = NodePath("attackHitbox/CollisionShape2D:shape:radius")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
-"times": PackedFloat32Array(0.0452265, 0.285714, 0.428571, 0.714286, 1, 1.28571),
+"times": PackedFloat32Array(0.142857, 0.285714, 0.428571, 0.714286, 1, 1.28571),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [10.0, 32.0156, 64.3817, 200.0, 80.399, 32.0]
@@ -1960,7 +1934,7 @@ _data = {
 &"RESET": SubResource("Animation_gue21"),
 &"death": SubResource("Animation_f7pkw"),
 &"meleeAttack1": SubResource("Animation_cy7xy"),
-&"meleeAttack3": SubResource("Animation_tf8n3"),
+&"meleeAttack2": SubResource("Animation_tf8n3"),
 &"midAttack1": SubResource("Animation_ha8ie"),
 &"moving": SubResource("Animation_hllju"),
 &"rangedAttack1": SubResource("Animation_ksark"),
@@ -1974,7 +1948,7 @@ animation = &"death"
 animation = &"meleeAttack1"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3eygc"]
-animation = &"meleeAttack3"
+animation = &"meleeAttack2"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ej6tx"]
 animation = &"midAttack1"
@@ -1999,10 +1973,6 @@ advance_mode = 2
 switch_mode = 2
 advance_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nq6rp"]
-switch_mode = 2
-advance_mode = 2
-
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ig45c"]
 switch_mode = 2
 advance_mode = 2
@@ -2015,14 +1985,18 @@ advance_mode = 2
 switch_mode = 2
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ej6tx"]
+switch_mode = 2
+advance_mode = 2
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_lqknb"]
 states/End/position = Vector2(1012, 100)
 states/death/node = SubResource("AnimationNodeAnimation_cy7xy")
 states/death/position = Vector2(785, 100)
 states/meleeAttack1/node = SubResource("AnimationNodeAnimation_kh1ve")
 states/meleeAttack1/position = Vector2(372, -31)
-states/meleeAttack3/node = SubResource("AnimationNodeAnimation_3eygc")
-states/meleeAttack3/position = Vector2(666, -31)
+states/meleeAttack2/node = SubResource("AnimationNodeAnimation_3eygc")
+states/meleeAttack2/position = Vector2(662, -37)
 states/midAttack1/node = SubResource("AnimationNodeAnimation_ej6tx")
 states/midAttack1/position = Vector2(372, 176)
 states/moving/node = SubResource("AnimationNodeAnimation_ur08l")
@@ -2031,8 +2005,8 @@ states/rangedAttack1/node = SubResource("AnimationNodeAnimation_1kyy0")
 states/rangedAttack1/position = Vector2(513, 247)
 states/rangedAttack2/node = SubResource("AnimationNodeAnimation_oy3eo")
 states/rangedAttack2/position = Vector2(666, 176)
-transitions = ["Start", "moving", SubResource("AnimationNodeStateMachineTransition_f7pkw"), "death", "End", SubResource("AnimationNodeStateMachineTransition_oeobi"), "meleeAttack1", "moving", SubResource("AnimationNodeStateMachineTransition_ox7sb"), "meleeAttack3", "moving", SubResource("AnimationNodeStateMachineTransition_nq6rp"), "midAttack1", "moving", SubResource("AnimationNodeStateMachineTransition_ig45c"), "rangedAttack1", "moving", SubResource("AnimationNodeStateMachineTransition_1qvda"), "rangedAttack2", "moving", SubResource("AnimationNodeStateMachineTransition_smux7")]
-graph_offset = Vector2(38, -68)
+transitions = ["Start", "moving", SubResource("AnimationNodeStateMachineTransition_f7pkw"), "death", "End", SubResource("AnimationNodeStateMachineTransition_oeobi"), "meleeAttack1", "moving", SubResource("AnimationNodeStateMachineTransition_ox7sb"), "midAttack1", "moving", SubResource("AnimationNodeStateMachineTransition_ig45c"), "rangedAttack1", "moving", SubResource("AnimationNodeStateMachineTransition_1qvda"), "rangedAttack2", "moving", SubResource("AnimationNodeStateMachineTransition_smux7"), "meleeAttack2", "moving", SubResource("AnimationNodeStateMachineTransition_ej6tx")]
+graph_offset = Vector2(53, -86)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3eygc"]
 size = Vector2(1408, 448)
@@ -2138,6 +2112,7 @@ label_settings = SubResource("LabelSettings_lqknb")
 horizontal_alignment = 1
 
 [node name="Label2" type="Label" parent="."]
+visible = false
 offset_left = -102.0
 offset_top = -267.0
 offset_right = 102.0
